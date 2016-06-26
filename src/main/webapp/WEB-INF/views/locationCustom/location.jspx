@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <c:set scope="request" var="LABEL_LOCATION"><spring:message code="" text="การจัดการสถานที่"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_LOCATION_EDIT"><spring:message code="" text="แก้ไข"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_LOCATION_CODE"><spring:message code="" text="รหัสสถานที่"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_LOCATION_NAME"><spring:message code="" text="ชื่อสถานที่"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_LOCATION_PICTURE"><spring:message code="" text="รูปภาพ"></spring:message></c:set>
+
+    <style>
+        .modal-dialog {
+            padding-top:10%;
+        }
+        #btnSave {
+            text-align: center;
+        }
+        #btnCancel {
+            text-align: center;
+        }
+
+        #projectName span {
+            display: none;
+        }
+        #projectName:after {
+            content: ' : การจัดการสถานที่ ';
+        }
+        .popover {
+            z-index: 9999;
+            width: 100px;
+        }
+        .alert{
+            background-color: tomato;
+        }
+        .add{
+            background-color: green;
+            text-align: center;
+            color: white;
+            height: 70px;
+        }
+
+        .img-zoom {
+            width: 500px;
+            -webkit-transition: all .5s ease-in-out;
+            -moz-transition: all .5s ease-in-out;
+            -o-transition: all .5s ease-in-out;
+            -ms-transition: all .5s ease-in-out;
+        }
+
+        .transition {
+            -webkit-transform: scale(5);
+            -moz-transform: scale(5);
+            -o-transform: scale(5);
+            transform: scale(5);
+        }
+
+    </style>
+
+    <!--begin-->
+    <div class="container">
+        <div class="row">
+            <!--<div class="col-md-12">-->
+                <!--<div class="well" >-->
+                    <!--<form class="form-horizontal" role="form">-->
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-2" style="text-align:center;margin-top:5px" ><h4>${LABEL_LOCATION}</h4></label>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="form-horizontal">
+                <div class="col-sm-12">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-material-green-500 btn-raised" id="add" data-toggle="modal" data-target="#modalAddLocation"><span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-material-red-500 btn-raised" id="delete" ><span class="glyphicon glyphicon-minus"></span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="col-sm-12">
+                    <div class="well">
+                        <form class="form-horizontal">
+                            <table class="table table-responsive" id="locationTable" >
+                                <thead>
+                                <th>
+                                    <div align="center">
+                                        <input id="checkall" type="checkbox" name="checkboxAllLocation" />
+                                    </div>
+                                </th>
+                                <th>${LABEL_LOCATION_EDIT}</th>
+                                <th>${LABEL_LOCATION_CODE}</th>
+                                <th>${LABEL_LOCATION_NAME}</th>
+                                <th>${LABEL_LOCATION_PICTURE}</th>
+                                </thead>
+                                <tbody id="tbodyLocation">
+                                    <jsp:text></jsp:text>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalAddLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">เพิ่มสถานที่</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">รหัสสถานที่ <span style="color:red">* </span></label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input id="textInputCode" class="form-control" type="text" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ" placeholder="Ex. L001" ></input>
+                                </div>
+                            </div>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ชื่อสถานที่ <span style="color:red">* </span></label>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <input id="textInputName" class="form-control" type="department-lov" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ" placeholder="Ex. อุทยานแห่งชาติ" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">รูปภาพ <span style="color:red">* </span></label>
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                          <span class="input-group-btn">
+                                              <input type="file" id="file" style="display: none;" accept="image/*" />
+                                              <input class="btn btn-raised btn-sm active "  type="button" value="Browse" onclick="document.getElementById('file').click();"/>
+                                          </span>
+                                        <input id="textImageFile" class="form-control" type="text" autocomplete="off" placeholder="No file selected.."  disabled="disabled"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center remove-margin-bottom">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3">
+                                        <button type="button" class="btn btn-material-blue-500 remove-margin-bottom col-sm-4" id="btnSave">Save</button>
+                                    </div>
+                                    <div class="col-sm-offset-3">
+                                        <button type="button" class="btn btn-material-red-500 remove-margin-bottom col-sm-4" id="btnCancel">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="alertModal" class="modal fade" >
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <center>
+                        <label id="detailAlert"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertBtnOk" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="deleteModal" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <center>
+                        <label id="detailDelete"></label>
+                        <label id="message"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertBtnOk1" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="test" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <center>
+                        <label id="rsc"></label>
+                        <label id="messagersc"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertBtnOk" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalEditLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">แก้ไขสถานที่</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">รหัสสถานที่ <span style="color:red">* </span></label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input id="textEditInputCode" class="form-control" type="text" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ" placeholder="Ex. L001" ></input>
+                                </div>
+                            </div>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ชื่อสถานที่ <span style="color:red">* </span></label>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <input id="textEditInputName" class="form-control" type="department-lov" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ" placeholder="Ex. อุทยานแห่งชาติ" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">รูปภาพ <span style="color:red">* </span></label>
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                          <span class="input-group-btn">
+                                              <input type="file" id="fileedit" style="display: none;" accept="image/*"  />
+                                              <input class="btn btn-raised btn-sm active "  type="button" value="Browse" onclick="document.getElementById('fileedit').click();"/>
+                                          </span>
+                                        <input id="textImageFileEdit" class="form-control" type="text" autocomplete="off" placeholder="No file selected.." disabled="disabled"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center remove-margin-bottom">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3">
+                                        <button type="button" class="btn btn-material-blue-500 remove-margin-bottom col-sm-4" id="btnEditSave">Save</button>
+                                    </div>
+                                    <div class="col-sm-offset-3">
+                                        <button type="button" class="btn btn-material-red-500 remove-margin-bottom col-sm-4" id="btnEditCancel">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="alertModalError" class="modal fade" >
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <center>
+                        <label id="detailAlertError"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertErrorBtnOk" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div id="alertModalFIXError" class="modal fade" >
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <center>
+                        <label id="detailAlertFIXError"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertErrorFIXBtnOk" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!--end-->
+
+    <!--Paging-->
+    <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.js" var="jQuerydataTables" />
+    <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.min.js" var="jQuerydataTablesMin" />
+    <spring:url value="/resources/scripts/dataTable/media/css/jquery.dataTables.css" var="jQuerydataTables_css_url" />
+    <spring:url value="/resources/scripts/dataTable/media/css/jquery.dataTables.min.css" var="jQuerydataTablesMin_css_url" />
+
+    <script src="${jQuerydataTables}" type="text/javascript"><!--Not Empty --></script>
+    <script src="${jQuerydataTablesMin}" type="text/javascript"><!--Not Empty --></script>
+    <link rel="stylesheet" type="text/css" href="${jQuerydataTables_css_url}" />
+    <link rel="stylesheet" type="text/css" href="${jQuerydataTablesMin_css_url}" />
+    <!---->
+
+    <!--script JS-->
+    <spring:url value="/resources/scripts/util/pagingUtil.js" var="pagingUtil" />
+    <script src="${pagingUtil}" type="text/javascript"><!--Not Empty --></script>
+    <spring:url value="/resources/scripts/util/UtilLovBoardComBination.js" var="utilLovBoardComBination" />
+    <script src="${utilLovBoardComBination}" type="text/javascript"><!--Not Empty --></script>
+    <spring:url value="/resources/scripts/fares/locationJS/location.js" var="locationJS" />
+    <script src="${locationJS}" type="text/javascript"><!--Not Empty --></script>
+    <!--script JS-->
+</div>

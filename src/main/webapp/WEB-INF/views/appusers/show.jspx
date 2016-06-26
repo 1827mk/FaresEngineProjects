@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_com_nbu_fares_security_AppUser" object="${appuser}" path="/appusers" z="5c0ojkG564WNp1QW2Y1n3nFn1mw=">
+        <field:display field="createdBy" id="s_com_nbu_fares_security_AppUser_createdBy" object="${appuser}" z="YVKYZ8qF4PCL0B4P4oS6a2xjook="/>
+        <field:display field="updatedBy" id="s_com_nbu_fares_security_AppUser_updatedBy" object="${appuser}" z="y4cZVIYpcKm3d5UvICfO5sXzPhw="/>
+        <field:display date="true" dateTimePattern="${appUser_createddate_date_format}" field="createdDate" id="s_com_nbu_fares_security_AppUser_createdDate" object="${appuser}" z="xXOH3vjnsJKSq+ksr6woIDe3NEo="/>
+        <field:display date="true" dateTimePattern="${appUser_updateddate_date_format}" field="updatedDate" id="s_com_nbu_fares_security_AppUser_updatedDate" object="${appuser}" z="Vrq7E5zKMQzPYPSArOuztuv7j1w="/>
+        <field:display field="username" id="s_com_nbu_fares_security_AppUser_username" object="${appuser}" z="dgRCBdFWSmnCARh/3KP85LOsDLk="/>
+        <field:display field="password" id="s_com_nbu_fares_security_AppUser_password" object="${appuser}" z="qlik8XmIa+B4P6247lsErHRi2vA="/>
+        <field:display field="needLogin" id="s_com_nbu_fares_security_AppUser_needLogin" object="${appuser}" z="pLxYMvJZhZpbIrVLnpP0QGCHUrw="/>
+        <field:display field="userEmail" id="s_com_nbu_fares_security_AppUser_userEmail" object="${appuser}" z="EiUZSy5T1sZHDJNGcutfP12Mif8="/>
+        <field:display field="userRole" id="s_com_nbu_fares_security_AppUser_userRole" object="${appuser}" z="+3/euHsqlOCIAmKHnJITkqWhhEU="/>
+        <field:display field="confirmpassword" id="s_com_nbu_fares_security_AppUser_confirmpassword" object="${appuser}" z="Mb91lo9YymJU4h3DrKPaoWVdPPE="/>
+    </page:show>
+</div>

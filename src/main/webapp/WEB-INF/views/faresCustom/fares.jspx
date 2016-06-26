@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <c:set scope="request" var="LABEL_FARES"><spring:message code="" text="การจัดการอัตราค่าโดยสาร"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_FARES_EDIT"><spring:message code="" text="แก้ไข"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_FARES_CODE"><spring:message code="" text="รหัสอัตราค่าโดยสาร"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_PRICE"><spring:message code="" text="ราคา(บาท)"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_TRAVEL_SOURCE"><spring:message code="" text="สถานที่ต้นทาง"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_TRAVEL_DESTINATION"><spring:message code="" text="สถานที่ปลายทาง"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_TRANSPORT"><spring:message code="" text="พาหนะ"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_TRAN_BUSINESS"><spring:message code="" text="บริษัท"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_DATE"><spring:message code="" text="วันที่โปรโมชั่น"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_DATE_NAME"><spring:message code="" text="โปรโมชั่น"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_DISCOUNT"><spring:message code="" text="ส่วนลด(บาท)"></spring:message></c:set>
+
+    <style>
+        .modal-dialog {
+            padding-top:8%;
+        }
+        #btnSave {
+            text-align: center;
+        }
+        #btnCancel {
+            text-align: center;
+        }
+
+        #projectName span {
+            display:none;
+        }
+        #projectName:after {
+            content: ' : การจัดการราคาอัตราค่าโดยสาร ';
+        }
+        .popover {
+            z-index: 9999;
+            width: 100px;
+        }
+        .alert{
+            background-color: tomato;
+        }
+        .add{
+              background-color: green;
+              text-align: center;
+              color: white;
+              height: 70px;
+          }
+
+    </style>
+
+    <!--begin-->
+    <div class="container">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-sm-12">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-material-green-500 btn-raised" id="add" data-toggle="modal" data-target="#modalAddFares"><span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-material-red-500 btn-raised" id="delete"  data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus"><span class="glyphicon glyphicon-minus"></span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                <div class="col-sm-12">
+                    <div class="well">
+                        <form class="form-horizontal">
+                            <table class="table table-responsive" id="FaresTable" >
+                                <thead>
+                                <th>
+                                    <div align="center">
+                                        <input id="checkboxAll" type="checkbox" name="checkboxAllFares" />
+                                    </div>
+                                </th>
+                                <th>${LABEL_FARES_EDIT}</th>
+                                <th>${LABEL_FARES_CODE}</th>
+                                <th>${LABEL_PRICE}</th>
+                                <th>${LABEL_TRAVEL_SOURCE}</th>
+                                <th>${LABEL_TRAVEL_DESTINATION}</th>
+                                <th>${LABEL_TRANSPORT}</th>
+                                <th>${LABEL_TRAN_BUSINESS}</th>
+                                <th>${LABEL_DATE}</th>
+                                <th>${LABEL_DATE_NAME}</th>
+                                <th>${LABEL_DISCOUNT}</th>
+                                </thead>
+                                <tbody id="tbodyFares">
+                                    <jsp:text></jsp:text>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                        <!--<util:pagingutil id="pagingFares"/>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalAddFares" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header add">
+                    <h4 class="modal-title">เพิ่มอัตราค่าโดยสาร</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">รหัสอัตราค่าโดยสาร<span style="color:red">* </span></label>
+                            <div class="col-sm-6">
+                                <input id="textInputCode" class="form-control" type="text" data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ" placeholder="Ex. F001"  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ราคา<span style="color:red">* </span></label>
+                            <div class="col-sm-6">
+                                <input id="textInputPrice" class="form-control numbersOnly" type="department-lov"  data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="ระบุเป็นตัวเลขเท่านั้น" placeholder="Ex. 1999"  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" >การท่องเที่ยว<span style="color:red">* </span></label>
+                            <div class="col-sm-6">
+                                <select id="selectInputTravel" class="form-control" autocomplete="off"  >
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">สถานที่ต้นทาง :</label>
+                            <div class="col-sm-6">
+                                <input id="textSourceName" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">สถานที่ปลายทาง :</label>
+                            <div class="col-sm-6">
+                                <input id="textDestinationName" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">พาหนะ :</label>
+                            <div class="col-sm-6">
+                                <input id="textTransportName" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">บริษัท :</label>
+                            <div class="col-sm-6">
+                                <input id="textTransportBusiness" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">การจัดโปรโมชั่น :</label>
+                            <div class="col-sm-6">
+                                <select id="selectPromote" class="form-control">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">วันที่(โปรโมชั่น) :</label>
+                            <div class="col-sm-6">
+                                <input id="textDate" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ชื่อโปรโมชั่น :</label>
+                            <div class="col-sm-6">
+                                <input id="textPromotionName" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ส่วนลด :</label>
+                            <div class="col-sm-6">
+                                <input id="textDiscount" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group text-center remove-margin-bottom">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3">
+                                        <button type="button" class="btn btn-material-blue-500 remove-margin-bottom col-sm-4" id="btnSave">Save</button>
+                                    </div>
+                                    <div class="col-sm-offset-3">
+                                        <button type="button" class="btn btn-material-red-500 remove-margin-bottom col-sm-4" id="btnCancel">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalEditFares" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header add">
+                    <h4 class="modal-title">แก้ไขอัตราค่าโดยสาร</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">รหัสอัตราค่าโดยสาร<span style="color:red">* </span></label>
+                            <div class="col-sm-6">
+                                <input id="textEditInputCode" class="form-control" type="text" data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ" placeholder="Ex. F001" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ราคา<span style="color:red">* </span></label>
+                            <div class="col-sm-6">
+                                <input id="textEditInputPrice" class="form-control numbersOnly" type="department-lov"  data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="ระบุเป็นตัวเลขเท่านั้น" placeholder="Ex. 1999"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">การท่องเที่ยว<span style="color:red">* </span></label>
+                            <div class="col-sm-6">
+                                <select id="selectEditInputTravel" class="form-control" autocomplete="off" >
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">สถานที่ต้นทาง :</label>
+                            <div class="col-sm-6">
+                                <input id="textEditSourceName" class="form-control " type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">สถานที่ปลายทาง :</label>
+                            <div class="col-sm-6">
+                                <input id="textEditDestinationName" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">พาหนะ :</label>
+                            <div class="col-sm-6">
+                                <input id="textEditTransportName" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">บริษัท :</label>
+                            <div class="col-sm-6">
+                                <input id="textEditTransportBusiness" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">การจัดโปรโมชั่น :</label>
+                            <div class="col-sm-6">
+                                <select id="selectEditPromote" class="form-control">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">วันที่(โปรโมชั่น) :</label>
+                            <div class="col-sm-6">
+                                <input id="textEditDate" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ชื่อโปรโมชั่น :</label>
+                            <div class="col-sm-6">
+                                <input id="textEditPromotionName" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ส่วนลด :</label>
+                            <div class="col-sm-6">
+                                <input id="textEditDiscount" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group text-center remove-margin-bottom">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3">
+                                        <button type="button" class="btn btn-material-blue-500 remove-margin-bottom col-sm-4" id="btnEditSave">Save</button>
+                                    </div>
+                                    <div class="col-sm-offset-3">
+                                        <button type="button" class="btn btn-material-red-500 remove-margin-bottom col-sm-4" id="btnEditCancel">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="alertModal" class="modal fade" >
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header alert">
+                    <center>
+                        <label id="detailAlertHead">แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <label id="detailAlert"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertBtnOk" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="alertModalError" class="modal fade" >
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <center>
+                        <label id="detailAlertError"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertErrorBtnOk" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="deleteModal" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <center>
+                        <label id="detailDelete"></label>
+                        <label id="message"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertBtnOk1" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="deleteModalFree" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <center>
+                        <label id="detailDeleteFree"></label>
+                        <label id="message"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertBtnOkFree" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!--end-->
+
+    <!--<spring:url value="/resources/scripts/util/pagingUtil.js" var="pagingUtil" />-->
+    <!--<script src="${pagingUtil}" type="text/javascript">&lt;!&ndash;Not Empty &ndash;&gt;</script>-->
+    
+    <!--Paging-->
+    <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.js" var="jQuerydataTables" />
+    <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.min.js" var="jQuerydataTablesMin" />
+    <spring:url value="/resources/scripts/dataTable/media/css/jquery.dataTables.css" var="jQuerydataTables_css_url" />
+    <spring:url value="/resources/scripts/dataTable/media/css/jquery.dataTables.min.css" var="jQuerydataTablesMin_css_url" />
+
+    <script src="${jQuerydataTables}" type="text/javascript"><!--Not Empty --></script>
+    <script src="${jQuerydataTablesMin}" type="text/javascript"><!--Not Empty --></script>
+    <link rel="stylesheet" type="text/css" href="${jQuerydataTables_css_url}" />
+    <link rel="stylesheet" type="text/css" href="${jQuerydataTablesMin_css_url}" />
+    <!---->
+
+    <spring:url value="/resources/scripts/util/UtilLovBoardComBination.js" var="utilLovBoardComBination" />
+    <script src="${utilLovBoardComBination}" type="text/javascript"><!--Not Empty --></script>
+    <spring:url value="/resources/scripts/fares/faresJS/fares.js" var="faresJS" />
+    <script src="${faresJS}" type="text/javascript"><!--Not Empty --></script>
+    <!--script JS-->
+</div>

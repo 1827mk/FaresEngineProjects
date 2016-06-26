@@ -1,0 +1,77 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" rtexprvalue="true"/>
+
+  <jsp:directive.attribute name="placeholder" type="java.lang.String" required="false" rtexprvalue="false"/>
+  <jsp:directive.attribute name="dataContent" type="java.lang.String" required="false" rtexprvalue="false"/>
+
+  <div class="input-group">
+      <input id="${id}" class="form-control" data-toggle="popover"
+               data-content="${dataContent}" data-placement="bottom" placeholder="${placeholder}" autocomplete="off" disabled="disabled">
+          <span class="input-group-btn">
+               <button class="btn btn-default" onclick="UtilLovBoardComBination.lovBoardComBination(this)" type="button" id="${id}Btn" target="${id}">
+                  <span class="fa fa-search">
+                      <jsp:text/>
+                  </span>
+               </button>
+          </span>
+      </input>
+  </div> 
+
+  <div class="modal fade" id="${id}ModalSelect" tabindex="-1" role="dialog" aria-labelledby="${id}MyModalLabel">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <div class="form-horizontal">
+                      <div class="form-group remove-margin">
+                          <div class="col-sm-8">
+                              <input id="${id}ModalInputSearch" class="form-control remove-padding-right remove-padding-left"/>
+                          </div>
+                          <div class="col-sm-4" aling="center">
+                              <button type="button" class="btn btn-info btn-raised remove-margin-bottom remove-margin-top remove-padding-right remove-padding-left" id="${id}ModalBtnSearch" onclick="UtilLovBoardComBination.lovBoardComBinationModalSearch(this)" data-target="${id}ModalInputSearch" data-id="${id}">SEARCH</button>
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead >
+                                    <tr>
+                                        <th class="text-center">Code</th>
+                                        <th class="text-center">Select</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="cursor:pointer" id="${id}TableBody">
+                                    <jsp:text />
+                                </tbody>
+                            </table>
+
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                          <util:pagingutil id="${id}ModalPaging"/>
+                      </div>
+
+                  </div>
+              </div>
+
+              <div class="modal-footer">
+                  <div align="center">
+                      <button type="button" class="btn btn-defult" data-dismiss="modal" aria-hidden="true">Close</button>    
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        UtilLovBoardComBination.onLoadInputLovBoardComBination('${id}','${id}ModalPaging','${id}TableBody','${id}ModalSelect');
+    });
+</script>
+
+</jsp:root>

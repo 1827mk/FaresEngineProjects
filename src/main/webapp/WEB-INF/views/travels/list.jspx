@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_com_nbu_fares_domain_Travel" items="${travels}" z="qTvUff2w/KFFH5elmsWXLuTO5/A=">
+        <table:table data="${travels}" id="l_com_nbu_fares_domain_Travel" path="/travels" z="QdSfIqFZHZLcoUi//O3zw5zRHuk=">
+            <table:column id="c_com_nbu_fares_domain_Travel_travelCode" property="travelCode" z="CmfMX9i5LQURnLGcUWnkfaichII="/>
+            <table:column id="c_com_nbu_fares_domain_Travel_locationSourCode" property="locationSourCode" z="kBAxH+31ZDQE1GkqwLJf2KlQPn8="/>
+            <table:column id="c_com_nbu_fares_domain_Travel_createdBy" property="createdBy" z="LZNoVh5yQeHF+szq4OgfKzFZFj0="/>
+            <table:column id="c_com_nbu_fares_domain_Travel_updatedBy" property="updatedBy" z="CPBo0+oRNxm9vXwmWU3qyXLMXR8="/>
+            <table:column date="true" dateTimePattern="${travel_createddate_date_format}" id="c_com_nbu_fares_domain_Travel_createdDate" property="createdDate" z="Xu2h/oOIK/NXjKNQNX8ie49nJg8="/>
+            <table:column date="true" dateTimePattern="${travel_updateddate_date_format}" id="c_com_nbu_fares_domain_Travel_updatedDate" property="updatedDate" z="ZKE63jrGLBP+asWkjjeFVeRPt0U="/>
+        </table:table>
+    </page:list>
+</div>

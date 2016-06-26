@@ -1,0 +1,41 @@
+<aspectj>
+<aspects>
+<aspect name="com.nbu.fares.domain.DateFaresIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="com.nbu.fares.domain.DateFaresDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="com.nbu.fares.domain.TransportIntegrationTest_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.TravelIntegrationTest_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.LocationIntegrationTest_Roo_Configurable"/>
+<aspect name="com.nbu.fares.security.AppUserIntegrationTest_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.DateFaresDataOnDemand_Roo_Configurable"/>
+<aspect name="com.nbu.fares.security.AppRoleIntegrationTest_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.PromotionDataOnDemand_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.PromotionDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="com.nbu.fares.domain.FaresIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="com.nbu.fares.domain.FaresIntegrationTest_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.LocationDataOnDemand_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.TransportDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="com.nbu.fares.security.AppRoleDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="com.nbu.fares.domain.FaresDataOnDemand_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.LocationDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="com.nbu.fares.security.AppUserDataOnDemand_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.LocationIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="com.nbu.fares.domain.PromoteIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="com.nbu.fares.domain.PromotionIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="com.nbu.fares.domain.PromoteDataOnDemand_Roo_Configurable"/>
+<aspect name="com.nbu.fares.security.AppUserDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="com.nbu.fares.domain.PromoteIntegrationTest_Roo_Configurable"/>
+<aspect name="com.nbu.fares.security.AppRoleIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="com.nbu.fares.security.AppUserIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="com.nbu.fares.domain.TransportDataOnDemand_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.PromoteDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="com.nbu.fares.domain.PromotionIntegrationTest_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.DateFaresIntegrationTest_Roo_Configurable"/>
+<aspect name="com.nbu.fares.domain.TransportIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="com.nbu.fares.domain.TravelIntegrationTest_Roo_IntegrationTest"/>
+<aspect name="com.nbu.fares.domain.FaresDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="com.nbu.fares.domain.TravelDataOnDemand_Roo_DataOnDemand"/>
+<aspect name="com.nbu.fares.domain.TravelDataOnDemand_Roo_Configurable"/>
+<aspect name="com.nbu.fares.security.AppRoleDataOnDemand_Roo_Configurable"/>
+</aspects>
+</aspectj>
+

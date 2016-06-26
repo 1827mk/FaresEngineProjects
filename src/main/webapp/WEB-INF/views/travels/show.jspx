@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_com_nbu_fares_domain_Travel" object="${travel}" path="/travels" z="0TaKI8D1qtbjp+WNOE4LRb+0vk4=">
+        <field:display field="travelCode" id="s_com_nbu_fares_domain_Travel_travelCode" object="${travel}" z="iDUXIkiSvmUhDa+oBAoqpGLi/iU="/>
+        <field:display field="locationSourCode" id="s_com_nbu_fares_domain_Travel_locationSourCode" object="${travel}" z="hkqkZJjeOWW9U+d2QcyZQkqijXs="/>
+        <field:display field="locationSourName" id="s_com_nbu_fares_domain_Travel_locationSourName" object="${travel}" z="iumav5vWWIYQzg35arC8hftDoy8="/>
+        <field:display field="locationDisCode" id="s_com_nbu_fares_domain_Travel_locationDisCode" object="${travel}" z="tzqWiKgfVTyR2olmb/WWsPxNopo="/>
+        <field:display field="locationDisName" id="s_com_nbu_fares_domain_Travel_locationDisName" object="${travel}" z="dMgYS2dQiiJ+AA5e8O666opsKCY="/>
+        <field:display field="transport" id="s_com_nbu_fares_domain_Travel_transport" object="${travel}" z="US3APQLpw0woiv4PE8beymz2Rp4="/>
+        <field:display field="createdBy" id="s_com_nbu_fares_domain_Travel_createdBy" object="${travel}" z="MDCGZaf1/IYyWFKf0cI1oecVgJE="/>
+        <field:display field="updatedBy" id="s_com_nbu_fares_domain_Travel_updatedBy" object="${travel}" z="be2s9zHOQ1EWPymhIpOoU0sfJ3A="/>
+        <field:display date="true" dateTimePattern="${travel_createddate_date_format}" field="createdDate" id="s_com_nbu_fares_domain_Travel_createdDate" object="${travel}" z="K1A2/bx1eQ38BmcfpTjr8TDXqxM="/>
+        <field:display date="true" dateTimePattern="${travel_updateddate_date_format}" field="updatedDate" id="s_com_nbu_fares_domain_Travel_updatedDate" object="${travel}" z="wf5Zph7E0d/e/p1yp0sI2GADRD0="/>
+    </page:show>
+</div>

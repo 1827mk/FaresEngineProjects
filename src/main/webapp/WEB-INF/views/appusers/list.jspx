@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_com_nbu_fares_security_AppUser" items="${appusers}" z="Qif6sGmkO+4KZKG1l4tdL4MRImU=">
+        <table:table data="${appusers}" id="l_com_nbu_fares_security_AppUser" path="/appusers" z="UO0vO9zMJOUpKibA5bJSB4ZwDwQ=">
+            <table:column id="c_com_nbu_fares_security_AppUser_createdBy" property="createdBy" z="L02rrmY6GRBnr7teZlEKfZf8EV8="/>
+            <table:column id="c_com_nbu_fares_security_AppUser_updatedBy" property="updatedBy" z="HdvCenr6usChVLeJ1FgdMLKFymE="/>
+            <table:column date="true" dateTimePattern="${appUser_createddate_date_format}" id="c_com_nbu_fares_security_AppUser_createdDate" property="createdDate" z="ZmcP+etV0DEnJ77AOm7S8kJRKf8="/>
+            <table:column date="true" dateTimePattern="${appUser_updateddate_date_format}" id="c_com_nbu_fares_security_AppUser_updatedDate" property="updatedDate" z="sUxrYBoRiW9LcqscUygkla5CMiY="/>
+            <table:column id="c_com_nbu_fares_security_AppUser_username" property="username" z="dLp/zKJBTrHOZb95MmXYLFX+VcU="/>
+            <table:column id="c_com_nbu_fares_security_AppUser_password" property="password" z="wRgjVgpIpwnU4ESKnlhhfIeUeAU="/>
+        </table:table>
+    </page:list>
+</div>

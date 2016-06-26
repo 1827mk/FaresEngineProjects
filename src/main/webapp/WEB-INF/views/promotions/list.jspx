@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_com_nbu_fares_domain_Promotion" items="${promotions}" z="QbcjJq1aV+7ZI1CZRyvyKQWnDzk=">
+        <table:table data="${promotions}" id="l_com_nbu_fares_domain_Promotion" path="/promotions" z="54rvOe8cbO3Qh2f0nmlD76VC6bE=">
+            <table:column id="c_com_nbu_fares_domain_Promotion_promotionCode" property="promotionCode" z="c9l9Av3wk1BYD69VVlLMiP+M66M="/>
+            <table:column id="c_com_nbu_fares_domain_Promotion_promotionName" property="promotionName" z="LxlgwzMR4aCy+r0WaLjwE/p+62g="/>
+            <table:column id="c_com_nbu_fares_domain_Promotion_createdBy" property="createdBy" z="1+ypMqLbvkXjFzCHInMGE8fBTL4="/>
+            <table:column id="c_com_nbu_fares_domain_Promotion_updatedBy" property="updatedBy" z="gjG5ATcXqFq3jNZ3JGDkgCY9uiw="/>
+            <table:column date="true" dateTimePattern="${promotion_createddate_date_format}" id="c_com_nbu_fares_domain_Promotion_createdDate" property="createdDate" z="e1V2Wzbd/v77dDHTqPfH8+uWpHI="/>
+            <table:column date="true" dateTimePattern="${promotion_updateddate_date_format}" id="c_com_nbu_fares_domain_Promotion_updatedDate" property="updatedDate" z="RaQqH3NBn1Sk4tu20AqTcBN3ZcA="/>
+        </table:table>
+    </page:list>
+</div>

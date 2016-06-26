@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <!--<div class="container">-->
+    <!--<ul class="gn-menu-main " id="gn-menu">-->
+    <!--<span id="projectName">การจัดการอัตราค่าโดยสาร</span>-->
+    <!--<li class="gn-trigger">-->
+    <!--<a class="gn-icon gn-icon-menu ">-->
+    <!--<span>Menu</span>-->
+    <!--</a>-->
+    <!--<nav class="gn-menu-wrapper">-->
+    <!--<div class="gn-scroller">-->
+    <!--<ul class="gn-menu">-->
+    <!--&lt;!&ndash;<li class="gn-search-item">&ndash;&gt;-->
+    <!--&lt;!&ndash;<input placeholder="Search" type="search" class="gn-search"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<a class="gn-icon gn-icon-search"><span>Search</span></a>&ndash;&gt;-->
+    <!--&lt;!&ndash;</li>&ndash;&gt;-->
+    <!--<li>-->
+    <!--<a class="gn-icon gn-icon-cog">ระบบคำนวณราคาอัตราค่าโดยสาร</a>-->
+    <!--<ul class="gn-submenu">-->
+    <!--<li>-->
+    <!--<a class="gn-icon gn-icon-article" href="http://localhost:1516/FaresEngine/fareses/faresManage">การจัดการราคาอัตราค่าโดยสาร</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a class="gn-icon gn-icon-article" href="http://localhost:1516/FaresEngine/transports/transportManage">การจัดการพาหนะ</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a class="gn-icon gn-icon-article" href="http://localhost:1516/FaresEngine/locations/locationManage">การจัดการสถานที่</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a class="gn-icon gn-icon-article" href="http://localhost:1516/FaresEngine/datefareses/dateFareManage">การจัดการวันที่</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a class="gn-icon gn-icon-article" href="http://localhost:1516/FaresEngine/promotions/promotionManage">การจัดการโปรโมชั่น</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a class="gn-icon gn-icon-article" href="http://localhost:1516/FaresEngine/promotes/promoteManage/'${ff}'">การจัดการการจัดโปรโมชั่น</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a class="gn-icon gn-icon-article" href="http://localhost:1516/FaresEngine/travels/travelManage">การจัดการท่องเที่ยว</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a class="gn-icon gn-icon-help">ติดต่อผู้จัดทำ</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a class="gn-icon gn-icon-article" href="http://localhost:1516/FaresEngine/resources/j_spring_security_logout">ออกจากระบบ</a>-->
+    <!--</li>-->
+    <!--&lt;!&ndash;<li><a class="gn-icon gn-icon-help">ติดต่อ</a></li>&ndash;&gt;-->
+    <!--<li>-->
+    <!--&lt;!&ndash;<a class="gn-icon gn-icon-archive">Archives</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;<ul class="gn-submenu">&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><a class="gn-icon gn-icon-article">Articles</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><a class="gn-icon gn-icon-pictures">Images</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><a class="gn-icon gn-icon-videos">Videos</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--&lt;!&ndash; /gn-scroller &ndash;&gt;-->
+    <!--</nav>-->
+    <!--</li>-->
+    <!--<div class="col-sm-10"/>-->
+    <!--</ul>-->
+    <!--<header>-->
+    <!--&lt;!&ndash;<div class="logoFares">&ndash;&gt;-->
+    <!--&lt;!&ndash;<img src="https://caitlinlam285.files.wordpress.com/2015/03/travel.jpg" alt="logo" />&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</header>-->
+    <!--</div>-->
+    <!--&lt;!&ndash; /container &ndash;&gt;-->
+    <!--<spring:url value="/resources/GoogleNexusWebsiteMenu/js/classie.js" var="classieJS"/>-->
+    <!--<spring:url value="/resources/GoogleNexusWebsiteMenu/js/gnmenu.js" var="gnmenuJS"/>-->
+    <!--<spring:url value="/resources/GoogleNexusWebsiteMenu/js/modernizr.custom.js" var="modernizrJS"/>-->
+    <!--<script src="${classieJS}" type="text/javascript">-->
+    <!--&lt;!&ndash;Not Empty &ndash;&gt;-->
+    <!--</script>-->
+    <!--<script src="${gnmenuJS}" type="text/javascript">-->
+    <!--&lt;!&ndash;Not Empty &ndash;&gt;-->
+    <!--</script>-->
+    <!--<script src="${modernizrJS}" type="text/javascript">-->
+    <!--&lt;!&ndash;Not Empty &ndash;&gt;-->
+    <!--</script>-->
+    <!--<script>-->
+    <!--new gnMenu( document.getElementById( 'gn-menu' ) );-->
+    <!--</script>-->
+</div>

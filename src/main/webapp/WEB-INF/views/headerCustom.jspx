@@ -1,0 +1,211 @@
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	 xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags"
+	 xmlns:form="http://www.springframework.org/tags/form" xmlns:sec="http://www.springframework.org/security/tags">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+
+	<jsp:useBean class="java.util.Date" id="now" scope="request" />
+	<c:set var="lang" value="${fn:toUpperCase(pageContext.response.locale)}" scope="request" />
+	<c:set var="user" value="${pageContext.request.userPrincipal.name}" scope="request" />
+	<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="request"></c:set>
+	<c:set var="url">${pageContext.request.requestURL}</c:set>
+	<c:set var="currentURL">${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}</c:set>
+
+	<c:forEach items="${pageContext.request.userPrincipal.authorities}" var="data" varStatus="loop">
+		<c:choose>
+
+			<!--UserDeptAuth-->
+			<c:when test="${fn:contains(data,'user_DeptAuth')}">
+				<c:set var="userDeptAuth" value="${data}"></c:set>
+			</c:when>
+
+			<!--AppMenu-->
+			<c:when test="${fn:contains(data,'user_Menu')}">
+				<c:set var="appMenu" value="${data}"></c:set>
+			</c:when>
+
+			<!--UserOuAuth-->
+			<c:when test="${fn:contains(data,'user_OuAuth')}">
+				<c:set var="userOuAuth" value="${data}"></c:set>
+			</c:when>
+
+			<!--AppUserTransaction-->
+			<c:when test="${fn:contains(data,'user_Transaction')}">
+				<jsp:text></jsp:text>
+			</c:when>
+
+			<!--AppUserId-->
+			<c:when test="${fn:contains(data,'user_Id')}">
+				<c:set var="userId" value="${data}"></c:set>
+			</c:when>
+
+			<!--Default Ou Code-->
+			<c:when test="${fn:contains(data,'current_OuCode')}">
+				<jsp:text></jsp:text>
+			</c:when>
+
+			<!--UserRole-->
+			<c:when test="${fn:contains(data,'user_Role')}">
+				<c:set var="splitRole" value="${fn:split(data,':')[1]}"></c:set>
+				<c:set var="length" value="${fn:length(fn:split(data,':')[1])}"></c:set>
+				<c:set var="userRole" value="${fn:substring(splitRole, 1,length-2 )}" scope="session"></c:set>
+			</c:when>
+
+			<c:otherwise>
+				<jsp:text></jsp:text>
+			</c:otherwise>
+
+		</c:choose>
+
+	</c:forEach>
+	<input type="hidden" class="datetimepicker"/>
+	<input type="hidden" class="datepicker"/>
+
+	<spring:url value="/" var="dash_board_url" />
+	<spring:url value="/resources/images/ess-brand.png" var="image_brand_url" />
+	<script>
+		//		if('${userDetail.username}'=="No UserName"){
+		//			location.href= '/' + (window.location.pathname.split('/')[1])+"/resources/j_spring_security_logout";
+		//		}
+		var session = {
+			date: new Date(Number("${now.time}")).setHours(0,0,0,0),    // the current date without time
+			time: new Date(Number("${now.time}")),                      // the current date with time
+			user: "${user}",                                            // the session user
+			lang: "${lang}",                                            // the language is page language
+			other: [],                                                  // the other use for create request for other
+			context: '/' + (window.location.pathname.split('/')[1]),    // the context path
+			contextCurrentURL: '${currentURL}',                                   // the context path remove artifact web app
+			userRole : '${userRole}',                                   // the session userRole
+		};
+		var _language = window.session.lang;
+		/*    $(function(){
+		 var token = $("meta[name='_csrf']").attr("content");
+		 var header = $("meta[name='_csrf_header']").attr("content");
+		 console.log(token);
+		 console.log(header);
+		 $(document).ajaxSend(function(e, xhr, options) {
+		 xhr.setRequestHeader(header, token);
+		 });
+		 });*/
+
+	</script>
+	<spring:url value="/fareses/faresManage" var="faresManage" />
+	<spring:url value="/transports/transportManage" var="transportManage" />
+	<spring:url value="/locations/locationManage" var="locationManage" />
+	<spring:url value="/datefareses/dateFareManage" var="dateFareManage" />
+	<spring:url value="/promotions/promotionManage" var="promotionManage" />
+	<spring:url value="/promotes/promoteManage" var="promoteManage" />
+	<spring:url value="/travels/travelManage" var="travelManage" />
+	<spring:url value="/approles/approlesManager" var="approlesManager" />
+	<spring:url value="/appusers/appusersManager" var="appusersManager" />
+	<spring:url value="/#" var="fares" />
+
+	<c:set var="LABEL_SIGNOUT"><spring:message  javaScriptEscape="true" code="LB00096"/></c:set>
+
+	<div class="navbar navbar-default" role="navigation" >
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="fa fa-bars"></span>
+				</button>
+				<!-- <a class="navbar-brand" rel="home" href="${fn:escapeXml(dash_board_url)}" title="Home">
+                   <img style="max-width:100px; margin-top: -7px;" src="${image_brand_url}"/></a> -->
+			</div>
+
+			<!--Menu with Jasny Bootstrap-->
+			<div class="collapse navbar-collapse" style="text-align: center;"><br/>
+				<span id="projectName">การจัดการอัตราค่าโดยสาร</span>
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body" role="button" aria-haspopup="true" aria-expanded="false" style="padding-top: 0px; padding-bottom: 0px;">
+							<i class="fa fa-bars fa-2x"  style="margin-top: 5px;"><jsp:text/></i>
+							<ul class="dropdown-menu">
+								<li>
+									<spring:url value="/resources/j_spring_security_logout" var="sign_out_url" />
+									<a href="${fn:escapeXml(sign_out_url)}"><span class="glyphicon glyphicon-user"></span>&#160;ออกจากระบบ</a>
+								</li>
+							</ul>
+						</a>
+					</li>
+				</ul>
+				<nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation" style="text-align: left;">
+					<a class="navmenu-brand" href="${fn:escapeXml(fares)}"><span class="glyphicon glyphicon-tasks"></span>&#160;ระบบจัดการอัตราค่าโดยสาร</a>
+					<ul class="nav navmenu-nav">
+						<li>
+							<a href="${fn:escapeXml(faresManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการราคาอัตราค่าโดยสาร</a>
+						</li>
+						<li>
+							<a href="${fn:escapeXml(transportManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการพาหนะ</a>
+						</li>
+						<li>
+							<a href="${fn:escapeXml(locationManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการสถานที่</a>
+						</li>
+						<li>
+							<a href="${fn:escapeXml(dateFareManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการวันที่</a>
+						</li>
+						<li>
+							<a href="${fn:escapeXml(promotionManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการโปรโมชั่น</a>
+						</li>
+						<li>
+							<a href="${fn:escapeXml(promoteManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการการจัดโปรโมชั่น</a>
+						</li>
+						<li>
+							<a href="${fn:escapeXml(travelManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการท่องเที่ยว</a>
+						</li>
+						<li>
+							<a href="${fn:escapeXml(approlesManager)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการตำแหน่ง</a>
+						</li>
+						<li>
+							<a href="${fn:escapeXml(appusersManager)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการผู้ใช้งาน</a>
+						</li>
+					</ul>
+				</nav>
+				<spring:url value="/resources/images/logo.png" var="chair"/>
+				<ul class="nav navbar-nav">
+					<li><a href="#" style="padding-left: 0px;margin-top: -5px; padding-top: 0px; padding-bottom: 0px; padding-right: 0px;" ><img id="image" src="${chair}" style="width: 50px; height: 50px;" class="image-nav" /></a></li>
+				</ul>
+				<!--<center><label>ผู้ใช้งาน : ${user}</label></center>-->
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<p class="navbar-text">
+							<span class="visible-sm-inline">&#160;&#160;&#160;</span>
+							<a class="navbar-link">
+								<spring:url value="/resources/images/ess-lang-th.png" var="image_th_url" />
+								<img id="lang-th" src="${image_th_url}" alt="th" class="image-nav" title="TH" style="margin-top: -15px;" />
+							</a>
+							<!--&#160;|&#160;-->
+							<!--<a class="navbar-link">-->
+							<!--<spring:url value="/resources/images/ess-lang-en.png" var="image_en_url" />-->
+							<!--<img id="lang-en" src="${image_en_url}" alt="en" class="image-nav" title="EN" />-->
+							<!--</a>-->
+						</p>
+					</li>
+					<li class="dropdown"><label>${user}</label>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding-top: 0px; padding-bottom: 0px;">
+							<i class="glyphicon glyphicon-user" style="margin-top: 0px;"><jsp:text/></i>
+							<ul class="dropdown-menu">
+								<li>
+									<spring:url value="/resources/j_spring_security_logout" var="sign_out_url" />
+									<a href="${fn:escapeXml(sign_out_url)}"><span class="glyphicon glyphicon-log-out"></span>&#160;ออกจากระบบ</a>
+								</li>
+							</ul>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script>
+		// Change Language
+		$('#lang-th').click(function() {
+			commonChangeLanguage($(this).attr('alt'));
+		});
+		//	$('#lang-en').click(function() {
+		//		commonChangeLanguage($(this).attr('alt'));
+		//	});
+		$("#myMenu").offcanvas()
+	</script>
+</div>
+

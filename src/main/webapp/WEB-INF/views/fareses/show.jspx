@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_com_nbu_fares_domain_Fares" object="${fares}" path="/fareses" z="M14/HCczWtPytkwNNoQAKDavYmE=">
+        <field:display field="faresCode" id="s_com_nbu_fares_domain_Fares_faresCode" object="${fares}" z="F1fzVwhPxl+A8GIT0DmBtDyFXJ0="/>
+        <field:display field="travel" id="s_com_nbu_fares_domain_Fares_travel" object="${fares}" z="UiebNjk1nuvQXE5OKy9iC5wDNI8="/>
+        <field:display field="promote" id="s_com_nbu_fares_domain_Fares_promote" object="${fares}" z="eTncC1v+Piyddf6PIvCYLhIfgp4="/>
+        <field:display field="price" id="s_com_nbu_fares_domain_Fares_price" object="${fares}" z="YMzS4dXDUBY8HXagICLz+5/sgIs="/>
+        <field:display field="createdBy" id="s_com_nbu_fares_domain_Fares_createdBy" object="${fares}" z="wjJdMAT3KtMcN8+j2NpP6VHnfMc="/>
+        <field:display field="updatedBy" id="s_com_nbu_fares_domain_Fares_updatedBy" object="${fares}" z="QxO5Qkn0Zl18vdCNyEVtxfstFZU="/>
+        <field:display date="true" dateTimePattern="${fares_createddate_date_format}" field="createdDate" id="s_com_nbu_fares_domain_Fares_createdDate" object="${fares}" z="VXYxY7eTh76AYg/bZSixenA0goM="/>
+        <field:display date="true" dateTimePattern="${fares_updateddate_date_format}" field="updatedDate" id="s_com_nbu_fares_domain_Fares_updatedDate" object="${fares}" z="Hvb8lCKSTuPYaXZxfWHQxfBXhrM="/>
+    </page:show>
+</div>

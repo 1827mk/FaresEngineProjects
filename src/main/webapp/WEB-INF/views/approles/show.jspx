@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_com_nbu_fares_security_AppRole" object="${approle}" path="/approles" z="VYFb9lJ6ZBXjvYq+7A6e2Wps40M=">
+        <field:display field="createdBy" id="s_com_nbu_fares_security_AppRole_createdBy" object="${approle}" z="16aUfEbqJBX30mOcTlaNvfSQVi4="/>
+        <field:display field="updatedBy" id="s_com_nbu_fares_security_AppRole_updatedBy" object="${approle}" z="1SUtUwOAbQsH7VVNE9jrM4q9dts="/>
+        <field:display date="true" dateTimePattern="${appRole_createddate_date_format}" field="createdDate" id="s_com_nbu_fares_security_AppRole_createdDate" object="${approle}" z="ig0JYQ5dZVoCROtyVlAB5/d4Xg8="/>
+        <field:display date="true" dateTimePattern="${appRole_updateddate_date_format}" field="updatedDate" id="s_com_nbu_fares_security_AppRole_updatedDate" object="${approle}" z="6Cg3rJaSkLp+do1O0FNTkFXHMFg="/>
+        <field:display field="name" id="s_com_nbu_fares_security_AppRole_name" object="${approle}" z="JDSA2ct1buPV4jBUw9OqKJfCj0I="/>
+        <field:display field="description" id="s_com_nbu_fares_security_AppRole_description" object="${approle}" z="DtRQCPm0mnYGxzw1ZIGTZ+W09gA="/>
+    </page:show>
+</div>
