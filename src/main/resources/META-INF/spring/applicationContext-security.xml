@@ -21,16 +21,16 @@
         <intercept-url pattern="/approles/" access="denyAll" />
         <intercept-url pattern="/appusers" access="denyAll" />
         <intercept-url pattern="/appusers/" access="denyAll" />
-        <intercept-url pattern="/datefareses" access="denyAll" />
-        <intercept-url pattern="/datefareses/" access="denyAll" />
-        <intercept-url pattern="/locations" access="denyAll" />
-        <intercept-url pattern="/locations/" access="denyAll" />
+        <!--<intercept-url pattern="/datefareses" access="denyAll" />-->
+        <!--<intercept-url pattern="/datefareses/" access="denyAll" />-->
+        <!--<intercept-url pattern="/locations" access="denyAll" />-->
+        <!--<intercept-url pattern="/locations/" access="denyAll" />-->
         <intercept-url pattern="/promotes" access="denyAll" />
         <intercept-url pattern="/promotes/" access="denyAll" />
-        <intercept-url pattern="/promotions" access="denyAll" />
-        <intercept-url pattern="/promotions/" access="denyAll" />
-        <intercept-url pattern="/transports" access="denyAll" />
-        <intercept-url pattern="/transports/" access="denyAll" />
+        <!--<intercept-url pattern="/promotions" access="denyAll" />-->
+        <!--<intercept-url pattern="/promotions/" access="denyAll" />-->
+        <!--<intercept-url pattern="/transports" access="denyAll" />-->
+        <!--<intercept-url pattern="/transports/" access="denyAll" />-->
         <intercept-url pattern="/travels" access="denyAll" />
         <intercept-url pattern="/travels/" access="denyAll" />
         <!---->
