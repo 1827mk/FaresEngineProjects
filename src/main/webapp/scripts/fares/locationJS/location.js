@@ -247,6 +247,10 @@ function insertData(){
                             findAllLocation();
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
+                        }
+                        else if(xhr.status==403) {
+                            $("#alertModal").modal("show");
+                            $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
 
                         }else{
                             $("#alertModal").modal('show');
@@ -464,10 +468,14 @@ function updateDateLocation(){
             if(xhr.readyState==4){
                 if(xhr.status==200){
                     $("#locationTable").DataTable().destroy();
-                    $("#alertModalFIXError").modal('show');
                     clearData();
                     findAllLocation();
+                    $("#alertModalFIXError").modal('show');
                     $("label[id=detailAlertFIXError]").text("แก้ไขข้อมูลสำเร็จ");
+                }
+                else if(xhr.status==403) {
+                    $("#alertModalFIXError").modal("show");
+                    $("label[id=detailAlertFIXError]").text("คุณไม่มีสิทธิใช้งาน");
                 }else{
                     $("#alertModalError").modal('show');
                     $("label[id=detailAlertError]").text("แก้ไขข้อมูลไม่สำเร็จ");
@@ -512,6 +520,10 @@ function updateDateLocationNoImage(){
                     findAllLocation();
                     $("#alertModalFIXError").modal('show');
                     $("label[id=detailAlertFIXError]").text("แก้ไขข้อมูลสำเร็จ");
+                }
+                else if(xhr.status==403) {
+                    $("label[id=detailAlertFIXError]").text("คุณไม่มีสิทธิใช้งาน");
+                    $("#alertModalFIXError").modal("show");
                 }else{
                     $("#alertModalError").modal('show');
                     $("label[id=detailAlertError]").text("แก้ไขข้อมูลไม่สำเร็จ");
@@ -574,7 +586,10 @@ $("#modalAlertBtnOk1").on('click',function(){
                             clearData();
                         }
                         count++;
-
+                    }
+                    else if(xhr.status==403) {
+                        $("label[id='message']").text("คุณไม่มีสิทธิใช้งาน");
+                        $("#resultModal").modal("show");
                     }else{
                         $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
                         $("#resultModal").modal("show");

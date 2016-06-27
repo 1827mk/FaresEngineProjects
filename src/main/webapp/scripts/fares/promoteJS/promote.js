@@ -429,6 +429,10 @@ function insertPromote() {
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
                     $('#modalAddPromote').modal('hide');
+                }
+                else if(xhr.status==403) {
+                    $("#alertModal").modal("show");
+                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
 
                 }else{
                     $("#alertModal").modal('show');
@@ -614,6 +618,11 @@ function updatePromote() {
                     findAllPromote();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จ");
+                }
+                else if(xhr.status==403) {
+                    $("#alertModal").modal("show");
+                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+
                 }else{
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จไม่สำเร็จ");
@@ -679,6 +688,10 @@ $("#modalAlertBtnOk1").on('click',function(){
                             clearDataAll();
                         }
                         count++;
+                    }
+                    else if(xhr.status==403) {
+                        $("#alertModalError").modal("show");
+                        $("label[id=detailAlertError]").text("คุณไม่มีสิทธิใช้งาน");
 
                     }else{
                         $("#alertModalError").modal('show');
