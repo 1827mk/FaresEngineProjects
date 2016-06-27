@@ -11,7 +11,6 @@
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="request"></c:set>
 	<c:set var="url">${pageContext.request.requestURL}</c:set>
 	<c:set var="currentURL">${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}</c:set>
-
 	<c:forEach items="${pageContext.request.userPrincipal.authorities}" var="data" varStatus="loop">
 		<c:choose>
 

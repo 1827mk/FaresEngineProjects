@@ -15,24 +15,69 @@
         <intercept-url pattern="/resources/**" access="permitAll" />
         <intercept-url pattern="/login/**" access="permitAll" />
         <!--Filter URL-->
+
+
+        <intercept-url pattern="/fareses/insertData" access="hasRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/fareses/updateData" access="hasRole('ROLE_ADMIN')" method="GET"/>
         <intercept-url pattern="/fareses" access="denyAll" />
         <intercept-url pattern="/fareses/" access="denyAll" />
+
+        <intercept-url pattern="/approles/insertData" access="hasRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/approles/updateData" access="hasRole('ROLE_ADMIN')" method="GET"/>
         <intercept-url pattern="/approles" access="denyAll" />
         <intercept-url pattern="/approles/" access="denyAll" />
+
+        <intercept-url pattern="/approles/insertDataUser" access="hasRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/approles/updateDataUser" access="hasRole('ROLE_ADMIN')" method="GET"/>
         <intercept-url pattern="/appusers" access="denyAll" />
         <intercept-url pattern="/appusers/" access="denyAll" />
-        <!--<intercept-url pattern="/datefareses" access="denyAll" />-->
-        <!--<intercept-url pattern="/datefareses/" access="denyAll" />-->
-        <!--<intercept-url pattern="/locations" access="denyAll" />-->
-        <!--<intercept-url pattern="/locations/" access="denyAll" />-->
-        <intercept-url pattern="/promotes" access="denyAll" />
-        <intercept-url pattern="/promotes/" access="denyAll" />
-        <!--<intercept-url pattern="/promotions" access="denyAll" />-->
-        <!--<intercept-url pattern="/promotions/" access="denyAll" />-->
-        <!--<intercept-url pattern="/transports" access="denyAll" />-->
-        <!--<intercept-url pattern="/transports/" access="denyAll" />-->
+
+        <intercept-url pattern="/promotes/insertsData" access="hasRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/promotes/updatesData" access="hasRole('ROLE_ADMIN')" method="GET"/>
         <intercept-url pattern="/travels" access="denyAll" />
         <intercept-url pattern="/travels/" access="denyAll" />
+
+        <intercept-url pattern="/promotes/insertsData" access="hasRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/promotes/updatesData" access="hasRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/promotes" access="denyAll" />
+        <intercept-url pattern="/promotes/" access="denyAll" />
+
+        <intercept-url pattern="/datefareses/" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+        <intercept-url pattern="/datefareses/" access="hasRole('ROLE_ADMIN')" method="POST"/>
+        <intercept-url pattern="/datefareses/" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+        <intercept-url pattern="/datefareses" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+        <intercept-url pattern="/datefareses" access="hasRole('ROLE_ADMIN')" method="POST"/>
+        <intercept-url pattern="/datefareses" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+        <intercept-url pattern="/datefareses" access="denyAll" />
+        <intercept-url pattern="/datefareses/" access="denyAll" />
+
+        <intercept-url pattern="/locations/" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+        <intercept-url pattern="/locations/" access="hasRole('ROLE_ADMIN')" method="POST"/>
+        <intercept-url pattern="/locations/" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+        <intercept-url pattern="/locations" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+        <intercept-url pattern="/locations" access="hasRole('ROLE_ADMIN')" method="POST"/>
+        <intercept-url pattern="/locations" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+        <intercept-url pattern="/locations" access="denyAll" />
+        <intercept-url pattern="/locations/" access="denyAll" />
+
+        <intercept-url pattern="/promotions/" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+        <intercept-url pattern="/promotions/" access="hasRole('ROLE_ADMIN')" method="POST"/>
+        <intercept-url pattern="/promotions/" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+        <intercept-url pattern="/promotions" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+        <intercept-url pattern="/promotions" access="hasRole('ROLE_ADMIN')" method="POST"/>
+        <intercept-url pattern="/promotions" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+        <intercept-url pattern="/promotions" access="denyAll" />
+        <intercept-url pattern="/promotions/" access="denyAll" />
+
+        <intercept-url pattern="/transports/" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+        <intercept-url pattern="/transports/" access="hasRole('ROLE_ADMIN')" method="POST"/>
+        <intercept-url pattern="/transports/" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+        <intercept-url pattern="/transports" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+        <intercept-url pattern="/transports" access="hasRole('ROLE_ADMIN')" method="POST"/>
+        <intercept-url pattern="/transports" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+        <intercept-url pattern="/transports" access="denyAll" />
+        <intercept-url pattern="/transports/" access="denyAll" />
+
         <!---->
         <intercept-url pattern="/**" access="isAuthenticated()" />
     </http>

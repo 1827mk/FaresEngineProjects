@@ -122,6 +122,9 @@ function insertData(){
                             findAllTransport();
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
+                        } else if(xhr.status==403) {
+                            $("#alertModal").modal("show");
+                            $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
 
                         }else{
                             $("#alertModal").modal('show');
@@ -311,6 +314,9 @@ function updateDateTransport(){
                     findAllTransport();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลสำเร็จ");
+                } else if(xhr.status==403) {
+                    $("#alertModal").modal("show");
+                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
 
                 }else{
                     $("#alertModal").modal('show');
@@ -374,6 +380,9 @@ $("#modalAlertBtnOk1").on('click',function(){
                             clearData();
                         }
                         count++;
+                    } else if(xhr.status==403) {
+                        $("#resultModal").modal("show");
+                        $("label[id='message']").text("คุณไม่มีสิทธิใช้งาน");
 
                     }else{
                         $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");

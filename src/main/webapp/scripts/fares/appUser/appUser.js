@@ -205,6 +205,10 @@ function insertData(){
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
 
+                        } else if(xhr.status==403) {
+                            $("#alertModal").modal("show");
+                            $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+
                         }else{
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลไม่สำเร็จ");
@@ -443,6 +447,10 @@ function updateUser() {
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลสำเร็จ");
 
+                } else if(xhr.status==403) {
+                    $("#alertModal").modal("show");
+                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+
                 } else {
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลไม่สำเร็จ");
@@ -562,6 +570,9 @@ $("#modalAlertBtnOkDelete").on('click',function(){
                             clearAll();
                         }
                         count++;
+                    } else if(xhr.status==403) {
+                        $("#deleteModalFree").modal("show");
+                        $("label[id=detailDeleteFree]").text("คุณไม่มีสิทธิใช้งาน");
 
                     }else{
                         countDeleteFail++;

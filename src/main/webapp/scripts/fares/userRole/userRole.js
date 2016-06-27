@@ -163,6 +163,10 @@ function insertData(){
                             findAllRole();
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
+                            
+                        } else if(xhr.status==403) {
+                            $("#alertModal").modal("show");
+                            $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
 
                         }else{
                             $("#alertModal").modal('show');
@@ -261,6 +265,9 @@ function Update(){
                             findAllRole();
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("แก้ไขข้อมูลสำเร็จ");
+                        } else if(xhr.status==403) {
+                            $("#alertModal").modal("show");
+                            $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
 
                         } else {
                             $("#alertModal").modal('show');
@@ -344,6 +351,10 @@ $("#modalAlertBtnOkDelete").on('click',function(){
                             clearAll();
                         }
                         count++;
+
+                    } else if(xhr.status==403) {
+                        $("#deleteModalFree").modal("show");
+                        $("label[id='detailDeleteFree']").text("คุณไม่มีสิทธิใช้งาน");
 
                     }else{
                         countDeleteFail++;

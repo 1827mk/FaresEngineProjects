@@ -518,6 +518,9 @@ function insertTravel() {
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
                     $('#modalAddTravel').modal('hide');
+                } else if(xhr.status==403) {
+                    $("#alertModal").modal("show");
+                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
 
                 }else{
                     $("#alertModal").modal('show');
@@ -950,6 +953,9 @@ function updateTravel() {
                     findAllTravel();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("อัพเดตข้อมูลลำเร็จ");
+                } else if(xhr.status==403) {
+                    $("#alertModal").modal("show");
+                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
                 }else{
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จไม่สำเร็จ");
@@ -1014,6 +1020,9 @@ $("#modalAlertBtnOk1").on('click',function(){
                             clearData();
                         }
                         count++;
+                    } else if(xhr.status==403) {
+                        $("#resultModal").modal("show");
+                        $("label[id='message']").text("คุณไม่มีสิทธิใช้งาน");
 
                     }else{
                         $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");

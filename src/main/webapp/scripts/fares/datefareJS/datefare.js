@@ -140,10 +140,13 @@ function insertData(){
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
 
-                        }else{
+                        }else if(xhr.status==403){
+                            $("#alertModal").modal('show');
+                            $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน!!");
+
+                        }else {
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลไม่สำเร็จ");
-
                         }
                     }else{
                         $("#alertModal").modal('show');
@@ -287,12 +290,15 @@ function updateDateDate(){
         data:JSON.stringify(dataDate),
         complete:function(xhr){
             if(xhr.readyState==4){
-                if(xhr.status==200){
+                if(xhr.status==200) {
                     clearData();
                     findAllDate();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลสำเร็จ");
-
+                }
+                else if(xhr.status==403) {
+                        $("#alertModal").modal('show');
+                        $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน!!");
                 }else{
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลไม่สำเร็จ");
@@ -355,7 +361,11 @@ $("#modalAlertBtnOk1").on('click',function(){
                             clearData();
                         }
                         count++;
-
+                    }
+                    else if(xhr.status==403) {
+                        $("#alertModal").modal('show');
+                        $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน!!");
+                        
                     }else{
                         $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
                         $("#resultModal").modal("show");
