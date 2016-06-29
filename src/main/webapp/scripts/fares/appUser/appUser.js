@@ -61,8 +61,8 @@ function findAllUser() {
            statusUser = "ปฏิเสธิ"
        }
         $('#tbodyUser').append('<tr>' +
-            '<td><center><input type="checkbox" onclick="checkbox(this)" name = "checkboxUser"  id="'+item.id+'" version= "'+item.version+'" value="'+item.username+'"  /></center></td>' +
-            "<td><button type='button' id="+item.id+" name='"+item.username+"' mail='"+item.userEmail+"' roleName='"+item.userRole.name+"' roleId='"+item.userRole.id+"' roleDest='"+item.userRole.description+"'  needLogin='"+item.needLogin+"' version="+item.version+"  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></td>" +
+            '<td><alight="left"><input type="checkbox" onclick="checkbox(this)" name = "checkboxUser"  id="'+item.id+'" version= "'+item.version+'" value="'+item.username+'"  /></alight></td>' +
+            "<td><alight='left'><button type='button' id="+item.id+" name='"+item.username+"' mail='"+item.userEmail+"' roleName='"+item.userRole.name+"' roleId='"+item.userRole.id+"' roleDest='"+item.userRole.description+"'  needLogin='"+item.needLogin+"' version="+item.version+"  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></alight></td>" +
             '<td><alight="left">'+(item.username==null?'':item.username)+'</alight></td>' +
             '<td><alight="left">'+(item.userEmail==null?'':item.userEmail)+'</alight></td>' +
             '<td><alight="left">'+(statusUser==null?'':statusUser)+'</alight></td>' +
@@ -70,6 +70,8 @@ function findAllUser() {
         userPrototype[item.id]=item;
     });
     $('#UserTable').DataTable({
+        "sScrollX": "100%",
+        // "sScrollY": "980px",
         "bSort": false,
         "ordering": false,
         "language": {

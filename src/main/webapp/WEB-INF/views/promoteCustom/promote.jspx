@@ -43,7 +43,10 @@
             color: white;
             height: 70px;
         }
-
+        .table_overflow {
+            overflow: auto;
+            width:980px;
+        }
     </style>
 
     <!--begin-->
@@ -67,7 +70,7 @@
                             <table class="table table-responsive" id="PromoteTable" >
                                 <thead>
                                 <th>
-                                    <div align="center">
+                                    <div>
                                         <input id="checkboxAll" type="checkbox" name="checkboxAllPromote" />
                                     </div>
                                 </th>
@@ -286,6 +289,7 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     <!--end-->
+
 
     <!--Paging-->
     <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.js" var="jQuerydataTables" />

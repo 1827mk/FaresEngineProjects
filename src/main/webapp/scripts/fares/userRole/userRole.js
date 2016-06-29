@@ -45,14 +45,15 @@ function findAllRole() {
     $.each(JSON.parse(findAllRole),function(index,item){
         
         $('#tbodyRole').append('<tr>' +
-            '<td><center><input type="checkbox" onclick="checkbox(this)" name = "checkboxRole"  id="'+item.id+'" version= "'+item.version+'" /></center></td>' +
-            "<td><button type='button' id="+item.id+" name='"+item.name+"' description='"+item.description+"' version="+item.version+"  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></td>" +
+            '<td><alight="left"><input type="checkbox" onclick="checkbox(this)" name = "checkboxRole"  id="'+item.id+'" version= "'+item.version+'" /></alight></td>' +
+            "<td><alight='left'><button type='button' id="+item.id+" name='"+item.name+"' description='"+item.description+"' version="+item.version+"  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></alight></td>" +
             '<td><alight="left">'+(item.name==null?'':item.name)+'</alight></td>' +
             '<td><alight="left">'+(item.description==null?'':item.description)+'</alight></td>' +
             '</tr>');
         rolePrototype[item.id]=item;
     });
     $('#RoleTable').DataTable({
+        // "sScrollY": "980px",
         "bSort": false,
         "language": {
             "lengthMenu": "แสดง _MENU_ รายการ",
@@ -326,6 +327,8 @@ $("#delete").on('click',function(){
 
     }
 });
+
+
 var countDeleteSuccess = 0 ;
 var countDeleteFail = 0 ;
 

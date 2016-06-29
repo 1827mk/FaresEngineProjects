@@ -3,7 +3,8 @@
  */
 var codeedit;
 var nameedit;
-var versionedit;
+var buessEdit;
+var transportBusiness;
 var transportPrototype={};
 var indexModify ;
 var createdBy=session.user;
@@ -17,6 +18,7 @@ $(document).ready(function () {
 
 //=============================== RenderTable ===============================//
 function findAllTransport() {
+    $("#transportTable").DataTable().destroy();
     var transportData = $.ajax({
         type: "GET",
         headers: {
@@ -34,16 +36,18 @@ function findAllTransport() {
     $.each(JSON.parse(transportData),function(index,item){
 
         $('#tbodyTransport').append('<tr>' +
-            '<td><center><input type="checkbox" onclick="checkboxLine(this)" name = "checkboxTransport"  id="'+item.id+'" version= "'+item.version+'" /></center></td>' +
-            "<td><button type='button' id="+item.id+" code='"+item.transportCode+"' name='"+item.transportName+"' version="+item.version+"  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></td>" +
+            '<td><alight="left"><input type="checkbox" onclick="checkboxLine(this)" name = "checkboxTransport"  id="'+item.id+'" version= "'+item.version+'" /></center></td>' +
+            '<td><alight="left"><button type="button" id='+item.id+' code="'+item.transportCode+'" name="'+item.transportName+'" buessEdit="'+item.transportBusiness+'" version='+item.version+'  onclick="editData($(this))" class="btn btn-info btn-sm" ><span class="fa fa-pencil"></span></button></alight</td>' +
             '<td><alight="left">'+(item.transportCode==null?'':item.transportCode)+'</alight></td>' +
             '<td><alight="left">'+(item.transportName==null?'':item.transportName)+'</alight></td>' +
+            '<td><alight="left">'+(item.transportBusiness==null?'':item.transportBusiness)+'</alight></td>' +
             '</tr>');
 
         transportPrototype[item.id]=item;
     });
 
     $('#transportTable').DataTable({
+        // "sScrollY": "980px",
         "bSort": false,
         "language": {
             "lengthMenu": "แสดง _MENU_ รายการ",
@@ -108,6 +112,8 @@ function clearData(){
     $("#textInputName").val("");
     $("#textEditInputCode").val("");
     $("#textEditInputName").val("");
+    $("#transportBusiness").val("");
+    $("#transportBusinessEdit").val("");
     $("[name='checkboxTransport']").prop("checked",false);
     $("#checkall").prop("checked",false);
 }
@@ -115,9 +121,10 @@ function clearData(){
 //================================= Insert =====================================//
 function insertData(){
 
-    if ($("#textInputCode").val()!="" && $("#textInputName").val()!="") {
+    if ($("#textInputCode").val()!="" && $("#textInputName").val()!="" && $("#transportBusiness").val()!="") {
         var transportCode = $("#textInputCode").val();
         var transportName = $("#textInputName").val();
+        var textInputBuess = $("#textInputBuess").val();
 
         var findTransportByCode = $.ajax({
             type: "GET",
@@ -146,7 +153,8 @@ function insertData(){
 
             var dataTransport= {
                 transportCode: transportCode,
-                transportName: transportName
+                transportName: transportName,
+                transportBusiness:textInputBuess,
             }
 
             $.ajax({
@@ -193,6 +201,10 @@ function insertData(){
             $("#alertModal").modal('show');
             $("label[id=detailAlert]").text("กรุณากรอกชื่อยานพาหนะ");
         };
+        if ($("#transportBusiness").val()=="") {
+            $("#alertModal").modal('show');
+            $("label[id=detailAlert]").text("กรุณากรอกชื่อบริษัท");
+        };
     }
 }
 
@@ -213,6 +225,7 @@ function editData(rowData){
     versionEdit =rowData[0].attributes.getNamedItem("version").value;
     codeEdit = rowData[0].attributes.getNamedItem("code").value;
     nameEdit = rowData[0].attributes.getNamedItem("name").value;
+    buessEdit = rowData[0].attributes.getNamedItem("buessEdit").value;
     indexModify = idEdit;
 
     $('#textEditInputCode').val(codeEdit);
@@ -236,11 +249,12 @@ $("#btnEditCancel").on('click',function(){
 
 function editMenu(){
 
-    if ($("#textEditInputCode").val()!="" && $("#textEditInputName").val()!="") {
+    if ($("#textEditInputCode").val()!="" && $("#textEditInputName").val()!="" && $("#textInputBuessEdit").val()!="" ) {
         var transportCode = $("#textEditInputCode").val();
         var transportName = $("#textEditInputName").val();
+        var textInputBuessEdit = $("#textInputBuessEdit").val();
 
-        if (codeEdit==$("#textEditInputCode").val() && nameEdit==$("#textEditInputName").val()) {
+        if (codeEdit==$("#textEditInputCode").val() && nameEdit==$("#textEditInputName").val() && buessEdit == $("#textInputBuessEdit").val()) {
             $("#alertModal").modal('show');
             $("label[id=detailAlert]").text("ข้อมูลไม่มีการเปลี่ยนแปลง");
             clearData();
@@ -329,6 +343,10 @@ function editMenu(){
             $("#alertModal").modal('show');
             $("label[id=detailAlert]").text("กรุณากรอกชื่อยานพาหนะ");
         };
+        if ($("#textInputBuessEdit").val()=="") {
+            $("#alertModal").modal('show');
+            $("label[id=detailAlert]").text("กรุณากรอกชื่อบริษัท");
+        };
     }
 }
 
@@ -336,10 +354,12 @@ function editMenu(){
 function updateDateTransport(){
     var transportCode = $("#textEditInputCode").val();
     var transportName = $("#textEditInputName").val();
+    var textInputBuessEdit = $("#textInputBuessEdit").val();
 
     var dataTransport= {
         transportCode: transportCode,
         transportName: transportName,
+        transportBusiness: textInputBuessEdit,
         updatedBy:updatedBy,
         version: transportPrototype[indexModify].version
     }
@@ -403,8 +423,10 @@ $("#delete").on('click',function(){
 
     }
 });
-
+var countDeleteSuccess = 0 ;
+var countDeleteFail = 0 ;
 $("#modalAlertBtnOk1").on('click',function(){
+
     var count=1;
     $.each(deleteId,function(index,item){
         $.ajax({
@@ -418,30 +440,34 @@ $("#modalAlertBtnOk1").on('click',function(){
             complete:function(xhr){
                 if(xhr.readyState==4){
                     if(xhr.status==200){
-
                         if(count==deleteId.length){
-                            $("label[id='message']").text("ลบข้อมูลสำเร็จ");
-                            $("#resultModal").modal("show");
-                            $("#transportTable").DataTable().destroy();
+                            countDeleteSuccess++;
+                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
+                            $("#deleteModalFree").modal("show");
                             findAllTransport();
                             clearData();
                         }
                         count++;
+
                     } else if(xhr.status==403) {
-                        $("#resultModal").modal("show");
-                        $("label[id='message']").text("คุณไม่มีสิทธิใช้งาน");
+                        $("#deleteModalFree").modal("show");
+                        $("label[id='detailDeleteFree']").text("คุณไม่มีสิทธิใช้งาน");
 
                     }else{
-                        $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
-                        $("#resultModal").modal("show");
+                        countDeleteFail++;
+                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เร็คคอด");
+                        $("#deleteModalFree").modal("show");
+                        findAllTransport();
+                        clearData();
                     }
                 }else{
-                    $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
-                    $("#resultModal").modal("show");
+                    $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ");
+                    $("#deleteModalFree").modal("show");
                 }
             },
             async:false
         });
     });
+    findAllTransport();
 });
 //================================== End Delete ================================//

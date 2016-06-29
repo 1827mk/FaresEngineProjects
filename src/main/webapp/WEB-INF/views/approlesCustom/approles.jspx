@@ -41,6 +41,10 @@
             color: white;
             height: 70px;
         }
+        .table_overflow {
+            overflow: auto;
+            width:980px;
+        }
 
     </style>
 
@@ -65,7 +69,7 @@
                             <table class="table table-responsive" id="RoleTable" >
                                 <thead>
                                 <th>
-                                    <div align="center">
+                                    <div>
                                         <input id="checkboxAll" type="checkbox" name="checkboxAll" />
                                     </div>
                                 </th>

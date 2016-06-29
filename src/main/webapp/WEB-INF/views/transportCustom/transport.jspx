@@ -7,6 +7,7 @@
     <c:set scope="request" var="LABEL_TRANSPORT_EDIT"><spring:message code="" text="แก้ไข"></spring:message></c:set>
     <c:set scope="request" var="LABEL_TRANSPORT_CODE"><spring:message code="" text="รหัสยานพาหนะ"></spring:message></c:set>
     <c:set scope="request" var="LABEL_TRANSPORT_NAME"><spring:message code="" text="ชื่อยานพาหนะ"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_TRANSPORT_BUSINESS"><spring:message code="" text="ชื่อบริษัท"></spring:message></c:set>
 
     <style>
         .modal-dialog {
@@ -24,6 +25,20 @@
         }
         #projectName:after {
             content: ' : การจัดการยานพาหนะ ';
+        }
+
+        .table_overflow {
+            overflow: auto;
+            width:980px;
+        }
+        .alert{
+            background-color: tomato;
+        }
+        .add{
+            background-color: green;
+            text-align: center;
+            color: white;
+            height: 70px;
         }
 
     </style>
@@ -59,13 +74,14 @@
                             <table class="table table-responsive" id="transportTable" >
                                 <thead>
                                 <th>
-                                    <div align="center">
+                                    <div>
                                         <input id="checkall" type="checkbox" name="checkboxAllTransport" />
                                     </div>
                                 </th>
                                 <th>${LABEL_TRANSPORT_EDIT}</th>
                                 <th>${LABEL_TRANSPORT_CODE}</th>
                                 <th>${LABEL_TRANSPORT_NAME}</th>
+                                <th>${LABEL_TRANSPORT_BUSINESS}</th>
                                 </thead>
                                 <tbody id="tbodyTransport">
                                 <jsp:text></jsp:text>
@@ -97,6 +113,12 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input id="textInputName" class="form-control" type="department-lov" autocomplete="off" />
+                                </div>
+                            </div>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">${LABEL_TRANSPORT_BUSINESS} :</label>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <input id="textInputBuess" class="form-control" type="department-lov" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -193,6 +215,12 @@
                                     <input id="textEditInputName" class="form-control" type="department-lov" autocomplete="off" />
                                 </div>
                             </div>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">${LABEL_TRANSPORT_BUSINESS} :</label>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <input id="textInputBuessEdit" class="form-control" type="department-lov" autocomplete="off" />
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group text-center remove-margin-bottom">
                             <div class="col-sm-12">
@@ -211,6 +239,28 @@
             </div>
         </div>
     </div>
+
+    <div id="deleteModalFree" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header alert">
+                    <center>
+                        <label>แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <label id="detailDeleteFree"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertBtnOkFree" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <!--Paging-->
     <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.js" var="jQuerydataTables" />

@@ -27,6 +27,7 @@ privileged aspect TransportController_Custom_Controller_Json {
                 .include("version")
                 .include("transportCode")
                 .include("transportName")
+                .include("transportBusiness")
                 .exclude("*").deepSerialize(transportList)), headers, HttpStatus.OK);
     }
 
@@ -45,6 +46,7 @@ privileged aspect TransportController_Custom_Controller_Json {
                 .include("version")
                 .include("transportCode")
                 .include("transportName")
+                .include("transportBusiness")
                 .exclude("*")
                 .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
     }
@@ -63,6 +65,7 @@ privileged aspect TransportController_Custom_Controller_Json {
                 .include("version")
                 .include("transportCode")
                 .include("transportName")
+                .include("transportBusiness")
                 .exclude("*")
                 .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
     }
@@ -81,6 +84,7 @@ privileged aspect TransportController_Custom_Controller_Json {
                 .include("version")
                 .include("transportCode")
                 .include("transportName")
+                .include("transportBusiness")
                 .exclude("*")
                 .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
     }
@@ -98,6 +102,7 @@ privileged aspect TransportController_Custom_Controller_Json {
                 .include("version")
                 .include("transportCode")
                 .include("transportName")
+                .include("transportBusiness")
                 .exclude("*")
                 .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
     }

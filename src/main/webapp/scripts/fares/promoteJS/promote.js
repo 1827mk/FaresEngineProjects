@@ -49,6 +49,7 @@ function clearDataAll() {
 }
 
 function findAllPromote() {
+    $("#PromoteTable").DataTable().destroy();
     var promoteData = $.ajax({
         type: "GET",
         headers: {
@@ -78,10 +79,10 @@ function findAllPromote() {
         }
 
         $('#tbodyPromote').append('<tr>' +
-            '<td><center><input type="checkbox" onclick="checkbox(this)" name = "checkboxPromote"  id="'+item.id+'" version= "'+item.version+'" /></center></td>' +
-            "<td><center><button type='button' id="+item.id+" code='"+item.promoteCode+"' version="+item.version+" price="+item.promotePrice+" idPromotion="+item.promotion.id+" codePromotion="+item.promotion.promotionCode+" dateId="+item.dateFares.id+" dateName="+checkDateDuplicate+" onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></center></td>" +
+            '<td><alight="left"><input type="checkbox" onclick="checkbox(this)" name = "checkboxPromote"  id="'+item.id+'" version= "'+item.version+'" /></alight></td>' +
+            "<td><alight='left'><button type='button' id="+item.id+" code='"+item.promoteCode+"' version="+item.version+" price="+item.promotePrice+" idPromotion="+item.promotion.id+" codePromotion="+item.promotion.promotionCode+" dateId="+item.dateFares.id+" dateName="+checkDateDuplicate+" onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></alight></td>" +
             '<td><alight="left">'+(item.promoteCode==null?'':item.promoteCode)+'</alight></td>' +
-            '<td><center>'+(item.promotePrice==null?'':item.promotePrice)+'</center></td>' +
+            '<td><alight="left">'+(item.promotePrice==null?'':item.promotePrice)+'</alight></td>' +
             '<td><alight="left">'+(item.promotion.promotionCode==null?'':item.promotion.promotionCode)+'</alight></td>' +
             '<td><alight="left">'+(item.promotion.promotionName==null?'':item.promotion.promotionName)+'</alight></td>' +
             '<td><alight="left">'+(checkDateDuplicate==null?'':checkDateDuplicate)+'</alight></td>' +
@@ -91,6 +92,7 @@ function findAllPromote() {
     });
 
     $('#PromoteTable').DataTable({
+        // "sScrollY": "980px",
         "bSort": false,
         "language": {
             "lengthMenu": "แสดง _MENU_ รายการ",
@@ -675,6 +677,8 @@ $("#delete").on('click',function(){
     }
 });
 
+var countDeleteSuccess = 0 ;
+var countDeleteFail = 0 ;
 $("#modalAlertBtnOk1").on('click',function(){
     var count=1;
     $.each(deleteId,function(index,item){
@@ -689,30 +693,33 @@ $("#modalAlertBtnOk1").on('click',function(){
             complete:function(xhr){
                 if(xhr.readyState==4){
                     if(xhr.status==200){
-
                         if(count==deleteId.length){
-                            $("#alertModalError").modal('show');
-                            $("label[id=detailAlertError]").text("ลบข้อมูลสำเร็จ");
-                            $("#PromoteTable").DataTable().destroy();
+                            countDeleteSuccess++;
+                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
+                            $("#deleteModalFree").modal("show");
                             findAllPromote();
                             clearDataAll();
                         }
                         count++;
-                    }
-                    else if(xhr.status==403) {
-                        $("#alertModalError").modal("show");
-                        $("label[id=detailAlertError]").text("คุณไม่มีสิทธิใช้งาน");
+
+                    } else if(xhr.status==403) {
+                        $("#deleteModalFree").modal("show");
+                        $("label[id='detailDeleteFree']").text("คุณไม่มีสิทธิใช้งาน");
 
                     }else{
-                        $("#alertModalError").modal('show');
-                        $("label[id=detailAlertError]").text("ลบข้อมูลสำเร็จ");
+                        countDeleteFail++;
+                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เร็คคอด");
+                        $("#deleteModalFree").modal("show");
+                        findAllPromote();
+                        clearDataAll();
                     }
                 }else{
-                    $("#alertModalError").modal('show');
-                    $("label[id=detailAlertError]").text("ลบข้อมูลไม่สำเร็จ");
+                    $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ");
+                    $("#deleteModalFree").modal("show");
                 }
             },
             async:false
         });
     });
+    findAllPromote();
 });

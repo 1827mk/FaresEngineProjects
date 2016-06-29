@@ -21,6 +21,7 @@ $(document).ready(function () {
 //=============================== RenderTable ===============================//
 var partImages = "FaresEngineProjects";
 function findAllLocation() {
+    $("#locationTable").DataTable().destroy();
     var locationData = $.ajax({
         type: "GET",
         headers: {
@@ -37,16 +38,17 @@ function findAllLocation() {
     $('#tbodyLocation').empty();
     $.each(JSON.parse(locationData),function(index,item){
         $('#tbodyLocation').append('<tr>' +
-            '<td><center><input type="checkbox" onclick="checkboxLine(this)" name = "checkboxLocation"  id="'+item.id+'" version= "'+item.version+'" /></center></td>' +
-            "<td><button type='button' id="+item.id+" code='"+item.locationCode+"' name='"+item.locationName+"' imageName='"+item.fileName+"' version="+item.version+"  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></td>" +
+            '<td><alight="left"><input type="checkbox" onclick="checkboxLine(this)" name = "checkboxLocation"  id="'+item.id+'" version= "'+item.version+'" /></alight</td>' +
+            '<td><alight="left"><button type="button" id='+item.id+' code="'+item.locationCode+'" name="'+item.locationName+'" imageName="'+item.fileName+'" version='+item.version+'  onclick="editData($(this))" class="btn btn-info btn-sm" ><span class="fa fa-pencil"></span></button></alight></td>' +
             '<td><alight="left">'+(item.locationCode==null?'':item.locationCode)+'</alight></td>' +
             '<td><alight="left">'+(item.locationName==null?'':item.locationName)+'</alight></td>' +
-            '<td onmouseover="zoomImage()"><img src="/FaresEngine/resources/UploadResource/locationImage/'+item.fileName+'" style="min-height:30px;height:40px;width:40px;min-width:30px;z-index:9999" /></td>' +
+            '<td onmouseover="zoomImage()"> <img src="/FaresEngine/resources/UploadResource/locationImage/'+item.fileName+'" style="min-height:30px;height:40px;width:40px;min-width:30px;z-index:9999" /></td>' +
             '</tr>');
 
         locationPrototype[item.id]=item;
     });
     $('#locationTable').DataTable({
+        // "sScrollY": "980px",
         "bSort": false,
         "language": {
             "lengthMenu": "แสดง _MENU_ รายการ",
@@ -565,6 +567,8 @@ $("#delete").on('click',function(){
     }
 });
 
+var countDeleteSuccess = 0 ;
+var countDeleteFail = 0 ;
 $("#modalAlertBtnOk1").on('click',function(){
     var count=1;
     $.each(deleteId,function(index,item){
@@ -579,30 +583,35 @@ $("#modalAlertBtnOk1").on('click',function(){
             complete:function(xhr){
                 if(xhr.readyState==4){
                     if(xhr.status==200){
-
                         if(count==deleteId.length){
-                            $("#locationTable").DataTable().destroy();
-                            $("label[id='message']").text("ลบข้อมูลสำเร็จ");
-                            $("#resultModal").modal("show");
+                            countDeleteSuccess++;
+                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
+                            $("#deleteModalFree").modal("show");
                             findAllLocation();
                             clearData();
                         }
                         count++;
-                    }
-                    else if(xhr.status==403) {
-                        $("label[id='message']").text("คุณไม่มีสิทธิใช้งาน");
-                        $("#resultModal").modal("show");
+
+                    } else if(xhr.status==403) {
+                        $("#deleteModalFree").modal("show");
+                        $("label[id='detailDeleteFree']").text("คุณไม่มีสิทธิใช้งาน");
+
                     }else{
-                        $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
-                        $("#resultModal").modal("show");
+                        countDeleteFail++;
+                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เร็คคอด");
+                        $("#deleteModalFree").modal("show");
+                        findAllLocation();
+                        clearData();
                     }
                 }else{
-                    $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
-                    $("#resultModal").modal("show");
+                    $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ");
+                    $("#deleteModalFree").modal("show");
                 }
             },
             async:false
         });
     });
+    findAllLocation();
+    
 });
 //================================== End Delete ================================//
