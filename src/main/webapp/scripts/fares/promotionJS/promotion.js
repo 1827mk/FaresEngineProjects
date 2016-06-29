@@ -16,6 +16,7 @@ $(document).ready(function () {
 
 //=============================== RenderTable ===============================//
 function findAllPromotion() {
+    $("#promotionTable").DataTable().destroy();
     var promotionData = $.ajax({
         type: "GET",
         headers: {
@@ -33,8 +34,8 @@ function findAllPromotion() {
     $.each(JSON.parse(promotionData),function(index,item){
 
         $('#tbodyPromotion').append('<tr>' +
-            '<td><center><input type="checkbox" onclick="checkboxLine(this)" name = "checkboxPromotion"  id="'+item.id+'" version= "'+item.version+'" /></center></td>' +
-            "<td><button type='button' id="+item.id+" code='"+item.promotionCode+"' name='"+item.promotionName+"' version="+item.version+"  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></td>" +
+            '<td><alight="left"><input type="checkbox" onclick="checkboxLine(this)" name = "checkboxPromotion"  id="'+item.id+'" version= "'+item.version+'" /></alight></td>' +
+            "<td><alight='left'><alight type='button' id="+item.id+" code='"+item.promotionCode+"' name='"+item.promotionName+"' version="+item.version+"  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></alight></td>" +
             '<td><alight="left">'+(item.promotionCode==null?'':item.promotionCode)+'</alight></td>' +
             '<td><alight="left">'+(item.promotionName==null?'':item.promotionName)+'</alight></td>' +
             '</tr>');
@@ -43,6 +44,7 @@ function findAllPromotion() {
     });
 
     $('#promotionTable').DataTable({
+        // "sScrollY": "980px",
         "bSort": false,
         "language": {
             "lengthMenu": "แสดง _MENU_ รายการ",
@@ -392,6 +394,8 @@ $("#delete").on('click',function(){
     }
 });
 
+var countDeleteSuccess = 0 ;
+var countDeleteFail = 0 ;
 $("#modalAlertBtnOk1").on('click',function(){
     var count=1;
     $.each(deleteId,function(index,item){
@@ -406,31 +410,34 @@ $("#modalAlertBtnOk1").on('click',function(){
             complete:function(xhr){
                 if(xhr.readyState==4){
                     if(xhr.status==200){
-
                         if(count==deleteId.length){
-                            $("label[id='message']").text("ลบข้อมูลสำเร็จ");
-                            $("#resultModal").modal("show");
-                            $("#promotionTable").DataTable().destroy();
+                            countDeleteSuccess++;
+                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
+                            $("#deleteModalFree").modal("show");
                             findAllPromotion();
                             clearData();
                         }
                         count++;
-                    }
-                    else if(xhr.status==403) {
-                        $("#resultModal").modal("show");
-                        $("label[id='message']").text("คุณไม่มีสิทธิใช้งาน");
+
+                    } else if(xhr.status==403) {
+                        $("#deleteModalFree").modal("show");
+                        $("label[id='detailDeleteFree']").text("คุณไม่มีสิทธิใช้งาน");
 
                     }else{
-                        $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
-                        $("#resultModal").modal("show");
+                        countDeleteFail++;
+                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เร็คคอด");
+                        $("#deleteModalFree").modal("show");
+                        findAllPromotion();
+                        clearData();
                     }
                 }else{
-                    $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
-                    $("#resultModal").modal("show");
+                    $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ");
+                    $("#deleteModalFree").modal("show");
                 }
             },
             async:false
         });
     });
+    findAllPromotion();
 });
 //================================== End Delete ================================//

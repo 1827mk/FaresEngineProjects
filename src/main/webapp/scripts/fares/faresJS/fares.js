@@ -81,10 +81,10 @@ function findAllfares() {
             }
 
             $('#tbodyFares').append('<tr>' +
-                '<td><center><input type="checkbox" onclick="checkbox(this)" name = "checkboxFares"  id="'+item.id+'" version= "'+item.version+'" /></center></td>' +
-                "<td><center><button type='button' id="+item.id+" code='"+item.faresCode+"' sourceName='"+item.travel.locationSourName+"' destName='"+item.travel.locationDisName+"'  version="+item.version+" price="+item.price+" codeTravel="+item.travel.travelCode+" travelId="+item.travel.id+" codePromote="+item.promote.promoteCode+"  promoteId="+item.promote.id+"  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></center></td>" +
+                '<td><alight="left"><input type="checkbox" onclick="checkbox(this)" name = "checkboxFares"  id="'+item.id+'" version= "'+item.version+'" /></alight></td>' +
+                '<td><alight="left"><button type="button" id="+item.id+" code="'+item.faresCode+'" sourceName="'+item.travel.locationSourName+'" destName="'+item.travel.locationDisName+'"  version="+item.version+" price="+item.price+" codeTravel="+item.travel.travelCode+" travelId="+item.travel.id+" codePromote="+item.promote.promoteCode+"  promoteId="+item.promote.id+"  onclick="editData($(this))" class="btn btn-info btn-sm" ><span class="fa fa-pencil"></span></button></alight></td>"' +
                 '<td><alight="left">'+(item.faresCode==null?'':item.faresCode)+'</alight></td>' +
-                '<td><center>'+(item.price==null?'':item.price)+'</center></td>' +
+                '<td><alight="left">'+(item.price==null?'':item.price)+'</alight></td>' +
                 '<td><alight="left">'+(item.travel.locationSourName==null?'':item.travel.locationSourName)+'</alight></td>' +
                 '<td><alight="left">'+(item.travel.locationDisName==null?'':item.travel.locationDisName)+'</alight></td>' +
                 '<td><alight="left">'+(item.travel.transport.transportName==null?'':item.travel.transport.transportName)+'</alight></td>' +
@@ -98,7 +98,10 @@ function findAllfares() {
         });
 
     $('#FaresTable').DataTable({
+        "sScrollX": "100%",
+        // "sScrollY": "980px",
         "bSort": false,
+        "responsive": true,
         "language": {
             "lengthMenu": "แสดง _MENU_ รายการ",
             "zeroRecords": "ไม่พบข้อมูล",

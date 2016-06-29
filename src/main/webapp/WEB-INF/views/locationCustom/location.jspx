@@ -54,7 +54,10 @@
             -o-transform: scale(5);
             transform: scale(5);
         }
-
+        .table_overflow {
+            overflow: auto;
+            width:980px;
+        }
     </style>
 
     <!--begin-->
@@ -88,7 +91,7 @@
                             <table class="table table-responsive" id="locationTable" >
                                 <thead>
                                 <th>
-                                    <div align="center">
+                                    <div>
                                         <input id="checkall" type="checkbox" name="checkboxAllLocation" />
                                     </div>
                                 </th>
@@ -301,6 +304,27 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     <!--end-->
+    <div id="deleteModalFree" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header alert">
+                    <center>
+                        <label>แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <label id="detailDeleteFree"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertBtnOkFree" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <!--Paging-->
     <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.js" var="jQuerydataTables" />

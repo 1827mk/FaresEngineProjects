@@ -25,7 +25,19 @@
         #projectName:after {
             content: ' : การจัดการโปรโมชั่น ';
         }
-
+        .table_overflow {
+            overflow: auto;
+            width:980px;
+        }
+        .alert{
+            background-color: tomato;
+        }
+        .add{
+            background-color: green;
+            text-align: center;
+            color: white;
+            height: 70px;
+        }
     </style>
 
     <!--begin-->
@@ -59,7 +71,7 @@
                             <table class="table table-responsive" id="promotionTable" >
                                 <thead>
                                 <th>
-                                    <div align="center">
+                                    <div>
                                         <input id="checkall" type="checkbox" name="checkboxAllPromotion" />
                                     </div>
                                 </th>
@@ -211,7 +223,27 @@
             </div>
         </div>
     </div>
-
+    <div id="deleteModalFree" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header alert">
+                    <center>
+                        <label>แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <label id="detailDeleteFree"></label>
+                    </center>
+                </div>
+                <div class="modal-footer border">
+                    <center>
+                        <button id="modalAlertBtnOkFree" class="btn btn-sm btn-primary"  data-dismiss="modal">OK</button>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <!--Paging-->
     <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.js" var="jQuerydataTables" />

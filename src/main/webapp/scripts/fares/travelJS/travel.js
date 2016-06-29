@@ -16,6 +16,7 @@ $(document).ready(function () {
 
 //=============================== RenderTable ===============================//
 function findAllTravel() {
+    $("#travelTable").DataTable().destroy();
     var travelData = $.ajax({
         type: "GET",
         headers: {
@@ -33,8 +34,8 @@ function findAllTravel() {
     $.each(JSON.parse(travelData), function (index, item) {
 
         $('#tbodyTravel').append('<tr>' +
-            '<td><center><input type="checkbox" onclick="checkboxLine(this)" name = "checkboxTravel"  id="' + item.id + '" version= "' + item.version + '" /></center></td>' +
-            "<td><button type='button' id=" + item.id + " travelcode='" + item.travelCode + "' sourcode='" + item.locationSourCode + "' sourName='" + item.locationSourName + "'  discode='" + item.locationDisCode + "' disName='" + item.locationDisName + "' transId='"+item.transport.id+"' transcode='" + item.transport.transportCode + "' transname='" + item.transport.transportName + "' version=" + item.version + "  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></td>" +
+            '<td><alight="left"><input type="checkbox" onclick="checkboxLine(this)" name = "checkboxTravel"  id="' + item.id + '" version= "' + item.version + '" /></alight></td>' +
+            "<td><alight='left'><button type='button' id=" + item.id + " travelcode='" + item.travelCode + "' sourcode='" + item.locationSourCode + "' sourName='" + item.locationSourName + "'  discode='" + item.locationDisCode + "' disName='" + item.locationDisName + "' transId='"+item.transport.id+"' transcode='" + item.transport.transportCode + "' transname='" + item.transport.transportName + "' version=" + item.version + "  onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></></td>" +
             '<td><alight="left">' + (item.travelCode == null ? '' : item.travelCode) + '</alight></td>' +
             '<td><alight="left">' + (item.locationSourCode == null ? '' : item.locationSourCode) + '</alight></td>' +
             '<td><alight="left">' + (item.locationSourName == null ? '' : item.locationSourName) + '</alight></td>' +
@@ -47,6 +48,7 @@ function findAllTravel() {
     });
 
     $('#travelTable').DataTable({
+        // "sScrollY": "980px",
         "bSort": false,
         "language": {
             "lengthMenu": "แสดง _MENU_ รายการ",
@@ -972,14 +974,11 @@ function updateTravel() {
 
 }
 //============================ delete ============================//
-
 var deleteId=[];
 var deleteAllId=[];
 var deleteItem ;
 $("#delete").on('click',function(){
-
     var checkbox=$("tbody input[type='checkbox']");
-
     deleteId.clear();
     $.each(checkbox,function(index,item){
         if(item.checked){
@@ -992,11 +991,14 @@ $("#delete").on('click',function(){
         $("#deleteModal").modal("show");
         $("label[id='detailDelete']").text("คุณต้องการลบ"+' '+deleteId.length + ' '+"เรคคอร์ด" );
     }else{
-        $("#test").modal("show");
-        $("label[id='messagersc']").text("กรุณาเลือกอย่างน้อย 1 เรคคอร์ด");
+        $("#alertModalError").modal("show");
+        $("label[id='detailAlertError']").text("กรุณาเลือกอย่างน้อย 1 เรคคอร์ด");
 
     }
 });
+
+var countDeleteSuccess = 0 ;
+var countDeleteFail = 0 ;
 
 $("#modalAlertBtnOk1").on('click',function(){
     var count=1;
@@ -1012,30 +1014,34 @@ $("#modalAlertBtnOk1").on('click',function(){
             complete:function(xhr){
                 if(xhr.readyState==4){
                     if(xhr.status==200){
-
                         if(count==deleteId.length){
-                            $("label[id='message']").text("ลบข้อมูลสำเร็จ");
-                            $("#resultModal").modal("show");
-                            $("#travelTable").DataTable().destroy();
+                            countDeleteSuccess++;
+                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
+                            $("#deleteModalFree").modal("show");
                             findAllTravel();
                             clearData();
                         }
                         count++;
+
                     } else if(xhr.status==403) {
-                        $("#resultModal").modal("show");
-                        $("label[id='message']").text("คุณไม่มีสิทธิใช้งาน");
+                        $("#deleteModalFree").modal("show");
+                        $("label[id='detailDeleteFree']").text("คุณไม่มีสิทธิใช้งาน");
 
                     }else{
-                        $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
-                        $("#resultModal").modal("show");
+                        countDeleteFail++;
+                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เร็คคอด");
+                        $("#deleteModalFree").modal("show");
+                        findAllTravel();
+                        clearData();
                     }
                 }else{
-                    $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
-                    $("#resultModal").modal("show");
+                    $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ");
+                    $("#deleteModalFree").modal("show");
                 }
             },
             async:false
         });
     });
+    findAllTravel();
 });
 //================================== End Delete ================================//
