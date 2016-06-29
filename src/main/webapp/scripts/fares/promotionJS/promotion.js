@@ -4,6 +4,8 @@
 var codeedit;
 var nameedit;
 var versionedit;
+var createdBy=session.user;
+var updatedBy=session.user;
 var promotionPrototype={};
 var indexModify ;
 $(document).ready(function () {
@@ -38,6 +40,34 @@ function findAllPromotion() {
             '</tr>');
 
         promotionPrototype[item.id]=item;
+    });
+
+    $('#promotionTable').DataTable({
+        "bSort": false,
+        "language": {
+            "lengthMenu": "แสดง _MENU_ รายการ",
+            "zeroRecords": "ไม่พบข้อมูล",
+            "info": "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+            "infoEmpty": "ไม่พบเรคคอร์ด",
+            "infoFiltered": "(กรองข้อมูล _MAX_ แถว)",
+            "decimal":        "",
+            "emptyTable":     "ไม่มีข้อมูลในตาราง",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "loadingRecords": "โหลด...",
+            "processing":     "กำลังดำเนินการ...",
+            "search":         "ค้นหา:",
+            "paginate": {
+                "first":      "หน้าแรก",
+                "last":       "หน้าสุดท้าย",
+                "next":       "ถัดไป",
+                "previous":   "ก่อนหน้า"
+            },
+            "aria": {
+                "sortAscending":  ": เปิดใช้งานคอลัมน์ในการจัดเรียงจากน้อยไปมาก",
+                "sortDescending": ": เปิดใช้งานคอลัมน์ในการเรียงลำดับจากมากไปน้อย"
+            }
+        }
     });
 }
 
@@ -101,7 +131,9 @@ function insertData(){
 
             var dataPromotion= {
                 promotionCode: promotionCode,
-                promotionName: promotionName
+                promotionName: promotionName,
+                createdBy:createdBy,
+                updatedBy:updatedBy
             }
 
             $.ajax({
@@ -117,6 +149,7 @@ function insertData(){
                     if(xhr.readyState==4){
                         if(xhr.status==201){
                             clearData();
+                            $("#promotionTable").DataTable().destroy();
                             findAllPromotion();
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
@@ -202,76 +235,76 @@ function editMenu(){
 
         }else if (codeEdit!=$("#textEditInputCode").val() && nameEdit==$("#textEditInputName").val()){
             // ตรวจสอบรหัสซ้ำ
-                var dataPromotionCode = $.ajax({
-                    type: "GET",
-                    headers: {
-                        Accept: 'application/json'
-                    },
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        url: session['context']+'/promotions/findPromotionCodeDuplicate',
-                        data: {
-                            promotionCode: promotionCode
-                        },
-                        async: false
-                    }).done(function (){
-                        $('.dv-background').hide();
-                }).responseText;
-            
-                if (dataPromotionCode.length!=2) {
-                    $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("รหัสโปรโมชั่นนี้มีอยู่ในระบบแล้ว!!");
-                }else{
-                    updateDatePromotion();
-                }
-            }else if(codeEdit==$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
-            // ตรวจสอบชื่อซ้ำ
-                    var dataPromotionName = $.ajax({
-                        type: "GET",
-                        headers: {
-                            Accept: 'application/json'
-                        },
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            url: session['context']+'/promotions/findPromotionNameDuplicate',
-                            data: {
-                                promotionName: promotionName
-                            },
-                            async: false
-                        }).done(function (){
-                            $('.dv-background').hide();
-                    }).responseText;
-                if (dataPromotionName.length!=2) {
-                    $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("ชื่อโปรโมชั่นนี้มีอยู่ในระบบแล้ว!!");
-                }else{
-                    updateDatePromotion();
-                }
-            }else if(codeEdit!=$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
-                // ตรวจสอบชื่อและรหัสซ้ำ
-                    var dataPromotion = $.ajax({
-                        type: "GET",
-                        headers: {
-                            Accept: 'application/json'
-                        },
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        url: session['context']+'/promotions/findPromotionCode',
-                        data: {
-                            promotionCode:promotionCode
-                        },
-                        async: false
-                    }).done(function (){
-                        $('.dv-background').hide();
-                    }).responseText;
+            var dataPromotionCode = $.ajax({
+                type: "GET",
+                headers: {
+                    Accept: 'application/json'
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: session['context']+'/promotions/findPromotionCodeDuplicate',
+                data: {
+                    promotionCode: promotionCode
+                },
+                async: false
+            }).done(function (){
+                $('.dv-background').hide();
+            }).responseText;
 
-                    if (dataPromotion.length!=2) {
-                        $("#alertModal").modal('show');
-                        $("label[id=detailAlert]").text("ข้อมูลที่กรอกมีในระบบแล้ว กรุณาตรวจสอบใหม่อีกครั้ง");
-                    }else{
-                        updateDatePromotion();
-                    }
+            if (dataPromotionCode.length!=2) {
+                $("#alertModal").modal('show');
+                $("label[id=detailAlert]").text("รหัสโปรโมชั่นนี้มีอยู่ในระบบแล้ว!!");
             }else{
+                updateDatePromotion();
+            }
+        }else if(codeEdit==$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
+            // ตรวจสอบชื่อซ้ำ
+            var dataPromotionName = $.ajax({
+                type: "GET",
+                headers: {
+                    Accept: 'application/json'
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: session['context']+'/promotions/findPromotionNameDuplicate',
+                data: {
+                    promotionName: promotionName
+                },
+                async: false
+            }).done(function (){
+                $('.dv-background').hide();
+            }).responseText;
+            if (dataPromotionName.length!=2) {
+                $("#alertModal").modal('show');
+                $("label[id=detailAlert]").text("ชื่อโปรโมชั่นนี้มีอยู่ในระบบแล้ว!!");
+            }else{
+                updateDatePromotion();
+            }
+        }else if(codeEdit!=$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
+            // ตรวจสอบชื่อและรหัสซ้ำ
+            var dataPromotion = $.ajax({
+                type: "GET",
+                headers: {
+                    Accept: 'application/json'
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: session['context']+'/promotions/findPromotionCode',
+                data: {
+                    promotionCode:promotionCode
+                },
+                async: false
+            }).done(function (){
+                $('.dv-background').hide();
+            }).responseText;
+
+            if (dataPromotion.length!=2) {
+                $("#alertModal").modal('show');
+                $("label[id=detailAlert]").text("ข้อมูลที่กรอกมีในระบบแล้ว กรุณาตรวจสอบใหม่อีกครั้ง");
+            }else{
+                updateDatePromotion();
+            }
+        }else{
             updateDatePromotion();
         }
     }else{
@@ -294,6 +327,7 @@ function updateDatePromotion(){
     var dataPromotion= {
         promotionCode: promotionCode,
         promotionName: promotionName,
+        updatedBy:updatedBy,
         version: promotionPrototype[indexModify].version
     }
     $.ajax({
@@ -309,15 +343,16 @@ function updateDatePromotion(){
             if(xhr.readyState==4){
                 if(xhr.status==200){
                     clearData();
+                    $("#promotionTable").DataTable().destroy();
                     findAllPromotion();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลสำเร็จ");
-                    
-                    } else if(xhr.status==403) {
-                        $("#alertModal").modal("show");
-                        $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
-                        
-                    }else{
+
+                } else if(xhr.status==403) {
+                    $("#alertModal").modal("show");
+                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+
+                }else{
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลไม่สำเร็จ");
 
@@ -375,6 +410,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                         if(count==deleteId.length){
                             $("label[id='message']").text("ลบข้อมูลสำเร็จ");
                             $("#resultModal").modal("show");
+                            $("#promotionTable").DataTable().destroy();
                             findAllPromotion();
                             clearData();
                         }
@@ -383,7 +419,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                     else if(xhr.status==403) {
                         $("#resultModal").modal("show");
                         $("label[id='message']").text("คุณไม่มีสิทธิใช้งาน");
-                        
+
                     }else{
                         $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
                         $("#resultModal").modal("show");

@@ -63,32 +63,32 @@ function findAllPromote() {
         $('.dv-background').hide();
     }).responseText;
 
-        $('#tbodyPromote').empty();
-        $.each(JSON.parse(promoteData),function(index,item){
+    $('#tbodyPromote').empty();
+    $.each(JSON.parse(promoteData),function(index,item){
 
-            var date = new Date(item.dateFares.dateFared).toISOString().split("T")[0];
-            var dates = date.split("-");
-            var dateOrigin = dates[2];
-            var monthOrigin = dates[1];
-            var yeaOrigin = dates[0];
-            var checkDateDuplicate = dateOrigin+'/'+monthOrigin+'/'+yeaOrigin;
+        var date = new Date(item.dateFares.dateFared).toISOString().split("T")[0];
+        var dates = date.split("-");
+        var dateOrigin = dates[2];
+        var monthOrigin = dates[1];
+        var yeaOrigin = dates[0];
+        var checkDateDuplicate = dateOrigin+'/'+monthOrigin+'/'+yeaOrigin;
 
-            if(checkDateDuplicate == "10/10/2010"){
-                checkDateDuplicate = "----------"
-            }
+        if(checkDateDuplicate == "10/10/2010"){
+            checkDateDuplicate = "----------"
+        }
 
-            $('#tbodyPromote').append('<tr>' +
-                '<td><center><input type="checkbox" onclick="checkbox(this)" name = "checkboxPromote"  id="'+item.id+'" version= "'+item.version+'" /></center></td>' +
-                "<td><center><button type='button' id="+item.id+" code='"+item.promoteCode+"' version="+item.version+" price="+item.promotePrice+" idPromotion="+item.promotion.id+" codePromotion="+item.promotion.promotionCode+" dateId="+item.dateFares.id+" dateName="+checkDateDuplicate+" onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></center></td>" +
-                '<td><alight="left">'+(item.promoteCode==null?'':item.promoteCode)+'</alight></td>' +
-                '<td><center>'+(item.promotePrice==null?'':item.promotePrice)+'</center></td>' +
-                '<td><alight="left">'+(item.promotion.promotionCode==null?'':item.promotion.promotionCode)+'</alight></td>' +
-                '<td><alight="left">'+(item.promotion.promotionName==null?'':item.promotion.promotionName)+'</alight></td>' +
-                '<td><alight="left">'+(checkDateDuplicate==null?'':checkDateDuplicate)+'</alight></td>' +
-                '</tr>');
+        $('#tbodyPromote').append('<tr>' +
+            '<td><center><input type="checkbox" onclick="checkbox(this)" name = "checkboxPromote"  id="'+item.id+'" version= "'+item.version+'" /></center></td>' +
+            "<td><center><button type='button' id="+item.id+" code='"+item.promoteCode+"' version="+item.version+" price="+item.promotePrice+" idPromotion="+item.promotion.id+" codePromotion="+item.promotion.promotionCode+" dateId="+item.dateFares.id+" dateName="+checkDateDuplicate+" onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></center></td>" +
+            '<td><alight="left">'+(item.promoteCode==null?'':item.promoteCode)+'</alight></td>' +
+            '<td><center>'+(item.promotePrice==null?'':item.promotePrice)+'</center></td>' +
+            '<td><alight="left">'+(item.promotion.promotionCode==null?'':item.promotion.promotionCode)+'</alight></td>' +
+            '<td><alight="left">'+(item.promotion.promotionName==null?'':item.promotion.promotionName)+'</alight></td>' +
+            '<td><alight="left">'+(checkDateDuplicate==null?'':checkDateDuplicate)+'</alight></td>' +
+            '</tr>');
 
-            promotePrototype[item.id]=item;
-        });
+        promotePrototype[item.id]=item;
+    });
 
     $('#PromoteTable').DataTable({
         "bSort": false,
@@ -144,7 +144,7 @@ $('#add').on('click',function () {
     findDate();
 })
 $('#btnEditSave').on('click',function () {
-        editPromote();
+    editPromote();
     // findPromote();
     // findTravel();
 
@@ -201,23 +201,23 @@ $('input').blur(function(){
 //================================== CheckBox ==================================//
 $("#checkboxAll").on('change',function(){
     var booleanCheck = $("#checkboxAll").prop("checked");
-    
-        if (booleanCheck) {
-            $("[name='checkboxPromote']").prop("checked",true);
-        }else{
-            $("[name='checkboxPromote']").prop("checked",false);
-        }
+
+    if (booleanCheck) {
+        $("[name='checkboxPromote']").prop("checked",true);
+    }else{
+        $("[name='checkboxPromote']").prop("checked",false);
+    }
 });
 
 function checkbox(checkbox) {
     var countCheck = $("input[name ='checkboxPromote']:checked:checked").length;
     var countAll = $("[name='checkboxPromote']").length;
-    
-        if (countCheck == countAll) {
-            $("#checkboxAll").prop("checked",true);
-        }else{
-            $("#checkboxAll").prop("checked",false);
-        }
+
+    if (countCheck == countAll) {
+        $("#checkboxAll").prop("checked",true);
+    }else{
+        $("#checkboxAll").prop("checked",false);
+    }
 }
 
 var promotionCode;
@@ -238,25 +238,15 @@ function findPromotion() {
         $('.dv-background').hide();
     }).responseText;
 
-        $('#selectInputPromotion').empty();
-        $('#selectInputEditPromotion').empty();
-        $.each(JSON.parse(promotionData),function(index,item){
-            $('#selectInputPromotion').append('<option value="'+item.id+'">'+item.promotionCode+':'+item.promotionName+'</option>');
-            $('#selectInputEditPromotion').append('<option value="'+item.id+'">'+item.promotionCode+':'+item.promotionName+'</option>');
-        });
+    $('#selectInputPromotion').empty();
+    $('#selectInputEditPromotion').empty();
+    $.each(JSON.parse(promotionData),function(index,item){
+        $('#selectInputPromotion').append('<option value="'+item.id+'">'+item.promotionCode+':'+item.promotionName+'</option>');
+        $('#selectInputEditPromotion').append('<option value="'+item.id+'">'+item.promotionCode+':'+item.promotionName+'</option>');
+    });
 
-        // Add
-        $('#selectInputPromotion').on('change',function(){
-            var str = $( "#selectInputPromotion option:selected" ).text();
-            var res = str.split(":");
-            promotionCode = res[0];
-            if(promotionCode!=null){
-                findPromotionByCode(promotionCode);
-            }else{
-                console.log("==========");
-            }
-        });
-
+    // Add
+    $('#selectInputPromotion').on('change',function(){
         var str = $( "#selectInputPromotion option:selected" ).text();
         var res = str.split(":");
         promotionCode = res[0];
@@ -265,6 +255,16 @@ function findPromotion() {
         }else{
             console.log("==========");
         }
+    });
+
+    var str = $( "#selectInputPromotion option:selected" ).text();
+    var res = str.split(":");
+    promotionCode = res[0];
+    if(promotionCode!=null){
+        findPromotionByCode(promotionCode);
+    }else{
+        console.log("==========");
+    }
 
 }
 
@@ -339,11 +339,11 @@ function findDate() {
         if(checkDateDuplicate != "10/10/2010") {
             $('#selectDate').append('<option value="' + item.id + '">' + checkDateDuplicate + '</option>');
             $('#selectEditDate').append('<option value="' + item.id + '">' + checkDateDuplicate + '</option>');
-            }else{
+        }else{
             $('#selectDate').append('<option value="' + item.id + '">' + "----------" + '</option>');
             $('#selectEditDate').append('<option value="' + item.id + '">' + "----------" + '</option>')
         }
-        });
+    });
 }
 
 //=========================== Insret ===============================//
@@ -380,21 +380,21 @@ function insertData() {
             // Duplicate
             $("#alertModalError").modal('show');
             $("label[id=detailAlertError]").text("มีข้อมูลนี้ในระบบแล้ว กรุณาตรวจสอบ!!");
-            }
-        }else{
-            if ($("#textInputCode").val() == "") {
-                $("#alertModal").modal('show');
-                $("label[id=detailAlert]").text("กรุณากรอกรหัสการจัดการโปรโมชั่น");
-            } else if ($("#textInputPrice").val() == "") {
-                $("#alertModal").modal('show');
-                $("label[id=detailAlert]").text("กรุณากรอกราคาการจัดการโปรโมชั่น");
-            } else if ($("#selectInputPromotion option:selected").text() == "----------") {
-                $("#alertModal").modal('show');
-                $("label[id=detailAlert]").text("กรุณาเลือกรหัสโปรโมชั่น");
-            } else {
-                $("#alertModal").modal('show');
-                $("label[id=detailAlert]").text("กรุณาเลือกวันที่โปรโมชั่น");
-            }
+        }
+    }else{
+        if ($("#textInputCode").val() == "") {
+            $("#alertModal").modal('show');
+            $("label[id=detailAlert]").text("กรุณากรอกรหัสการจัดการโปรโมชั่น");
+        } else if ($("#textInputPrice").val() == "") {
+            $("#alertModal").modal('show');
+            $("label[id=detailAlert]").text("กรุณากรอกราคาการจัดการโปรโมชั่น");
+        } else if ($("#selectInputPromotion option:selected").text() == "----------") {
+            $("#alertModal").modal('show');
+            $("label[id=detailAlert]").text("กรุณาเลือกรหัสโปรโมชั่น");
+        } else {
+            $("#alertModal").modal('show');
+            $("label[id=detailAlert]").text("กรุณาเลือกวันที่โปรโมชั่น");
+        }
     }
 }
 
@@ -472,7 +472,7 @@ function editData(rowData) {
     date = rowData[0].attributes.getNamedItem("dateId").value;
     dateEdit = rowData[0].attributes.getNamedItem("dateName").value;
     // indexModify = idEdit;
-    
+
     $('#textInputEditCode').val(codeEdit);
     $('#textInputEditPrice').val(priceEdit);
     $('#selectInputEditPromotion').val(promotionEdit);
@@ -489,7 +489,9 @@ function editData(rowData) {
 }
 // Edit
 $('#selectInputEditPromotion').on('change',function(){
-    promotionCodeEdit = $( "#selectInputEditPromotion option:selected" ).text();
+    var str = $( "#selectInputEditPromotion option:selected" ).text();
+    var res = str.split(":");
+    promotionCodeEdit = res[0];
     if(promotionCodeEdit!=null){
         findPromotionByCode(promotionCodeEdit);
     }else{
@@ -507,8 +509,13 @@ function editPromote() {
         var selectPromotion = $('#selectInputEditPromotion').val();
         var selectDate = $('#selectEditDate').val();
 
-        var selectPromotionText = $("#selectInputEditPromotion option:selected").text();
-        var selectDateText = $("#selectEditDate option:selected").text();
+        var str1 = $( "#selectInputEditPromotion option:selected" ).text();
+        var res1 = str1.split(":");
+        selectPromotionText = res1[0];
+
+        var str2 = $( "#selectEditDate option:selected" ).text();
+        var res2 = str2.split(":");
+        selectDateText = res2[0];
 
 
         if (codePromote == codeEdit && pricePromote == priceEdit && selectPromotionText == promotionEdit && selectDateText == dateEdit) {
@@ -543,49 +550,49 @@ function editPromote() {
                     $("label[id=detailAlertError]").text("รหัสนี้มีอยู่แล้ว กรุณาตรวจสอบ!!");
                 }
             }else if (codePromote == codeEdit && selectPromotionText != promotionEdit || selectDateText != dateEdit) {
-                    var findPromoteDuplicateCD = $.ajax({
-                        type: "GET",
-                        headers: {
-                            Accept: 'application/json'
-                        },
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        url: session['context'] + '/promotes/findPromoteDuplicateCD',
-                        data: {
-                            promotion: selectPromotionText,
-                            dateFares: selectDateText
-                        },
+                var findPromoteDuplicateCD = $.ajax({
+                    type: "GET",
+                    headers: {
+                        Accept: 'application/json'
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    url: session['context'] + '/promotes/findPromoteDuplicateCD',
+                    data: {
+                        promotion: selectPromotionText,
+                        dateFares: selectDateText
+                    },
 
-                        async: false
-                    }).done(function () {
-                        //close loader
-                        $('.dv-background').hide();
-                    }).responseText;
-                    if (findPromoteDuplicateCD.length == 2) {
-                        updatePromote();
-                    } else {
-                        $("#alertModalError").modal('show');
-                        $("label[id=detailAlertError]").text("รหัสโปรโมชั่นและวันที่นี้มีอยู่แล้ว กรุณาตรวจสอบ!!");
-                    }
+                    async: false
+                }).done(function () {
+                    //close loader
+                    $('.dv-background').hide();
+                }).responseText;
+                if (findPromoteDuplicateCD.length == 2) {
+                    updatePromote();
                 } else {
-                    if ($("#textInputEditCode").val() == "") {
-                        $("#deleteModalFree").modal('show');
-                        $("label[id=detailDeleteFree]").text("กรุณากรอกรหัสการจัดการโปรโมชั่น");
-                    } else if ($("#textInputEditPrice").val() == "") {
-                        $("#deleteModalFree").modal('show');
-                        $("label[id=detailDeleteFree]").text("กรุณากรอกราคาการจัดการโปรโมชั่น");
-                    } else if ($("#selectInputEditPromotion option:selected").text() == "----------") {
-                        $("#deleteModalFree").modal('show');
-                        $("label[id=detailDeleteFree]").text("กรุณาเลือกรหัสโปรโมชั่น");
-                    } else {
-                        $("#deleteModalFree").modal('show');
-                        $("label[id=detailDeleteFree]").text("กรุณาเลือกวันที่โปรโมชั่น");
-                    }
+                    $("#alertModalError").modal('show');
+                    $("label[id=detailAlertError]").text("รหัสโปรโมชั่นและวันที่นี้มีอยู่แล้ว กรุณาตรวจสอบ!!");
+                }
+            } else {
+                if ($("#textInputEditCode").val() == "") {
+                    $("#deleteModalFree").modal('show');
+                    $("label[id=detailDeleteFree]").text("กรุณากรอกรหัสการจัดการโปรโมชั่น");
+                } else if ($("#textInputEditPrice").val() == "") {
+                    $("#deleteModalFree").modal('show');
+                    $("label[id=detailDeleteFree]").text("กรุณากรอกราคาการจัดการโปรโมชั่น");
+                } else if ($("#selectInputEditPromotion option:selected").text() == "----------") {
+                    $("#deleteModalFree").modal('show');
+                    $("label[id=detailDeleteFree]").text("กรุณาเลือกรหัสโปรโมชั่น");
+                } else {
+                    $("#deleteModalFree").modal('show');
+                    $("label[id=detailDeleteFree]").text("กรุณาเลือกวันที่โปรโมชั่น");
                 }
             }
         }
     }
- //update function
+}
+//update function
 function updatePromote() {
 
     var codePromote = $('#textInputEditCode').val();
@@ -683,7 +690,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                         if(count==deleteId.length){
                             $("#alertModalError").modal('show');
                             $("label[id=detailAlertError]").text("ลบข้อมูลสำเร็จ");
-                            $("#FaresTable").DataTable().destroy();
+                            $("#PromoteTable").DataTable().destroy();
                             findAllPromote();
                             clearDataAll();
                         }

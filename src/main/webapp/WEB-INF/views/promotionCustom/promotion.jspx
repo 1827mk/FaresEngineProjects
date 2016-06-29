@@ -32,13 +32,13 @@
     <div class="container">
         <div class="row">
             <!--<div class="col-md-12">-->
-                <!--<div class="well" >-->
-                    <!--<form class="form-horizontal" role="form">-->
-                        <!--<div class="form-group">-->
-                            <!--<label class="col-sm-2" style="text-align:center;margin-top:5px" ><h4>${LABEL_LOCATION}</h4></label>-->
-                        <!--</div>-->
-                    <!--</form>-->
-                <!--</div>-->
+            <!--<div class="well" >-->
+            <!--<form class="form-horizontal" role="form">-->
+            <!--<div class="form-group">-->
+            <!--<label class="col-sm-2" style="text-align:center;margin-top:5px" ><h4>${LABEL_LOCATION}</h4></label>-->
+            <!--</div>-->
+            <!--</form>-->
+            <!--</div>-->
             <!--</div>-->
 
             <div class="form-horizontal">
@@ -68,7 +68,7 @@
                                 <th>${LABEL_PROMOTION_NAME}</th>
                                 </thead>
                                 <tbody id="tbodyPromotion">
-                                    <jsp:text></jsp:text>
+                                <jsp:text></jsp:text>
                                 </tbody>
                             </table>
                         </form>
@@ -213,7 +213,18 @@
     </div>
 
 
+    <!--Paging-->
+    <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.js" var="jQuerydataTables" />
+    <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.min.js" var="jQuerydataTablesMin" />
+    <spring:url value="/resources/scripts/dataTable/media/css/jquery.dataTables.css" var="jQuerydataTables_css_url" />
+    <spring:url value="/resources/scripts/dataTable/media/css/jquery.dataTables.min.css" var="jQuerydataTablesMin_css_url" />
 
+    <script src="${jQuerydataTables}" type="text/javascript"><!--Not Empty --></script>
+    <script src="${jQuerydataTablesMin}" type="text/javascript"><!--Not Empty --></script>
+    <link rel="stylesheet" type="text/css" href="${jQuerydataTables_css_url}" />
+    <link rel="stylesheet" type="text/css" href="${jQuerydataTablesMin_css_url}" />
+    <!---->
+    <!--end-->
 
     <!--end-->
 

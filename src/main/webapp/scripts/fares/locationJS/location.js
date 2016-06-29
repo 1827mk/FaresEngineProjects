@@ -6,6 +6,8 @@ var codeedit;
 var nameedit;
 var imageEdit ;
 var versionedit;
+var createdBy=session.user;
+var updatedBy=session.user;
 var imageName;
 var locationPrototype={};
 var indexModify ;
@@ -194,7 +196,7 @@ function insertData(){
         var locationCode = $("#textInputCode").val();
         var locationName = $("#textInputName").val();
         var imageFile = $("#file").val();
-        
+
         var dataLocation= {
             locationCode: locationCode,
             locationName: locationName,
@@ -348,77 +350,77 @@ function editMenu(){
             $("#modalEditLocation").modal('hide');
         }else if (codeedit!=$("#textEditInputCode").val() && nameedit==$("#textEditInputName").val() && imageEdit == $('#textImageFileEdit').val()){
             // ตรวจสอบรหัสซ้ำ
-                var dataLocationCode = $.ajax({
-                    type: "GET",
-                    headers: {
-                        Accept: 'application/json'
-                    },
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        url: session['context']+'/locations/findLocationCodeDuplicate',
-                        data: {
-                            locationCode:locationCode
-                        },
-                        async: false
-                    }).done(function (){
-                        $('.dv-background').hide();
-                }).responseText;
-            
-                if (dataLocationCode.length!=2) {
-                    $("#alertModalError").modal('show');
-                    $("label[id=detailAlertError]").text("รหัสสถานที่นี้มีอยู่ในระบบแล้ว!!");
-                }else{
-                    updateDateLocationNoImage();
-                }
-            }else if(codeedit==$("#textEditInputCode").val() && nameedit!=$("#textEditInputName").val() && imageEdit == $('#textImageFileEdit').val()){
-            // ตรวจสอบชื่อซ้ำ
-                    var dataLocationName = $.ajax({
-                        type: "GET",
-                        headers: {
-                            Accept: 'application/json'
-                        },
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            url: session['context']+'/locations/findLocationNameDuplicate',
-                            data: {
-                                locationName:locationName
-                            },
-                            async: false
-                        }).done(function (){
-                            $('.dv-background').hide();
-                    }).responseText;
-                if (dataLocationName.length!=2) {
-                    $("#alertModalError").modal('show');
-                    $("label[id=detailAlertError]").text("ชื่อสถานที่นี้มีอยู่ในระบบแล้ว!!");
-                }else{
-                    updateDateLocationNoImage();
-                }
-            }else if(codeedit!=$("#textEditInputCode").val() && nameedit!=$("#textEditInputName").val() && imageEdit == $('#textImageFileEdit').val()){
-                // ตรวจสอบชื่อและรหัสซ้ำ
-                    var dataLocation = $.ajax({
-                        type: "GET",
-                        headers: {
-                            Accept: 'application/json'
-                        },
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        url: session['context']+'/locations/findLocationCode',
-                        data: {
-                            locationCode:locationCode
-                        },
-                        async: false
-                    }).done(function (){
-                        $('.dv-background').hide();
-                    }).responseText;
+            var dataLocationCode = $.ajax({
+                type: "GET",
+                headers: {
+                    Accept: 'application/json'
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: session['context']+'/locations/findLocationCodeDuplicate',
+                data: {
+                    locationCode:locationCode
+                },
+                async: false
+            }).done(function (){
+                $('.dv-background').hide();
+            }).responseText;
 
-                    if (dataLocation.length!=2) {
-                        $("#alertModalError").modal('show');
-                        $("label[id=detailAlertError]").text("ข้อมูลที่กรอกมีในระบบแล้ว กรุณาตรวจสอบใหม่อีกครั้ง");
-                    }else{
-                        updateDateLocationNoImage();
-                    }
-            }else if(imageEdit!= $('#textImageFileEdit').val()){
-                updateDateLocation();
+            if (dataLocationCode.length!=2) {
+                $("#alertModalError").modal('show');
+                $("label[id=detailAlertError]").text("รหัสสถานที่นี้มีอยู่ในระบบแล้ว!!");
+            }else{
+                updateDateLocationNoImage();
+            }
+        }else if(codeedit==$("#textEditInputCode").val() && nameedit!=$("#textEditInputName").val() && imageEdit == $('#textImageFileEdit').val()){
+            // ตรวจสอบชื่อซ้ำ
+            var dataLocationName = $.ajax({
+                type: "GET",
+                headers: {
+                    Accept: 'application/json'
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: session['context']+'/locations/findLocationNameDuplicate',
+                data: {
+                    locationName:locationName
+                },
+                async: false
+            }).done(function (){
+                $('.dv-background').hide();
+            }).responseText;
+            if (dataLocationName.length!=2) {
+                $("#alertModalError").modal('show');
+                $("label[id=detailAlertError]").text("ชื่อสถานที่นี้มีอยู่ในระบบแล้ว!!");
+            }else{
+                updateDateLocationNoImage();
+            }
+        }else if(codeedit!=$("#textEditInputCode").val() && nameedit!=$("#textEditInputName").val() && imageEdit == $('#textImageFileEdit').val()){
+            // ตรวจสอบชื่อและรหัสซ้ำ
+            var dataLocation = $.ajax({
+                type: "GET",
+                headers: {
+                    Accept: 'application/json'
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: session['context']+'/locations/findLocationCode',
+                data: {
+                    locationCode:locationCode
+                },
+                async: false
+            }).done(function (){
+                $('.dv-background').hide();
+            }).responseText;
+
+            if (dataLocation.length!=2) {
+                $("#alertModalError").modal('show');
+                $("label[id=detailAlertError]").text("ข้อมูลที่กรอกมีในระบบแล้ว กรุณาตรวจสอบใหม่อีกครั้ง");
+            }else{
+                updateDateLocationNoImage();
+            }
+        }else if(imageEdit!= $('#textImageFileEdit').val()){
+            updateDateLocation();
         }
     }else{
         if ($("#textEditInputCode").val()=="") {
@@ -448,7 +450,7 @@ function updateDateLocation(){
         fileName : imageName,
         version : locationPrototype[indexModify].version
     }
-    
+
     var formData = new FormData();
     formData.append("jsonedit", JSON.stringify(dataLocation));
     formData.append("fileedit", fileedit.files[0]);
@@ -510,7 +512,7 @@ function updateDateLocationNoImage(){
             locationName:locationName,
             fileName:imageName,
             version:locationPrototype[indexModify].version
-        
+
         },
         complete:function(xhr){
             if(xhr.readyState==4){
