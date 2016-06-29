@@ -6,6 +6,9 @@ var nameedit;
 var versionedit;
 var transportPrototype={};
 var indexModify ;
+var createdBy=session.user;
+var updatedBy=session.user;
+
 $(document).ready(function () {
     // alert('I love ....');
     clearData();
@@ -38,6 +41,44 @@ function findAllTransport() {
             '</tr>');
 
         transportPrototype[item.id]=item;
+    });
+
+    $('#transportTable').DataTable({
+        "bSort": false,
+        "language": {
+            "lengthMenu": "แสดง _MENU_ รายการ",
+            "zeroRecords": "ไม่พบข้อมูล",
+            "info": "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+            "infoEmpty": "ไม่พบเรคคอร์ด",
+            "infoFiltered": "(กรองข้อมูล _MAX_ แถว)",
+            "decimal":        "",
+            "emptyTable":     "ไม่มีข้อมูลในตาราง",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "loadingRecords": "โหลด...",
+            "processing":     "กำลังดำเนินการ...",
+            "search":         "ค้นหา:",
+            "paginate": {
+                "first":      "หน้าแรก",
+                "last":       "หน้าสุดท้าย",
+                "next":       "ถัดไป",
+                "previous":   "ก่อนหน้า"
+            },
+            "aria": {
+                "sortAscending":  ": เปิดใช้งานคอลัมน์ในการจัดเรียงจากน้อยไปมาก",
+                "sortDescending": ": เปิดใช้งานคอลัมน์ในการเรียงลำดับจากมากไปน้อย"
+            }
+        }
+    });
+}
+
+function destroyDataTablePromote() {
+    $('#transportTable').DataTable({
+        paging: false
+    });
+    $('#transportTable').DataTable({
+        destroy: true,
+        searching: false
     });
 }
 
@@ -88,7 +129,9 @@ function insertData(){
             url: session['context']+'/transports/findTransportCode',
             data: {
                 transportCode:transportCode,
-                transportName:transportName
+                transportName:transportName,
+                createdBy:createdBy,
+                updatedBy:updatedBy,
             },
             async: false
         }).done(function (){
@@ -119,6 +162,7 @@ function insertData(){
                     if(xhr.readyState==4){
                         if(xhr.status==201){
                             clearData();
+                            $("#transportTable").DataTable().destroy();
                             findAllTransport();
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
@@ -204,76 +248,76 @@ function editMenu(){
 
         }else if (codeEdit!=$("#textEditInputCode").val() && nameEdit==$("#textEditInputName").val()){
             // ตรวจสอบรหัสซ้ำ
-                var dataTransportCode = $.ajax({
-                    type: "GET",
-                    headers: {
-                        Accept: 'application/json'
-                    },
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        url: session['context']+'/transports/findTransportCodeDuplicate',
-                        data: {
-                            transportCode:transportCode
-                        },
-                        async: false
-                    }).done(function (){
-                        $('.dv-background').hide();
-                }).responseText;
-            
-                if (dataTransportCode.length!=2) {
-                    $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("รหัสยานพาหนะนี้มีอยู่ในระบบแล้ว!!");
-                }else{
-                    updateDateTransport();
-                }
-            }else if(codeEdit==$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
-            // ตรวจสอบชื่อซ้ำ
-                    var dataTransportName = $.ajax({
-                        type: "GET",
-                        headers: {
-                            Accept: 'application/json'
-                        },
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            url: session['context']+'/transports/findTransportNameDuplicate',
-                            data: {
-                                transportName:transportName
-                            },
-                            async: false
-                        }).done(function (){
-                            $('.dv-background').hide();
-                    }).responseText;
-                if (dataTransportName.length!=2) {
-                    $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("ชื่อยานพาหนะนี้มีอยู่ในระบบแล้ว!!");
-                }else{
-                    updateDateTransport();
-                }
-            }else if(codeEdit!=$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
-                // ตรวจสอบชื่อและรหัสซ้ำ
-                    var dataTransport = $.ajax({
-                        type: "GET",
-                        headers: {
-                            Accept: 'application/json'
-                        },
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        url: session['context']+'/transports/findTransportCode',
-                        data: {
-                            transportCode:transportCode
-                        },
-                        async: false
-                    }).done(function (){
-                        $('.dv-background').hide();
-                    }).responseText;
+            var dataTransportCode = $.ajax({
+                type: "GET",
+                headers: {
+                    Accept: 'application/json'
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: session['context']+'/transports/findTransportCodeDuplicate',
+                data: {
+                    transportCode:transportCode
+                },
+                async: false
+            }).done(function (){
+                $('.dv-background').hide();
+            }).responseText;
 
-                    if (dataTransport.length!=2) {
-                        $("#alertModal").modal('show');
-                        $("label[id=detailAlert]").text("ข้อมูลที่กรอกมีในระบบแล้ว กรุณาตรวจสอบใหม่อีกครั้ง");
-                    }else{
-                        updateDateTransport();
-                    }
+            if (dataTransportCode.length!=2) {
+                $("#alertModal").modal('show');
+                $("label[id=detailAlert]").text("รหัสยานพาหนะนี้มีอยู่ในระบบแล้ว!!");
             }else{
+                updateDateTransport();
+            }
+        }else if(codeEdit==$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
+            // ตรวจสอบชื่อซ้ำ
+            var dataTransportName = $.ajax({
+                type: "GET",
+                headers: {
+                    Accept: 'application/json'
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: session['context']+'/transports/findTransportNameDuplicate',
+                data: {
+                    transportName:transportName
+                },
+                async: false
+            }).done(function (){
+                $('.dv-background').hide();
+            }).responseText;
+            if (dataTransportName.length!=2) {
+                $("#alertModal").modal('show');
+                $("label[id=detailAlert]").text("ชื่อยานพาหนะนี้มีอยู่ในระบบแล้ว!!");
+            }else{
+                updateDateTransport();
+            }
+        }else if(codeEdit!=$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
+            // ตรวจสอบชื่อและรหัสซ้ำ
+            var dataTransport = $.ajax({
+                type: "GET",
+                headers: {
+                    Accept: 'application/json'
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: session['context']+'/transports/findTransportCode',
+                data: {
+                    transportCode:transportCode
+                },
+                async: false
+            }).done(function (){
+                $('.dv-background').hide();
+            }).responseText;
+
+            if (dataTransport.length!=2) {
+                $("#alertModal").modal('show');
+                $("label[id=detailAlert]").text("ข้อมูลที่กรอกมีในระบบแล้ว กรุณาตรวจสอบใหม่อีกครั้ง");
+            }else{
+                updateDateTransport();
+            }
+        }else{
             updateDateTransport();
         }
     }else{
@@ -296,6 +340,7 @@ function updateDateTransport(){
     var dataTransport= {
         transportCode: transportCode,
         transportName: transportName,
+        updatedBy:updatedBy,
         version: transportPrototype[indexModify].version
     }
     $.ajax({
@@ -311,6 +356,7 @@ function updateDateTransport(){
             if(xhr.readyState==4){
                 if(xhr.status==200){
                     clearData();
+                    $("#transportTable").DataTable().destroy();
                     findAllTransport();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลสำเร็จ");
@@ -376,6 +422,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                         if(count==deleteId.length){
                             $("label[id='message']").text("ลบข้อมูลสำเร็จ");
                             $("#resultModal").modal("show");
+                            $("#transportTable").DataTable().destroy();
                             findAllTransport();
                             clearData();
                         }

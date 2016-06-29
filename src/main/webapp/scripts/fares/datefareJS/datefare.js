@@ -6,6 +6,8 @@ var versionedit;
 var nameEdit;
 var datePrototype={};
 var indexModify ;
+var createdBy=session.user;
+var updatedBy=session.user;
 $(document).ready(function () {
     // alert('I love ....');
     clearData();
@@ -49,6 +51,34 @@ function findAllDate() {
             '</tr>');
 
         datePrototype[item.id]=item;
+    });
+
+    $('#dateTable').DataTable({
+        "bSort": false,
+        "language": {
+            "lengthMenu": "แสดง _MENU_ รายการ",
+            "zeroRecords": "ไม่พบข้อมูล",
+            "info": "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+            "infoEmpty": "ไม่พบเรคคอร์ด",
+            "infoFiltered": "(กรองข้อมูล _MAX_ แถว)",
+            "decimal":        "",
+            "emptyTable":     "ไม่มีข้อมูลในตาราง",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "loadingRecords": "โหลด...",
+            "processing":     "กำลังดำเนินการ...",
+            "search":         "ค้นหา:",
+            "paginate": {
+                "first":      "หน้าแรก",
+                "last":       "หน้าสุดท้าย",
+                "next":       "ถัดไป",
+                "previous":   "ก่อนหน้า"
+            },
+            "aria": {
+                "sortAscending":  ": เปิดใช้งานคอลัมน์ในการจัดเรียงจากน้อยไปมาก",
+                "sortDescending": ": เปิดใช้งานคอลัมน์ในการเรียงลำดับจากมากไปน้อย"
+            }
+        }
     });
 }
 
@@ -120,7 +150,9 @@ function insertData(){
 
             var dataDate= {
                 dateFared: dateFull,
-                dateName: dateName
+                dateName: dateName,
+                createdBy:createdBy,
+                updatedBy:updatedBy
             }
 
             $.ajax({
@@ -136,6 +168,7 @@ function insertData(){
                     if(xhr.readyState==4){
                         if(xhr.status==201){
                             clearData();
+                            $("#dateTable").DataTable().destroy();
                             findAllDate();
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
@@ -277,6 +310,7 @@ function updateDateDate(){
     var dataDate= {
         dateFared: dateFull,
         dateName: dateName,
+        updatedBy:updatedBy,
         version: datePrototype[indexModify].version
     }
     $.ajax({
@@ -292,13 +326,14 @@ function updateDateDate(){
             if(xhr.readyState==4){
                 if(xhr.status==200) {
                     clearData();
+                    $("#dateTable").DataTable().destroy();
                     findAllDate();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลสำเร็จ");
                 }
                 else if(xhr.status==403) {
-                        $("#alertModal").modal('show');
-                        $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน!!");
+                    $("#alertModal").modal('show');
+                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน!!");
                 }else{
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลไม่สำเร็จ");
@@ -357,6 +392,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                         if(count==deleteId.length){
                             $("label[id='message']").text("ลบข้อมูลสำเร็จ");
                             $("#resultModal").modal("show");
+                            $("#dateTable").DataTable().destroy();
                             findAllDate();
                             clearData();
                         }
@@ -365,7 +401,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                     else if(xhr.status==403) {
                         $("#alertModal").modal('show');
                         $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน!!");
-                        
+
                     }else{
                         $("label[id='message']").text("ลบข้อมูลไม่สำเร็จ");
                         $("#resultModal").modal("show");

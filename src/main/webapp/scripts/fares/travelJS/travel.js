@@ -44,7 +44,7 @@ function findAllTravel() {
             '</tr>');
 
         travelPrototype[item.id] = item;
-    })
+    });
 
     $('#travelTable').DataTable({
         "bSort": false,
@@ -513,7 +513,7 @@ function insertTravel() {
             if(xhr.readyState==4){
                 if(xhr.status==201){
                     clearData();
-                    //$("#travelTable").DataTable().destroy();
+                    $("#travelTable").DataTable().destroy();
                     findAllTravel();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
@@ -949,7 +949,7 @@ function updateTravel() {
         complete:function(xhr){
             if(xhr.readyState==4){
                 if(xhr.status==200){
-                    //$("#travelTable").DataTable().destroy();
+                    $("#travelTable").DataTable().destroy();
                     findAllTravel();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("อัพเดตข้อมูลลำเร็จ");
@@ -1016,6 +1016,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                         if(count==deleteId.length){
                             $("label[id='message']").text("ลบข้อมูลสำเร็จ");
                             $("#resultModal").modal("show");
+                            $("#travelTable").DataTable().destroy();
                             findAllTravel();
                             clearData();
                         }
