@@ -198,11 +198,14 @@ function insertData(){
         var locationCode = $("#textInputCode").val();
         var locationName = $("#textInputName").val();
         var imageFile = $("#file").val();
-
+     
         var dataLocation= {
             locationCode: locationCode,
             locationName: locationName,
-            fileName : imageFile
+            fileName : imageFile,
+            updatedBy:updatedBy,
+            createdBy:createdBy
+            
         }
 
         var formData = new FormData();
@@ -444,13 +447,15 @@ function updateDateLocation(){
     var locationCode = $("#textEditInputCode").val();
     var locationName = $("#textEditInputName").val();
     var imageName = $("#fileedit").val();
-
+    
     var dataLocation= {
         id:id,
         locationCode: locationCode,
         locationName: locationName,
         fileName : imageName,
-        version : locationPrototype[indexModify].version
+        version : locationPrototype[indexModify].version,
+        createdBy:createdBy,
+        updatedBy:updatedBy
     }
 
     var formData = new FormData();
