@@ -418,6 +418,8 @@ function insertPromote() {
             promoteCode:promoteCode,
             promotePrice:parseInt(promotePrice),
             promotion:parseInt(selectPromotion),
+            createdBy:createdBy,
+            updatedBy:updatedBy,
             date:parseInt(selectDate)
         },
         complete:function(xhr){
@@ -616,6 +618,7 @@ function updatePromote() {
             promoteCode:codePromote,
             promotePrice:parseInt(pricePromote),
             promotion:parseInt(selectPromotion),
+            updatedBy: updatedBy,
             date:parseInt(selectDate)
         },
         complete:function(xhr){
