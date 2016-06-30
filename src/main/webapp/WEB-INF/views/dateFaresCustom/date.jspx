@@ -16,6 +16,13 @@
     <c:set scope="request" var="LABEL_NAME"><spring:message code="" text="ชื่อ"></spring:message></c:set>
 
     <style>
+        .dv-background
+        {
+            position: fixed; /* or absolute */
+            top: 50%;
+            left: 50%;
+            background:transparent url('/FaresEngine/images/loadginCustom.svg') no-repeat 0 0;
+        }
         .modal-dialog {
             padding-top:10%;
         }
@@ -327,6 +334,7 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+    <div class="dv-background" id='loading' style='display:none'>    </div>
     <!--Paging-->
     <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.js" var="jQuerydataTables" />
     <spring:url value="/resources/scripts/dataTable/media/js/jquery.dataTables.min.js" var="jQuerydataTablesMin" />
