@@ -16,6 +16,7 @@ $(document).ready(function () {
 
 //=============================== RenderTable ===============================//
 function findAllDate() {
+    $('.dv-background').show();
     $("#dateTable").DataTable().destroy();
     var dateData = $.ajax({
         type: "GET",
@@ -118,7 +119,7 @@ function clearData(){
 
 //================================= Insert =====================================//
 function insertData(){
-
+    $('.dv-background').show();
     if ($("#txtDate_Add").val()!="" && $("#txtDate_Name").val()!="") {
 
         var dates = $("#txtDate_Add").val().split(" ")[0];
@@ -270,6 +271,7 @@ function editMenu() {
 
         } else if (codeEdit != $("#txtDate_Edit").val()) {
             // ตรวจสอบรหัสซ้ำ
+            $('.dv-background').show();
             var dataDateCode = $.ajax({
                 type: "GET",
                 headers: {
@@ -325,6 +327,7 @@ function updateDateDate(){
         updatedBy:updatedBy,
         version: datePrototype[indexModify].version
     }
+    $('.dv-background').show();
     $.ajax({
         type: "PUT",
         contentType: "application/json; charset=utf-8",
@@ -357,6 +360,9 @@ function updateDateDate(){
             }
         },
         async:false
+    }).done(function (){
+        //close loader
+        $('.dv-background').hide();
     });
 }
 //============================ delete ============================//
@@ -388,7 +394,10 @@ var countDeleteSuccess = 0 ;
 var countDeleteFail = 0 ;
 
 $("#modalAlertBtnOk1").on('click',function(){
+    countDeleteSuccess = 0 ;
+    countDeleteFail = 0 ;
     var count=1;
+    $('.dv-background').show();
     $.each(deleteId,function(index,item){
         $.ajax({
             type: "DELETE",
@@ -428,6 +437,9 @@ $("#modalAlertBtnOk1").on('click',function(){
                 }
             },
             async:false
+        }).done(function (){
+            //close loader
+            $('.dv-background').hide();
         });
     });
     findAllDate();

@@ -4,6 +4,7 @@
  */
 
 $(document).ready(function () {
+    $('.dv-background').show();
     findAllUser();
     $("#needLoginTrue").prop("checked", true);
     fineAppRole();
@@ -15,6 +16,7 @@ var createdBy = session.user;
 var updatedBy = session.user;
 var appRoleName;
 function fineAppRole() {
+    $('.dv-background').show();
     var findAllRole = $.ajax({
         type: "GET",
         headers: {
@@ -37,6 +39,7 @@ function fineAppRole() {
 }
 
 function findAllUser() {
+    $('.dv-background').show();
     $("#UserTable").DataTable().destroy();
     var findAllUser = $.ajax({
         type: "GET",
@@ -158,6 +161,7 @@ function insertData(){
     checkMail = emailCheck.test(userEmail);
 
     if ($("#textUserName").val()!="" && $("#textPass1").val()!="" && $("#textPass2").val()!="" &&$("#textPass1").val()==$("#textPass2").val() && checkMail!= false) {
+        $('.dv-background').show();
         var findCheckDuplicate = $.ajax({
             type: "GET",
             headers: {
@@ -317,7 +321,7 @@ function Update(){
         clearAll();
 
     }else if (nameEdit!=$("#textUserNameEdit").val() && mailEdit!=$("#textMailEdit").val() && needLoginEdit==needLogin  && $("#textPass1Edit").val()=="" && $("#textPass2Edit").val()=="" && $("#textPassOldEdit").val()=="" && roleIdEdit==$("#selectRoleEdit").val()) {
-
+        $('.dv-background').show();
         var findCheckDuplicate = $.ajax({
             type: "GET",
             headers: {
@@ -422,6 +426,7 @@ function updateUser() {
     var pass1 = $("#textPass1Edit").val();
     var pass2 = $("#textPass2Edit").val();
     var role = $("#selectRoleEdit").val();
+    $('.dv-background').show();
     var update = $.ajax({
         type: "GET",
         headers: {
@@ -464,6 +469,9 @@ function updateUser() {
             }
         },
         async: false
+    }).done(function (){
+        //close loader
+        $('.dv-background').hide();
     });
 }
 
@@ -551,8 +559,11 @@ var countDeleteSuccess = 0 ;
 var countDeleteFail = 0 ;
 
 $("#modalAlertBtnOkDelete").on('click',function(){
+    countDeleteSuccess = 0 ;
+    countDeleteFail = 0 ;
     var count=1;
     $.each(deleteId,function(index,item){
+        $('.dv-background').show();
         $.ajax({
             type: "DELETE",
             contentType: "application/json; charset=utf-8",
@@ -589,6 +600,9 @@ $("#modalAlertBtnOkDelete").on('click',function(){
                 }
             },
             async:false
+        }).done(function (){
+            //close loader
+            $('.dv-background').hide();
         });
     });
     findAllUser();

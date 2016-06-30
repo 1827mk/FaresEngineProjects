@@ -11,9 +11,11 @@ var createdBy=session.user;
 var updatedBy=session.user;
 
 $(document).ready(function () {
+    $('.dv-background').show();
     clearDataAll();
     findAllPromote();
     findPromotion();
+    $('.dv-background').hide();
 });
 
 function clearDataAll() {
@@ -49,6 +51,7 @@ function clearDataAll() {
 }
 
 function findAllPromote() {
+    $('.dv-background').show();
     $("#PromoteTable").DataTable().destroy();
     var promoteData = $.ajax({
         type: "GET",
@@ -226,6 +229,7 @@ var promotionCode;
 var promotionCodeEdit;
 //============================ find Travel ==========================//
 function findPromotion() {
+    $('.dv-background').show();
     var promotionData = $.ajax({
         type: "GET",
         headers: {
@@ -272,6 +276,7 @@ function findPromotion() {
 
 function findPromotionByCode(code) {
     if(code!=null){
+        $('.dv-background').show();
         var promotionData = $.ajax({
             type: "GET",
             headers: {
@@ -308,6 +313,7 @@ function findPromotionByCode(code) {
 var dateFared;
 //============================ find Promote ==========================//
 function findDate() {
+    $('.dv-background').show();
     var dateData = $.ajax({
         type: "GET",
         headers: {
@@ -350,7 +356,7 @@ function findDate() {
 
 //=========================== Insret ===============================//
 function insertData() {
-
+    $('.dv-background').show();
     var codePromote = $('#textInputCode').val();
     var pricePromote = $('#textInputPrice').val();
 
@@ -407,7 +413,7 @@ function insertPromote() {
     var selectDate = $('#selectDate').val();
     //var selectPromotion =  $( "#selectInputPromotion option:selected" ).text();
     //var selectDate = $( "#selectDate option:selected" ).text();
-
+    $('.dv-background').show();
     var insertDatas = $.ajax({
         type: "GET",
         headers: {
@@ -528,6 +534,7 @@ function editPromote() {
         } else {
             // ตรวจสอบรหัสการจัดการโปรโมชั่นเปลี่ยน
             if (codePromote != codeEdit && selectPromotionText == promotionEdit && selectDateText == dateEdit) {
+                $('.dv-background').show();
                 var findPromoteDuplicate = $.ajax({
                     type: "GET",
                     headers: {
@@ -554,6 +561,7 @@ function editPromote() {
                     $("label[id=detailAlertError]").text("รหัสนี้มีอยู่แล้ว กรุณาตรวจสอบ!!");
                 }
             }else if (codePromote == codeEdit && selectPromotionText != promotionEdit || selectDateText != dateEdit) {
+                $('.dv-background').show();
                 var findPromoteDuplicateCD = $.ajax({
                     type: "GET",
                     headers: {
@@ -606,7 +614,7 @@ function updatePromote() {
 
     var selectTravelText =  $( "#selectInputEditPromotion option:selected" ).text();
     var selectPromoteText = $( "#selectEditDate option:selected" ).text();
-
+    $('.dv-background').show();
     var insertDataPromote = $.ajax({
         type: "GET",
         headers: {
@@ -680,7 +688,10 @@ $("#delete").on('click',function(){
 var countDeleteSuccess = 0 ;
 var countDeleteFail = 0 ;
 $("#modalAlertBtnOk1").on('click',function(){
+    countDeleteSuccess = 0 ;
+    countDeleteFail = 0 ;
     var count=1;
+    $('.dv-background').show();
     $.each(deleteId,function(index,item){
         $.ajax({
             type: "DELETE",
@@ -719,6 +730,9 @@ $("#modalAlertBtnOk1").on('click',function(){
                 }
             },
             async:false
+        }).done(function (){
+            //close loader
+            $('.dv-background').hide();
         });
     });
     findAllPromote();

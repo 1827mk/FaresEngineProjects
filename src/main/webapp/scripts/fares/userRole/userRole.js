@@ -2,8 +2,10 @@
  * Created by tanaphatdev on 1/5/2559.
  */
 $(document).ready(function () {
+    $('.dv-background').show();
     $("#RoleTable").DataTable().destroy();
     findAllRole();
+    $('.dv-background').hide();
 });
 var today = new Date();
 var dd = today.getDate();
@@ -26,6 +28,7 @@ var createdDate = dates;
 var updatedDate = dates;
 
 function findAllRole() {
+    $('.dv-background').show();
     $("#RoleTable").DataTable().destroy();
     var findAllRole = $.ajax({
         type: "GET",
@@ -119,7 +122,7 @@ function insertData(){
     if ($("#textRoleName").val()!="" && $("#textDescription").val()!="") {
         var roleName = $("#textRoleName").val();
         var description = $("#textDescription").val();
-
+        $('.dv-background').show();
         var findCheckDuplicate = $.ajax({
             type: "GET",
             headers: {
@@ -221,7 +224,7 @@ function Update(){
         clearAll();
 
     }else if (nameEdit!=$("#textRoleNameEdit").val() ||  descriptionEdit!=$("#textDescriptionEdit").val()) {
-
+        $('.dv-background').show();
         var findCheckDuplicate = $.ajax({
             type: "GET",
             headers: {
@@ -243,6 +246,7 @@ function Update(){
             $("#alertModalError").modal('show');
             $("label[id=detailAlertError]").text("ข้อมูลที่กรอกมีในระบบแล้ว กรุณาตรวจสอบใหม่อีกครั้ง");
         } else {
+            $('.dv-background').show();
             var update = $.ajax({
                 type: "GET",
                 headers: {
@@ -281,6 +285,9 @@ function Update(){
                     }
                 },
                 async: false
+            }).done(function (){
+                //close loader
+                $('.dv-background').hide();
             });
         }
     }
@@ -331,9 +338,11 @@ $("#delete").on('click',function(){
 
 var countDeleteSuccess = 0 ;
 var countDeleteFail = 0 ;
-
 $("#modalAlertBtnOkDelete").on('click',function(){
+    countDeleteSuccess = 0 ;
+    countDeleteFail = 0 ;
     var count=1;
+    $('.dv-background').show();
     $.each(deleteId,function(index,item){
         $.ajax({
             type: "DELETE",
@@ -372,6 +381,9 @@ $("#modalAlertBtnOkDelete").on('click',function(){
                 }
             },
             async:false
+        }).done(function (){
+            //close loader
+            $('.dv-background').hide();
         });
     });
     findAllRole();
