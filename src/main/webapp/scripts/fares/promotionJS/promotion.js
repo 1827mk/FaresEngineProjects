@@ -9,13 +9,16 @@ var updatedBy=session.user;
 var promotionPrototype={};
 var indexModify ;
 $(document).ready(function () {
+    $('.dv-background').show();
     // alert('I love ....');
     clearData();
     findAllPromotion();
+    $('.dv-background').hide();
 });
 
 //=============================== RenderTable ===============================//
 function findAllPromotion() {
+    $('.dv-background').show();
     $("#promotionTable").DataTable().destroy();
     var promotionData = $.ajax({
         type: "GET",
@@ -107,7 +110,7 @@ function insertData(){
     if ($("#textInputCode").val()!="" && $("#textInputName").val()!="") {
         var promotionCode = $("#textInputCode").val();
         var promotionName = $("#textInputName").val();
-
+        $('.dv-background').show();
         var findPromotionByCode = $.ajax({
             type: "GET",
             headers: {
@@ -137,7 +140,7 @@ function insertData(){
                 createdBy:createdBy,
                 updatedBy:updatedBy
             }
-
+            $('.dv-background').show();
             $.ajax({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -170,6 +173,9 @@ function insertData(){
                     }
                 },
                 async:false
+            }).done(function (){
+                //close loader
+                $('.dv-background').hide();
             });
         }
 
@@ -237,6 +243,7 @@ function editMenu(){
 
         }else if (codeEdit!=$("#textEditInputCode").val() && nameEdit==$("#textEditInputName").val()){
             // ตรวจสอบรหัสซ้ำ
+            $('.dv-background').show();
             var dataPromotionCode = $.ajax({
                 type: "GET",
                 headers: {
@@ -261,6 +268,7 @@ function editMenu(){
             }
         }else if(codeEdit==$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
             // ตรวจสอบชื่อซ้ำ
+            $('.dv-background').show();
             var dataPromotionName = $.ajax({
                 type: "GET",
                 headers: {
@@ -284,6 +292,7 @@ function editMenu(){
             }
         }else if(codeEdit!=$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
             // ตรวจสอบชื่อและรหัสซ้ำ
+            $('.dv-background').show();
             var dataPromotion = $.ajax({
                 type: "GET",
                 headers: {
@@ -332,6 +341,7 @@ function updateDatePromotion(){
         updatedBy:updatedBy,
         version: promotionPrototype[indexModify].version
     }
+    $('.dv-background').show();
     $.ajax({
         type: "PUT",
         contentType: "application/json; charset=utf-8",
@@ -365,6 +375,9 @@ function updateDatePromotion(){
             }
         },
         async:false
+    }).done(function (){
+        //close loader
+        $('.dv-background').hide();
     });
 }
 //============================ delete ============================//
@@ -397,7 +410,10 @@ $("#delete").on('click',function(){
 var countDeleteSuccess = 0 ;
 var countDeleteFail = 0 ;
 $("#modalAlertBtnOk1").on('click',function(){
+    countDeleteSuccess = 0 ;
+    countDeleteFail = 0 ;
     var count=1;
+    $('.dv-background').show();
     $.each(deleteId,function(index,item){
         $.ajax({
             type: "DELETE",
@@ -436,6 +452,9 @@ $("#modalAlertBtnOk1").on('click',function(){
                 }
             },
             async:false
+        }).done(function (){
+            //close loader
+            $('.dv-background').hide();
         });
     });
     findAllPromotion();

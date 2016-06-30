@@ -12,11 +12,13 @@ var createdBy = session.user;
 var updatedBy = session.user;
 
 $(document).ready(function () {
+    $('.dv-background').show();
     findAllfares();
     clearDataAll();
     findTravel();
     findPromote();
     // loadTableFares();
+    $('.dv-background').hide();
 });
 
 function clearDataAll() {
@@ -52,7 +54,7 @@ function clearDataAll() {
 }
 
 function findAllfares() {
-    // $('.dv-background').show();
+    $('.dv-background').show();
     var faresData = $.ajax({
         type: "GET",
         headers: {
@@ -234,6 +236,7 @@ var travelCodeEdit;
 
 //============================ find Travel ==========================//
 function findTravel() {
+    $('.dv-background').show();
     var faresData = $.ajax({
         type: "GET",
         headers: {
@@ -279,6 +282,7 @@ function findTravel() {
 
 }
 function findTravelByCode(code) {
+    $('.dv-background').show();
     if(code!=null){
         var travelData = $.ajax({
             type: "GET",
@@ -328,6 +332,7 @@ var promoteCode;
 var promoteCodeEdit;
 //============================ find Promote ==========================//
 function findPromote() {
+    $('.dv-background').show();
     var promoteData = $.ajax({
         type: "GET",
         headers: {
@@ -382,7 +387,9 @@ function findPromote() {
 }
 
 function findPromoteByCode(code) {
+    $('.dv-background').show();
     if(code!=null){
+        $('.dv-background').show();
         var promoteData = $.ajax({
             type: "GET",
             headers: {
@@ -456,7 +463,7 @@ function insertData(){
 
 
     if($('#textInputCode').val()!="" && $('#textInputPrice').val()!="" && $( "#selectInputTravel option:selected" ).text()!="----------" ){
-
+        $('.dv-background').show();
         var findFaresDuplicateFare = $.ajax({
             type: "GET",
             headers: {
@@ -478,6 +485,7 @@ function insertData(){
             $('.dv-background').hide();
         }).responseText;
         if(findFaresDuplicateFare.length==2){
+            $('.dv-background').show();
            var checkDuplicateFTP = $.ajax({
                 type: "GET",
                 headers: {
@@ -497,6 +505,7 @@ function insertData(){
                 $('.dv-background').hide();
             }).responseText;
             if(checkDuplicateFTP.length==2){
+                $('.dv-background').show();
                var checkDuplicateCodeTP = $.ajax({
                     type: "GET",
                     headers: {
@@ -514,6 +523,7 @@ function insertData(){
                     $('.dv-background').hide();
                 }).responseText;
                 if(checkDuplicateCodeTP.length==2){
+                    $('.dv-background').show();
                     var checkDuplicateCodeFares = $.ajax({
                         type: "GET",
                         headers: {
@@ -575,8 +585,8 @@ function insertFaresEngine() {
     var selectPromote = $('#selectPromote').val();
     // var selectTravelText =  $( "#selectInputTravel option:selected" ).text();
     // var selectPromoteText = $( "#selectPromote option:selected" ).text();
-    
-    
+
+    $('.dv-background').show();
     var insertDatas = $.ajax({
         type: "GET",
         headers: {
@@ -709,6 +719,7 @@ function editFares(){
         }else {
             // ตรวจสอบทุกช่องเปลี่ยนหมด
             if (codeFares != codeEdit && priceFares != priceEdit && selectTravelText != travelEdit && selectPromoteText != promoteEdit) {
+                $('.dv-background').show();
                 var findFaresDuplicateFare1 = $.ajax({
                     type: "GET",
                     headers: {
@@ -730,6 +741,7 @@ function editFares(){
                     $('.dv-background').hide();
                 }).responseText;
                 if (findFaresDuplicateFare1.length == 2) {
+                    $('.dv-background').show();
                     var checkDuplicateFTP1 = $.ajax({
                         type: "GET",
                         headers: {
@@ -749,6 +761,7 @@ function editFares(){
                         $('.dv-background').hide();
                     }).responseText;
                     if (checkDuplicateFTP1.length == 2) {
+                        $('.dv-background').show();
                         var checkDuplicateCodeTP1 = $.ajax({
                             type: "GET",
                             headers: {
@@ -801,6 +814,7 @@ function editFares(){
                 }
                 // ตรวจสอบ farecode travel promote เปลี่ยนแปลง
             } else if (codeFares != codeEdit && selectTravelText != travelEdit && selectPromoteText != promoteEdit) {
+                $('.dv-background').show();
                 var checkDuplicateFTP2 = $.ajax({
                     type: "GET",
                     headers: {
@@ -821,6 +835,7 @@ function editFares(){
                 }).responseText;
 
                 if (checkDuplicateFTP2.length == 2) {
+                    $('.dv-background').show();
                     var checkDuplicateCodeTP2 = $.ajax({
                         type: "GET",
                         headers: {
@@ -838,6 +853,7 @@ function editFares(){
                         $('.dv-background').hide();
                     }).responseText;
                     if (checkDuplicateCodeTP2.length == 2) {
+                        $('.dv-background').show();
                         var faresCodeDuplicate2 = $.ajax({
                             type: "GET",
                             headers: {
@@ -870,6 +886,7 @@ function editFares(){
                 }
                 // ตรวจสอบ travel promote เปลี่ยนแปลง
             }else if (selectTravelText != travelEdit || selectPromoteText != promoteEdit) {
+                $('.dv-background').show();
                 var checkDuplicateCodeTP3 = $.ajax({
                     type: "GET",
                     headers: {
@@ -894,6 +911,7 @@ function editFares(){
                 }
                 // ตรวจสอบ fares code เปลี่ยนแปลง
             }else if (codeFares != codeEdit) {
+                $('.dv-background').show();
                 var faresCodeDuplicate4 = $.ajax({
                     type: "GET",
                     headers: {
@@ -916,6 +934,7 @@ function editFares(){
                     $("label[id=detailAlertError]").text("รหัสนี้มีอยู่แล้ว กรุณาตรวจสอบ!!");
                 }
             }else if (codeFares != codeEdit && selectTravelText != travelEdit || codeFares != codeEdit && selectPromoteText != promoteEdit ) {
+                $('.dv-background').show();
                 var checkDuplicateFTP5 = $.ajax({
                     type: "GET",
                     headers: {
@@ -936,6 +955,7 @@ function editFares(){
                 }).responseText;
 
                 if (checkDuplicateFTP5.length == 2) {
+                    $('.dv-background').show();
                     var checkDuplicateCodeTP5 = $.ajax({
                         type: "GET",
                         headers: {
@@ -953,6 +973,7 @@ function editFares(){
                         $('.dv-background').hide();
                     }).responseText;
                     if (checkDuplicateCodeTP5.length == 2) {
+                        $('.dv-background').show();
                         var faresCodeDuplicate5 = $.ajax({
                             type: "GET",
                             headers: {
@@ -1014,7 +1035,7 @@ function updateFaresEngine() {
 
     // var selectTravelText =  $( "#selectEditInputTravel option:selected" ).text();
     // var selectPromoteText = $( "#selectEditPromote option:selected" ).text();
-    
+    $('.dv-background').show();
     var insertDatafares = $.ajax({
         type: "GET",
         headers: {
@@ -1086,7 +1107,10 @@ $("#delete").on('click',function(){
 });
 
 $("#modalAlertBtnOk1").on('click',function(){
+    countDeleteSuccess = 0 ;
+    countDeleteFail = 0 ;
     var count=1;
+    $('.dv-background').show();
     $.each(deleteId,function(index,item){
         $.ajax({
             type: "DELETE",
@@ -1123,6 +1147,9 @@ $("#modalAlertBtnOk1").on('click',function(){
                 }
             },
             async:false
+        }).done(function (){
+            //close loader
+            $('.dv-background').hide();
         });
     });
 });

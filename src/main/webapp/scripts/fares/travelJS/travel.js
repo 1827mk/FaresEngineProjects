@@ -6,16 +6,19 @@ var createdBy=session.user;
 var updatedBy=session.user;
 var indexModify ;
 $(document).ready(function () {
+    $('.dv-background').show();
     // alert('I love ....');
     clearData();
     findAllTravel();
     findTransport();
     findLocationSource();
     findLocationDis();
+    $('.dv-background').hide();
 });
 
 //=============================== RenderTable ===============================//
 function findAllTravel() {
+    $('.dv-background').show();
     $("#travelTable").DataTable().destroy();
     var travelData = $.ajax({
         type: "GET",
@@ -118,6 +121,7 @@ function clearData(){
 var transportCode;
 //============================ find Transport ==========================//
 function findTransport() {
+    $('.dv-background').show();
     var transportData = $.ajax({
         type: "GET",
         headers: {
@@ -164,6 +168,7 @@ function findTransport() {
 
 function findTransportByCode(code) {
     if(code!=null){
+        $('.dv-background').show();
         var transportData = $.ajax({
             type: "GET",
             headers: {
@@ -201,6 +206,7 @@ function findTransportByCode(code) {
 var locationSourCode;
 //============================ find Location ==========================//
 function findLocationSource() {
+    $('.dv-background').show();
     var locationData = $.ajax({
         type: "GET",
         headers: {
@@ -248,6 +254,7 @@ function findLocationSource() {
 
 function findLocationSourByCode(code) {
     if(code!=null){
+        $('.dv-background').show();
         var locationData = $.ajax({
             type: "GET",
             headers: {
@@ -287,6 +294,7 @@ function findLocationSourByCode(code) {
 var locationDisCode;
 //============================ find Location ==========================//
 function findLocationDis() {
+    $('.dv-background').show();
     var locationData = $.ajax({
         type: "GET",
         headers: {
@@ -333,6 +341,7 @@ function findLocationDis() {
 
 function findLocationDisByCode(code) {
     if(code!=null){
+        $('.dv-background').show();
         var locationData = $.ajax({
             type: "GET",
             headers: {
@@ -387,7 +396,7 @@ function insertData() {
     var transportCode = res3[0];
 
     if ($('#textInputTravelCode').val() != "" && $("#sourCode option:selected").text() != "L000" && $("#disCode option:selected").text() != "L000" && $("#selectTransportCode option:selected").text() != "----------") {
-
+        $('.dv-background').show();
         var findTravelDuplicate = $.ajax({
             type: "GET",
             headers: {
@@ -409,6 +418,7 @@ function insertData() {
             $('.dv-background').hide();
         }).responseText;
         if(findTravelDuplicate.length==2){
+            $('.dv-background').show();
             var checkDuplicateCodeSDT = $.ajax({
                 type: "GET",
                 headers: {
@@ -428,6 +438,7 @@ function insertData() {
                 $('.dv-background').hide();
             }).responseText;
             if(checkDuplicateCodeSDT.length==2){
+                $('.dv-background').show();
                 var checkDuplicateCode = $.ajax({
                     type: "GET",
                     headers: {
@@ -492,7 +503,7 @@ function insertTravel() {
     var disCode = res2[0];
 
     var transportCode = $('#selectTransportCode').val();
-
+    $('.dv-background').show();
     var insertDatas = $.ajax({
         type: "GET",
         headers: {
@@ -626,8 +637,7 @@ function editData(rowData){
     //findTransport();
     findLocationSource();
     findLocationDis();
-
-
+    
     idEdit = rowData[0].attributes.getNamedItem("id").value;
     versionEdit =rowData[0].attributes.getNamedItem("version").value;
     codeEdit = rowData[0].attributes.getNamedItem("travelcode").value;
@@ -647,24 +657,15 @@ function editData(rowData){
     $('#textEditInputSourName').val(sourNameEdit);
     $('#textEditInputDisName').val(disNameEdit);
     $('#selectEditTransportCode').val(transEdit);
-    //findLocationSource();
-    //findLocationDis();
-    //
+
     $('#sourCodeEdit').prepend('<option value="">'+sourEdit+':'+sourNameEdit+'</option>');
     $('#disCodeEdit').prepend('<option value="">'+disEdit+':'+disNameEdit+'</option>');
 
-    //$('#sourCodeEdit').prepend('<option value="'+transId+'">'+sourEdit+'</option>');
-
     findLocationSourByCode(sourEdit);
     findLocationDisByCode(disEdit);
-
-    //findLocationSource();
-    //findLocationDis();
-    //findLocationSource();
-    //findLocationDis();
+    
     $('#selectEditTransportCode').prepend('<option value="'+transId+'">'+transEdit+':'+transNameEdit+'</option>');
     findTransportByCode(transEdit);
-    console.log(transId);
     $('#modalEditTravel').modal('show');
 }
 
@@ -727,6 +728,7 @@ function editMenu() {
         } else {
             //ตรวจสอบทุกช่องเปลี่ยนหมด
             if (travelCode != codeEdit && sourCode != sourEdit && disCode != disEdit && transportCode != transEdit) {
+                $('.dv-background').show();
                 var findTravelDuplicateTravel1 = $.ajax({
                     type: "GET",
                     headers: {
@@ -746,6 +748,7 @@ function editMenu() {
                     $('.dv-background').hide();
                 }).responseText;
                 if (findTravelDuplicateTravel1.length == 2) {
+                    $('.dv-background').show();
                     var checkDuplicateSDT1 = $.ajax({
                         type: "GET",
                         headers: {
@@ -765,6 +768,7 @@ function editMenu() {
                         $('.dv-background').hide();
                     }).responseText;
                     if (checkDuplicateSDT1.length == 2) {
+                        $('.dv-background').show();
                         var checkDuplicateCode1 = $.ajax({
                             type: "GET",
                             headers: {
@@ -797,6 +801,7 @@ function editMenu() {
                 }
                 //ตรวจสอบ sour,dis,trans มีการเปลี่ยนแปลง
             } else if (travelCode == codeEdit && sourCode != sourEdit && disCode != disEdit && transportCode != transEdit) {
+                $('.dv-background').show();
                 var checkDuplicateSDT2 = $.ajax({
                     type: "GET",
                     headers: {
@@ -823,6 +828,7 @@ function editMenu() {
                 }
                 //ตรวจสอบ travelCode มีการเปลี่ยนแปลง
             } else if (travelCode != codeEdit) {
+                $('.dv-background').show();
                 var checkDuplicateCode4 = $.ajax({
                     type: "GET",
                     headers: {
@@ -846,6 +852,7 @@ function editMenu() {
                     $("label[id=detailAlertError]").text("รหัสนี้มีอยู่แล้ว กรุณาตรวจสอบ!!");
                 }
             }else if (travelCode != codeEdit && sourCode != sourEdit ||travelCode != codeEdit && disCode != disEdit) {
+                $('.dv-background').show();
                 var checkDuplicateSDT5 = $.ajax({
                     type: "GET",
                     headers: {
@@ -865,6 +872,7 @@ function editMenu() {
                     $('.dv-background').hide();
                 }).responseText;
                 if (checkDuplicateSDT5.length == 2) {
+                    $('.dv-background').show();
                     var checkDuplicateCode5 = $.ajax({
                         type: "GET",
                         headers: {
@@ -929,7 +937,7 @@ function updateTravel() {
     var res2 = str2.split(":");
     var disCode = res2[0];
 
-
+    $('.dv-background').show();
     var insertDatafares = $.ajax({
         type: "GET",
         headers: {
@@ -1001,7 +1009,10 @@ var countDeleteSuccess = 0 ;
 var countDeleteFail = 0 ;
 
 $("#modalAlertBtnOk1").on('click',function(){
+    countDeleteSuccess = 0 ;
+    countDeleteFail = 0 ;
     var count=1;
+    $('.dv-background').show();
     $.each(deleteId,function(index,item){
         $.ajax({
             type: "DELETE",
@@ -1040,6 +1051,9 @@ $("#modalAlertBtnOk1").on('click',function(){
                 }
             },
             async:false
+        }).done(function (){
+            //close loader
+            $('.dv-background').hide();
         });
     });
     findAllTravel();

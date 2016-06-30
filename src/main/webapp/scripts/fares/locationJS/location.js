@@ -12,15 +12,18 @@ var imageName;
 var locationPrototype={};
 var indexModify ;
 $(document).ready(function () {
+    $('.dv-background').show();
     // alert('I love ....');
     clearData();
     findAllLocation();
+    $('.dv-background').hide();
 
 });
 
 //=============================== RenderTable ===============================//
 var partImages = "FaresEngineProjects";
 function findAllLocation() {
+    $('.dv-background').show();
     $("#locationTable").DataTable().destroy();
     var locationData = $.ajax({
         type: "GET",
@@ -193,7 +196,7 @@ $('#fileedit').on('change', function() {
 //================================= Insert =====================================//
 
 function insertData(){
-
+    $('.dv-background').show();
     if ($("#textInputCode").val()!="" && $("#textInputName").val()!="" && $('#textImageFile').val()!="") {
         var locationCode = $("#textInputCode").val();
         var locationName = $("#textInputName").val();
@@ -234,7 +237,7 @@ function insertData(){
             $("#alertModal").modal('show');
             $("label[id=detailAlert]").text("ข้อมูลที่กรอกมีในระบบแล้ว กรุณาตรวจสอบใหม่อีกครั้ง");
         }else{
-
+            $('.dv-background').show();
             $.ajax({
                 type: "POST",
                 headers: {
@@ -270,6 +273,9 @@ function insertData(){
                     }
                 },
                 async:false
+            }).done(function (){
+                //close loader
+                $('.dv-background').hide();
             });
         }
 
@@ -355,6 +361,7 @@ function editMenu(){
             $("#modalEditLocation").modal('hide');
         }else if (codeedit!=$("#textEditInputCode").val() && nameedit==$("#textEditInputName").val() && imageEdit == $('#textImageFileEdit').val()){
             // ตรวจสอบรหัสซ้ำ
+            $('.dv-background').show();
             var dataLocationCode = $.ajax({
                 type: "GET",
                 headers: {
@@ -379,6 +386,7 @@ function editMenu(){
             }
         }else if(codeedit==$("#textEditInputCode").val() && nameedit!=$("#textEditInputName").val() && imageEdit == $('#textImageFileEdit').val()){
             // ตรวจสอบชื่อซ้ำ
+            $('.dv-background').show();
             var dataLocationName = $.ajax({
                 type: "GET",
                 headers: {
@@ -402,6 +410,7 @@ function editMenu(){
             }
         }else if(codeedit!=$("#textEditInputCode").val() && nameedit!=$("#textEditInputName").val() && imageEdit == $('#textImageFileEdit').val()){
             // ตรวจสอบชื่อและรหัสซ้ำ
+            $('.dv-background').show();
             var dataLocation = $.ajax({
                 type: "GET",
                 headers: {
@@ -443,6 +452,7 @@ function editMenu(){
 
 // Function Update
 function updateDateLocation(){
+    
     var id = indexModify;
     var locationCode = $("#textEditInputCode").val();
     var locationName = $("#textEditInputName").val();
@@ -461,7 +471,7 @@ function updateDateLocation(){
     var formData = new FormData();
     formData.append("jsonedit", JSON.stringify(dataLocation));
     formData.append("fileedit", fileedit.files[0]);
-
+    $('.dv-background').show();
     $.ajax({
         type: "POST",
         headers: {
@@ -495,6 +505,9 @@ function updateDateLocation(){
             }
         },
         async:false
+    }).done(function (){
+        //close loader
+        $('.dv-background').hide();
     });
 }
 
@@ -504,7 +517,7 @@ function updateDateLocationNoImage(){
     var locationCode = $("#textEditInputCode").val();
     var locationName = $("#textEditInputName").val();
     var imageName = $("#textImageFileEdit").val();
-
+    $('.dv-background').show();
     $.ajax({
         type: "GET",
         headers: {
@@ -543,6 +556,9 @@ function updateDateLocationNoImage(){
             }
         },
         async:false
+    }).done(function (){
+        //close loader
+        $('.dv-background').hide();
     });
 }
 //============================ delete ============================//
@@ -575,7 +591,10 @@ $("#delete").on('click',function(){
 var countDeleteSuccess = 0 ;
 var countDeleteFail = 0 ;
 $("#modalAlertBtnOk1").on('click',function(){
+    countDeleteSuccess = 0 ;
+    countDeleteFail = 0 ;
     var count=1;
+    $('.dv-background').show();
     $.each(deleteId,function(index,item){
         $.ajax({
             type: "DELETE",
@@ -614,6 +633,9 @@ $("#modalAlertBtnOk1").on('click',function(){
                 }
             },
             async:false
+        }).done(function (){
+            //close loader
+            $('.dv-background').hide();
         });
     });
     findAllLocation();

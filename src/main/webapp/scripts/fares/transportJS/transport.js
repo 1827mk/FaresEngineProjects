@@ -11,13 +11,16 @@ var createdBy=session.user;
 var updatedBy=session.user;
 
 $(document).ready(function () {
+    $('.dv-background').show();
     // alert('I love ....');
     clearData();
     findAllTransport();
+    $('.dv-background').hide();
 });
 
 //=============================== RenderTable ===============================//
 function findAllTransport() {
+    $('.dv-background').show();
     $("#transportTable").DataTable().destroy();
     var transportData = $.ajax({
         type: "GET",
@@ -125,7 +128,7 @@ function insertData(){
         var transportCode = $("#textInputCode").val();
         var transportName = $("#textInputName").val();
         var textInputBuess = $("#textInputBuess").val();
-
+        $('.dv-background').show();
         var findTransportByCode = $.ajax({
             type: "GET",
             headers: {
@@ -156,7 +159,7 @@ function insertData(){
                 transportName: transportName,
                 transportBusiness:textInputBuess,
             }
-
+            $('.dv-background').show();
             $.ajax({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -189,6 +192,9 @@ function insertData(){
                     }
                 },
                 async:false
+            }).done(function (){
+                //close loader
+                $('.dv-background').hide();
             });
         }
 
@@ -230,6 +236,7 @@ function editData(rowData){
 
     $('#textEditInputCode').val(codeEdit);
     $('#textEditInputName').val(nameEdit);
+    $('#textInputBuessEdit').val(buessEdit);
 
     $('#modalEditTransport').modal('show');
 }
@@ -262,6 +269,7 @@ function editMenu(){
 
         }else if (codeEdit!=$("#textEditInputCode").val() && nameEdit==$("#textEditInputName").val()){
             // ตรวจสอบรหัสซ้ำ
+            $('.dv-background').show();
             var dataTransportCode = $.ajax({
                 type: "GET",
                 headers: {
@@ -286,6 +294,7 @@ function editMenu(){
             }
         }else if(codeEdit==$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
             // ตรวจสอบชื่อซ้ำ
+            $('.dv-background').show();
             var dataTransportName = $.ajax({
                 type: "GET",
                 headers: {
@@ -309,6 +318,7 @@ function editMenu(){
             }
         }else if(codeEdit!=$("#textEditInputCode").val() && nameEdit!=$("#textEditInputName").val()){
             // ตรวจสอบชื่อและรหัสซ้ำ
+            $('.dv-background').show();
             var dataTransport = $.ajax({
                 type: "GET",
                 headers: {
@@ -363,6 +373,7 @@ function updateDateTransport(){
         updatedBy:updatedBy,
         version: transportPrototype[indexModify].version
     }
+    $('.dv-background').show();
     $.ajax({
         type: "PUT",
         contentType: "application/json; charset=utf-8",
@@ -395,6 +406,9 @@ function updateDateTransport(){
             }
         },
         async:false
+    }).done(function (){
+        //close loader
+        $('.dv-background').hide();
     });
 }
 //============================ delete ============================//
@@ -403,7 +417,6 @@ var deleteId=[];
 var deleteAllId=[];
 var deleteItem ;
 $("#delete").on('click',function(){
-
     var checkbox=$("tbody input[type='checkbox']");
 
     deleteId.clear();
@@ -426,8 +439,10 @@ $("#delete").on('click',function(){
 var countDeleteSuccess = 0 ;
 var countDeleteFail = 0 ;
 $("#modalAlertBtnOk1").on('click',function(){
-
+    countDeleteSuccess = 0 ;
+    countDeleteFail = 0 ;
     var count=1;
+    $('.dv-background').show();
     $.each(deleteId,function(index,item){
         $.ajax({
             type: "DELETE",
@@ -466,6 +481,9 @@ $("#modalAlertBtnOk1").on('click',function(){
                 }
             },
             async:false
+        }).done(function (){
+            //close loader
+            $('.dv-background').hide();
         });
     });
     findAllTransport();
