@@ -100,9 +100,7 @@
             width:980px;
         }
     </style>
-    <div class="dv-background" id='loading' style='display:none'>
 
-    </div>
     <!--begin-->
     <div class="container">
         <div class="row">
@@ -440,4 +438,8 @@
     <spring:url value="/resources/scripts/fares/faresJS/fares.js" var="faresJS" />
     <script src="${faresJS}" type="text/javascript"><!--Not Empty --></script>
     <!--script JS-->
+
+    <div class="dv-background" id='loading'>
+
+    </div>
 </div>
