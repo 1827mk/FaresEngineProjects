@@ -19,6 +19,13 @@
     <c:set scope="request" var="LABEL_DISCOUNT"><spring:message code="" text="ส่วนลด(บาท)"></spring:message></c:set>
 
     <style>
+        .dv-background
+        {
+            position: fixed; /* or absolute */
+            top: 50%;
+            left: 50%;
+            background:transparent url('/FaresEngine/images/loadginCustom.svg') no-repeat 0 0;
+        }
         .modal-dialog {
             padding-top:8%;
         }
@@ -93,7 +100,9 @@
             width:980px;
         }
     </style>
+    <div class="dv-background" id='loading' style='display:none'>
 
+    </div>
     <!--begin-->
     <div class="container">
         <div class="row">
