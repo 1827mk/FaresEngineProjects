@@ -52,7 +52,7 @@ function clearDataAll() {
 }
 
 function findAllfares() {
-    $('.dv-background').show();
+    // $('.dv-background').show();
     var faresData = $.ajax({
         type: "GET",
         headers: {
