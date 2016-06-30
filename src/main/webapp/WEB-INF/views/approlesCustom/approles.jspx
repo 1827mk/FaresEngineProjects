@@ -12,6 +12,13 @@
 
 
     <style>
+        .dv-background
+        {
+            position: fixed; /* or absolute */
+            top: 50%;
+            left: 50%;
+            background:transparent url('/FaresEngine/images/loadginCustom.svg') no-repeat 0 0;
+        }
         .modal-dialog {
             padding-top:8%;
         }
@@ -273,4 +280,7 @@
     <spring:url value="/resources/scripts/fares/userRole/userRole.js" var="faresJS" />
     <script src="${faresJS}" type="text/javascript"><!--Not Empty --></script>
     <!--script JS-->
+    <div class="dv-background" id='loading'>
+
+    </div>
 </div>
