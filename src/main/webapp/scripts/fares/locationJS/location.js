@@ -197,8 +197,8 @@ function insertData(){
     if ($("#textInputCode").val()!="" && $("#textInputName").val()!="" && $('#textImageFile').val()!="") {
         var locationCode = $("#textInputCode").val();
         var locationName = $("#textInputName").val();
-        var imageFile = $("#file").val();
-     
+        // var imageFile = $("#file").val();
+        var imageFile = $('input[type=file]')[0].files[0].name;
         var dataLocation= {
             locationCode: locationCode,
             locationName: locationName,

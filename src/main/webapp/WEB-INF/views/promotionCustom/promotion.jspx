@@ -100,7 +100,7 @@
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="control-label col-sm-4" style="margin-top: 5px">${LABEL_PROMOTION_CODE} :</label>
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                                 <div class="input-group">
                                     <input id="textInputCode" class="form-control" type="text" autocomplete="off" ></input>
                                 </div>
@@ -194,7 +194,7 @@
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="control-label col-sm-4" style="margin-top: 5px">${LABEL_PROMOTION_CODE} :</label>
-                            <div class="col-md-6">
+                            <div class="col-sm-6">
                                 <div class="input-group">
                                     <input id="textEditInputCode" class="form-control" type="text" autocomplete="off" ></input>
                                 </div>

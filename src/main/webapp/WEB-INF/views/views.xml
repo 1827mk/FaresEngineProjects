@@ -19,7 +19,7 @@
   <!--</definition>-->
 
   <definition extends="public" name="uncaughtException">
-    <put-attribute name="body" value="/WEB-INF/views/uncaughtException.jspx"/>
+    <put-attribute name="body" value="/WEB-INF/views/errorpageException.jspx"/>
   </definition>
 
 <definition extends="public" name="login">

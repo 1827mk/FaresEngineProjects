@@ -52,6 +52,7 @@ function clearDataAll() {
 }
 
 function findAllfares() {
+    $('.dv-background').show();
     var faresData = $.ajax({
         type: "GET",
         headers: {
@@ -91,7 +92,7 @@ function findAllfares() {
                 '<td><alight="left">'+(item.travel.transport.transportBusiness==null?'':item.travel.transport.transportBusiness)+'</alight></td>' +
                 '<td><alight="left">'+(checkDateDuplicate==null?'':checkDateDuplicate)+'</alight></td>' +
                 '<td><alight="left">'+(item.promote.promotion.promotionName==null?'':item.promote.promotion.promotionName)+'</alight></td>' +
-                '<td><center>'+(item.promote.promotePrice==null?'':item.promote.promotePrice)+'</center></td>' +
+                '<td><alight="left">'+(item.promote.promotePrice==null?'':item.promote.promotePrice)+'</alight></td>' +
                 '</tr>');
 
             faresPrototype[item.id]=item;
