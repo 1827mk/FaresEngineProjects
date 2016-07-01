@@ -9,9 +9,11 @@ var indexModify ;
 var createdBy=session.user;
 var updatedBy=session.user;
 $(document).ready(function () {
+    $('.dv-background').show();
     // alert('I love ....');
     clearData();
     findAllDate();
+    $('.dv-background').hide();
 });
 
 //=============================== RenderTable ===============================//

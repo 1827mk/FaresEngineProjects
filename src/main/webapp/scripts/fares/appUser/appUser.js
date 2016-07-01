@@ -9,6 +9,7 @@ $(document).ready(function () {
     $("#needLoginTrue").prop("checked", true);
     fineAppRole();
     clearAll();
+    $('.dv-background').hide();
 });
 var userPrototype={};
 var indexModify ;
