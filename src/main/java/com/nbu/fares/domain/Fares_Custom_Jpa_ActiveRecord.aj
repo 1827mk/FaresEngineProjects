@@ -149,7 +149,7 @@ privileged aspect Fares_Custom_Jpa_ActiveRecord {
                 Restrictions.ne("transport.transportCode", busCode))
         );
         criteria.add(codeRestriction);
-        logger.error("searchFlight");
+//        logger.error("searchFlight");
         return criteria.list();
     }
 

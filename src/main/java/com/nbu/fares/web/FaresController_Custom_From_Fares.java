@@ -28,7 +28,7 @@ public class FaresController_Custom_From_Fares {
         List<Fares> result = Fares.searchAll(source,destination);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
-        if (result == null) {
+        if (result == null || result.isEmpty() ) {
             return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
         }
         try {
@@ -67,7 +67,7 @@ public class FaresController_Custom_From_Fares {
         List<Fares> result = Fares.searchTransport(source,destination,tranCode);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
-        if (result == null) {
+        if (result == null  || result.isEmpty() ) {
             return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
         }
         try {
@@ -107,7 +107,7 @@ public class FaresController_Custom_From_Fares {
         List<Fares> result = Fares.searchFlight(source,destination,trainCode,busCode);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
-        if (result == null) {
+        if (result == null  || result.isEmpty() ) {
             return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
         }
         try {
