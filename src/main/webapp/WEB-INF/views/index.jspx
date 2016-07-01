@@ -14,22 +14,260 @@
 
   <style>
     .container{
-      margin-top: -10px;
-      position: absolute;
-      width: 100%;
-      height: 800px;
-      background:transparent url('/FaresEngine/images/bg-login.jpg') no-repeat 0 0;
+      /*margin-top: -10px;*/
+      /*position: absolute;*/
+      /*width: 100%;*/
+      /*height: 800px;*/
+      /*!*background:transparent url('/FaresEngine/images/bg-login.jpg') no-repeat 0 0;*!*/
     }
+
   </style>
   <!--begin-->
   <div class="container">
     <div class="row">
       <div class="form-horizontal">
         <div class="col-sm-12">
-
+          <div id="chartContainer" style="height: 500px; width: 100%;">
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <spring:url value="/resources/scripts/canvasjs-1.8.1/canvasjs.min.js" var="canvasjs_min_js" />
+  <script src="${canvasjs_min_js}" type="text/javascript"><!--Not Empty --></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      findFares();
+      findDate();
+      findLoc();
+      findPro();
+      findProm();
+      findRole();
+      findTra();
+      findTran();
+      findUser();
+    });
+
+    var countUser = 0;
+    var countDate = 0;
+    var countFares = 0;
+    var countLoc = 0;
+    var countProm = 0;
+    var countPro = 0;
+    var countTran = 0;
+    var countTravel = 0;
+    var countRole = 0;
+
+    function findUser() {
+
+      var findAllUser = $.ajax({
+        type: "GET",
+        headers: {
+          Accept: 'application/json'
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: session['context'] + '/appusers/findAlluser',
+        async: false
+      }).done(function () {
+        //close loader
+        $('.dv-background').hide();
+      }).responseText;
+      $.each(JSON.parse(findAllUser), function (index, item) {
+        countUser++
+      });
+    }
+
+    function findDate() {
+      var findDate = $.ajax({
+        type: "GET",
+        headers: {
+          Accept: 'application/json'
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: session['context']+'/datefareses/findAllDatefared',
+        async: false
+      }).done(function () {
+        //close loader
+        $('.dv-background').hide();
+      }).responseText;
+      $.each(JSON.parse(findDate), function (index, item) {
+        countDate++
+      });
+    }
+
+    function findFares() {
+      var findFares = $.ajax({
+        type: "GET",
+        headers: {
+          Accept: 'application/json'
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: session['context']+'/fareses/findAllFares',
+        async: false
+      }).done(function () {
+        //close loader
+        $('.dv-background').hide();
+      }).responseText;
+      $.each(JSON.parse(findFares), function (index, item) {
+        countFares++
+      });
+    }
+
+    function findLoc() {
+      var findLoc = $.ajax({
+        type: "GET",
+        headers: {
+          Accept: 'application/json'
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: session['context']+'/locations/findAllCustom',
+        async: false
+      }).done(function () {
+        //close loader
+        $('.dv-background').hide();
+      }).responseText;
+      $.each(JSON.parse(findLoc), function (index, item) {
+        countLoc++
+      });
+    }
+
+    function findProm() {
+      var findProm = $.ajax({
+        type: "GET",
+        headers: {
+          Accept: 'application/json'
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: session['context']+'/promotes/findAllPromote',
+        async: false
+      }).done(function () {
+        //close loader
+        $('.dv-background').hide();
+      }).responseText;
+      $.each(JSON.parse(findProm), function (index, item) {
+        countProm++
+      });
+    }
+
+    function findPro() {
+      var findPro = $.ajax({
+        type: "GET",
+        headers: {
+          Accept: 'application/json'
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: session['context']+'/promotions/findAllPromotion',
+        async: false
+      }).done(function () {
+        //close loader
+        $('.dv-background').hide();
+      }).responseText;
+      $.each(JSON.parse(findPro), function (index, item) {
+        countPro++
+      });
+    }
+
+    function findTran() {
+      var findTrans = $.ajax({
+        type: "GET",
+        headers: {
+          Accept: 'application/json'
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: session['context']+'/transports/findAllTransport',
+        async: false
+      }).done(function () {
+        //close loader
+        $('.dv-background').hide();
+      }).responseText;
+      $.each(JSON.parse(findTrans), function (index, item) {
+        countTran++
+      });
+    }
+
+    function findTra() {
+      var findTra = $.ajax({
+        type: "GET",
+        headers: {
+          Accept: 'application/json'
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: session['context'] + '/travels/findAllTravel',
+        async: false
+      }).done(function () {
+        //close loader
+        $('.dv-background').hide();
+      }).responseText;
+      $.each(JSON.parse(findTra), function (index, item) {
+        countTravel++
+      });
+    }
+
+    function findRole() {
+      var findRole = $.ajax({
+        type: "GET",
+        headers: {
+          Accept: 'application/json'
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: session['context']+'/approles/findAllRole',
+        async: false
+      }).done(function () {
+        //close loader
+        $('.dv-background').hide();
+      }).responseText;
+      $.each(JSON.parse(findRole), function (index, item) {
+        countRole++
+      });
+    }
+
+    window.onload = function () {
+      var chart = new CanvasJS.Chart("chartContainer",
+              {
+                title:{
+                  text: "กราฟแสดงจำนวนข้อมูลในระบบ"
+                },
+                animationEnabled: true,
+                axisY: {
+                  title: "จำนวน(แถว)"
+                },
+                legend: {
+                  verticalAlign: "bottom",
+                  horizontalAlign: "center"
+                },
+                theme: "theme6",
+                data: [
+
+                  {
+                    type: "column",
+                    showInLegend: true,
+                    legendMarkerColor: "grey",
+                    legendText: "แถว = จำนวนแถวข้อมูลในระบบ",
+                    dataPoints: [
+                      {y: countFares, label: "การจัดการอัตราค่าโดยสาร"},
+                      {y: countTravel,  label: "การจัดการการท่องเที่ยว" },
+                      {y: countProm,  label: "การจัดการการจัดโปรโมชั่น"},
+                      {y: countPro,  label: "การจัดการโปรโมชั่น"},
+                      {y: countLoc,  label: "การจัดการสถานที่"},
+                      {y: countDate, label: "การจัดการวันที่"},
+                      {y: countUser,  label: "การจัดการผู้ใช้งาน"},
+                      {y: countRole,  label: "การจัดการตำแหน่ง"}
+                    ]
+                  }
+                ]
+              });
+
+      chart.render();
+    }
+  </script>
 </div>
