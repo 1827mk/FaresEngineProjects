@@ -228,6 +228,11 @@
             <div class="modal-content">
                 <div class="modal-header alert">
                     <center>
+                        <label>แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
+                    <center>
                         <label id="detailAlertError"></label>
                     </center>
                 </div>
@@ -243,7 +248,12 @@
     <div id="deleteModal" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header alert">
+                    <center>
+                        <label>แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
                     <center>
                         <label id="detailDelete"></label>
                         <label id="message"></label>
@@ -261,7 +271,12 @@
     <div id="test" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header alert">
+                    <center>
+                        <label>แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
                     <center>
                         <label id="rsc"></label>
                         <label id="messagersc"></label>

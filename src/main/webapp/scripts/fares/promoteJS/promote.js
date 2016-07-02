@@ -490,8 +490,8 @@ function editData(rowData) {
 
     $('#selectInputEditPromotion').prepend('<option value="'+promotionId+'">'+promotionEdit+'</option>');
     $('#selectEditDate').prepend('<option value="'+date+'">'+dateEdit+'</option>');
-    console.log(promotionEdit+promotionId)
-    console.log(dateEdit+date)
+    // console.log(promotionEdit+promotionId)
+    // console.log(dateEdit+date)
 
     findPromotionByCode(promotionEdit);
 

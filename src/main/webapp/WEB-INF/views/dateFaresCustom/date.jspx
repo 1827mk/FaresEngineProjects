@@ -13,7 +13,7 @@
 
     <c:set scope="request" var="LABEL_DATE_EDIT"><spring:message code="" text="แก้ไข"></spring:message></c:set>
     <c:set scope="request" var="LABEL_DATE"><spring:message code="" text="วันที่"></spring:message></c:set>
-    <c:set scope="request" var="LABEL_NAME"><spring:message code="" text="ชื่อ"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_NAME"><spring:message code="" text="ชื่อวันที่"></spring:message></c:set>
 
     <style>
         .dv-background
@@ -173,7 +173,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">${LABEL_DATE} :</label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">${LABEL_NAME} :</label>
                             <div class="col-sm-6">
                                 <input id="txtDate_Name" class="form-control numbersOnly" type="department-lov"  data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right"  />
                             </div>
@@ -199,7 +199,12 @@
     <div id="alertModal" class="modal fade" >
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header alert">
+                    <center>
+                        <label>แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
                     <center>
                         <label id="detailAlert"></label>
                     </center>
@@ -216,7 +221,12 @@
     <div id="deleteModal" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header alert">
+                    <center>
+                        <label>แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
                     <center>
                         <label id="detailDelete"></label>
                         <label id="message"></label>
@@ -234,7 +244,12 @@
     <div id="test" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header alert">
+                    <center>
+                        <label>แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
                     <center>
                         <label id="rsc"></label>
                         <label id="messagersc"></label>
@@ -253,7 +268,12 @@
     <div id="newModal" class="modal fade" >
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header alert">
+                    <center>
+                        <label>แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
                     <center>
                         <label id="newModalMessage"></label>
                     </center>
@@ -290,7 +310,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">${LABEL_DATE} :</label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">${LABEL_NAME} :</label>
                             <div class="col-sm-6">
                                 <input id="txtEditDate_Name" class="form-control numbersOnly" type="department-lov"  data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right"  />
                             </div>

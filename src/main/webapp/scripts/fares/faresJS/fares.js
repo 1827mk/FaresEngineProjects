@@ -85,7 +85,7 @@ function findAllfares() {
 
             $('#tbodyFares').append('<tr>' +
                 '<td><alight="left"><input type="checkbox" onclick="checkbox(this)" name = "checkboxFares"  id="'+item.id+'" version= "'+item.version+'" /></alight></td>' +
-                '<td><alight="left"><button type="button" id="+item.id+" code="'+item.faresCode+'" sourceName="'+item.travel.locationSourName+'" destName="'+item.travel.locationDisName+'"  version="'+item.version+'" price="'+item.price+'" codeTravel="'+item.travel.travelCode+'" travelId="'+item.travel.id+'" codePromote="'+item.promote.promoteCode+'"  promoteId="'+item.promote.id+'"  onclick="editData($(this))" class="btn btn-info btn-sm" ><span class="fa fa-pencil"></span></button></alight></td>"' +
+                '<td><alight="left"><button type="button" id="'+item.id+'" code="'+item.faresCode+'" sourceName="'+item.travel.locationSourName+'" destName="'+item.travel.locationDisName+'"  version="'+item.version+'" price="'+item.price+'" codeTravel="'+item.travel.travelCode+'" travelId="'+item.travel.id+'" codePromote="'+item.promote.promoteCode+'"  promoteId="'+item.promote.id+'"  onclick="editData($(this))" class="btn btn-info btn-sm" ><span class="fa fa-pencil"></span></button></alight></td>"' +
                 '<td><alight="left">'+(item.faresCode==null?'':item.faresCode)+'</alight></td>' +
                 '<td><alight="left">'+(item.price==null?'':item.price)+'</alight></td>' +
                 '<td><alight="left">'+(item.travel.locationSourName==null?'':item.travel.locationSourName)+'</alight></td>' +
@@ -279,7 +279,7 @@ function findTravel() {
         }else{
             console.log("==========");
         }
-
+    $('.dv-background').hide();
 }
 function findTravelByCode(code) {
     $('.dv-background').show();
@@ -346,7 +346,7 @@ function findPromote() {
         //close loader
         $('.dv-background').hide();
     }).responseText;
-
+    $('.dv-background').hide();
     $('#selectPromote').empty();
     $('#selectEditPromote').empty();
     $.each(JSON.parse(promoteData),function(index,item){
@@ -406,7 +406,7 @@ function findPromoteByCode(code) {
             //close loader
             $('.dv-background').hide();
         }).responseText;
-
+        $('.dv-background').hide();
         $('#textDate').empty();
         $('#textDiscount').empty();
         $('#textPromotionName').empty();
@@ -576,6 +576,7 @@ function insertData(){
             $("label[id=detailAlert]").text("กรุณาเลือกโปรโมชั่น");
         }
     }
+    $('.dv-background').hide();
 }
 
 function insertFaresEngine() {
@@ -630,7 +631,7 @@ function insertFaresEngine() {
     }).done(function (){
         $('.dv-background').hide();
     }).responseText;
-
+    $('.dv-background').hide();
 }
 
 var idEdit;
@@ -711,9 +712,6 @@ function editFares(){
         var str2 = $( "#selectEditPromote option:selected" ).text();
         var res2 = str2.split(":");
         var selectPromoteText = res2[0];
-
-
-
 
         if(codeFares==codeEdit && priceFares==priceEdit && selectTravelText==travelEdit && selectPromoteText==promoteEdit){
             $("#alertModal").modal('show');
@@ -814,6 +812,7 @@ function editFares(){
                     $("#alertModalError").modal('show');
                     $("label[id=detailAlertError]").text("ข้อมูลนี้มีอยู่แล้ว กรุณาตรวจสอบ!!");
                 }
+                $('.dv-background').hide();
                 // ตรวจสอบ farecode travel promote เปลี่ยนแปลง
             } else if (codeFares != codeEdit && selectTravelText != travelEdit && selectPromoteText != promoteEdit) {
                 $('.dv-background').show();
@@ -1008,6 +1007,7 @@ function editFares(){
                 }
             } else {
                 updateFaresEngine();
+                $('.dv-background').hide();
             }
         }
 
@@ -1079,6 +1079,7 @@ function updateFaresEngine() {
     }).done(function (){
         $('.dv-background').hide();
     }).responseText;
+    $('.dv-background').hide();
 
 }
 
@@ -1154,4 +1155,5 @@ $("#modalAlertBtnOk1").on('click',function(){
             $('.dv-background').hide();
         });
     });
+    $('.dv-background').hide();
 });

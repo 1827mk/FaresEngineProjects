@@ -369,7 +369,12 @@
     <div id="alertModalError" class="modal fade" >
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header alert">
+                    <center>
+                        <label id="alertModalErrorHead">แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
                     <center>
                         <label id="detailAlertError"></label>
                     </center>
@@ -383,13 +388,17 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <div id="deleteModal" class="modal fade">
+    <div id="deleteModal" class="modal fade ">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header alert">
+                    <center>
+                        <label id="deleteAlertHead">แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
                     <center>
                         <label id="detailDelete"></label>
-                        <label id="message"></label>
                     </center>
                 </div>
                 <div class="modal-footer border">
@@ -404,10 +413,14 @@
     <div id="deleteModalFree" class="modal fade">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header alert">
+                    <center>
+                        <label id="deleteModalFreeHead">แจ้งเตือน</label>
+                    </center>
+                </div>
+                <div class="modal-body">
                     <center>
                         <label id="detailDeleteFree"></label>
-                        <label id="message"></label>
                     </center>
                 </div>
                 <div class="modal-footer border">
