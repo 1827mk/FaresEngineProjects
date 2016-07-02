@@ -136,22 +136,22 @@
 							<a href="${fn:escapeXml(faresManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการราคาอัตราค่าโดยสาร</a>
 						</li>
 						<li>
+							<a href="${fn:escapeXml(promoteManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการการจัดโปรโมชั่น</a>
+						</li>
+						<li>
+							<a href="${fn:escapeXml(travelManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการท่องเที่ยว</a>
+						</li>
+						<li>
 							<a href="${fn:escapeXml(transportManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการพาหนะ</a>
 						</li>
 						<li>
 							<a href="${fn:escapeXml(locationManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการสถานที่</a>
 						</li>
 						<li>
-							<a href="${fn:escapeXml(dateFareManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการวันที่</a>
-						</li>
-						<li>
 							<a href="${fn:escapeXml(promotionManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการโปรโมชั่น</a>
 						</li>
 						<li>
-							<a href="${fn:escapeXml(promoteManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการการจัดโปรโมชั่น</a>
-						</li>
-						<li>
-							<a href="${fn:escapeXml(travelManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการท่องเที่ยว</a>
+							<a href="${fn:escapeXml(dateFareManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการวันที่</a>
 						</li>
 						<li>
 							<a href="${fn:escapeXml(approlesManager)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการตำแหน่ง</a>
