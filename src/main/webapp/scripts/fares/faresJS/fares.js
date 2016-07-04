@@ -54,6 +54,7 @@ function clearDataAll() {
 }
 
 function findAllfares() {
+    $("#FaresTable").DataTable().destroy();
     $('.dv-background').show();
     var faresData = $.ajax({
         type: "GET",
@@ -610,6 +611,7 @@ function insertFaresEngine() {
                     clearDataAll();
                     $("#FaresTable").DataTable().destroy();
                     findAllfares();
+                    clearDataAll();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
                     $('#modalAddFares').modal('hide');
@@ -632,6 +634,8 @@ function insertFaresEngine() {
         $('.dv-background').hide();
     }).responseText;
     $('.dv-background').hide();
+    findAllfares();
+    clearDataAll();
 }
 
 var idEdit;
@@ -1060,6 +1064,7 @@ function updateFaresEngine() {
                 if(xhr.status==200){
                     $("#FaresTable").DataTable().destroy();
                     findAllfares();
+                    clearDataAll();
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จ");
                 }
@@ -1080,6 +1085,8 @@ function updateFaresEngine() {
         $('.dv-background').hide();
     }).responseText;
     $('.dv-background').hide();
+    findAllfares();
+    clearDataAll();
 
 }
 
@@ -1109,6 +1116,9 @@ $("#delete").on('click',function(){
     }
 });
 
+var countDeleteSuccess = 0 ;
+var countDeleteFail = 0 ;
+
 $("#modalAlertBtnOk1").on('click',function(){
     countDeleteSuccess = 0 ;
     countDeleteFail = 0 ;
@@ -1126,27 +1136,28 @@ $("#modalAlertBtnOk1").on('click',function(){
             complete:function(xhr){
                 if(xhr.readyState==4){
                     if(xhr.status==200){
-
                         if(count==deleteId.length){
-                            $("#alertModalError").modal('show');
-                            $("label[id=detailAlertError]").text("ลบข้อมูลสำเร็จ");
-                            $("#FaresTable").DataTable().destroy();
+                            countDeleteSuccess++;
+                            $("label[id='detailAlertError']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
+                            $("#alertModalError").modal("show");
                             findAllfares();
                             clearDataAll();
                         }
                         count++;
-                    }
-                    else if(xhr.status==403) {
-                        $("#alertModalError").modal('show');
-                        $("label[id=detailAlertError]").text("คุณไม่มีสิทธิใช้งาน!!");
+                    } else if(xhr.status==403) {
+                        $("#alertModalError").modal("show");
+                        $("label[id=detailAlertError]").text("คุณไม่มีสิทธิใช้งาน");
 
                     }else{
-                        $("#alertModalError").modal('show');
-                        $("label[id=detailAlertError]").text("ลบข้อมูลสำเร็จ");
+                        countDeleteFail++;
+                        $("label[id='detailAlertError']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เร็คคอด");
+                        $("#alertModalError").modal("show");
+                        findAllfares();
+                        clearDataAll();
                     }
                 }else{
-                    $("#alertModalError").modal('show');
-                    $("label[id=detailAlertError]").text("ลบข้อมูลไม่สำเร็จ");
+                    $("label[id='detailAlertError']").text("ลบข้อมูลไม่สำเร็จ");
+                    $("#alertModalError").modal("show");
                 }
             },
             async:false
@@ -1155,5 +1166,5 @@ $("#modalAlertBtnOk1").on('click',function(){
             $('.dv-background').hide();
         });
     });
-    $('.dv-background').hide();
+    findAllfares();
 });

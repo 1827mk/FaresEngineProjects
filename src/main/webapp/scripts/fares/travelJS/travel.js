@@ -1025,8 +1025,8 @@ $("#modalAlertBtnOk1").on('click',function(){
             complete:function(xhr){
                 if(xhr.readyState==4){
                     if(xhr.status==200){
+                        countDeleteSuccess++;
                         if(count==deleteId.length){
-                            countDeleteSuccess++;
                             $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
                             $("#deleteModalFree").modal("show");
                             findAllTravel();
