@@ -277,6 +277,7 @@ function insertData(){
                 //close loader
                 $('.dv-background').hide();
             });
+            $('.dv-background').hide();
         }
 
     }else{
