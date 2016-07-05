@@ -466,6 +466,8 @@ function insertData(){
     var res2 = str2.split(":");
     var selectPromoteText = res2[0];
 
+    console.log(priceFares);
+
 
     if($('#textInputCode').val()!="" && $('#textInputPrice').val()!="" && $( "#selectInputTravel option:selected" ).text()!="----------" ){
         $('.dv-background').show();
@@ -591,7 +593,7 @@ function insertFaresEngine() {
     var selectPromote = $('#selectPromote').val();
     // var selectTravelText =  $( "#selectInputTravel option:selected" ).text();
     // var selectPromoteText = $( "#selectPromote option:selected" ).text();
-
+    
     $('.dv-background').show();
     var insertDatas = $.ajax({
         type: "GET",
@@ -603,7 +605,7 @@ function insertFaresEngine() {
         url: session['context']+'/fareses/insertData',
         data: {
             faresCode:codeFares,
-            price:parseInt(priceFares),
+            price:priceFares,
             travel:parseInt(selectTravel),
             promote:parseInt(selectPromote),
             createdBy:createdBy,
@@ -1058,7 +1060,7 @@ function updateFaresEngine() {
         data: {
             fareId:idEdit,
             faresCode:codeFares,
-            price:parseInt(priceFares),
+            price:priceFares,
             travel:parseInt(selectTravel),
             promote:parseInt(selectPromote),
             updatedBy:updatedBy
@@ -1078,11 +1080,11 @@ function updateFaresEngine() {
                     $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน!!");
                 }else{
                     $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จไม่สำเร็จ");
+                    $("label[id=detailAlert]").text("อัพเดตข้อมูลไม่สำเร็จ");
                 }
             }else{
                 $("#alertModal").modal('show');
-                $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จไม่สำเร็จ");
+                $("label[id=detailAlert]").text("อัพเดตข้อมูลไม่สำเร็จ");
             }
         },
         async: false
@@ -1143,7 +1145,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                     if(xhr.status==200){
                         if(count==deleteId.length){
                             countDeleteSuccess++;
-                            $("label[id='detailAlertError']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
+                            $("label[id='detailAlertError']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เรคคอร์ด");
                             $("#alertModalError").modal("show");
                             findAllfares();
                             clearDataAll();
@@ -1155,7 +1157,7 @@ $("#modalAlertBtnOk1").on('click',function(){
 
                     }else{
                         countDeleteFail++;
-                        $("label[id='detailAlertError']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เร็คคอด");
+                        $("label[id='detailAlertError']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เรคคอร์ด");
                         $("#alertModalError").modal("show");
                         findAllfares();
                         clearDataAll();

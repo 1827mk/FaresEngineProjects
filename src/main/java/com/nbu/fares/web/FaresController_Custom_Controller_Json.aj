@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -185,13 +186,16 @@ privileged aspect FaresController_Custom_Controller_Json {
         headers.add("Content-Type", "application/json; charset=utf-8");
         Travel travels = Travel.findTravel(travel);
         Promote promote1s = Promote.findPromote(promote);
+        DecimalFormat decim = new DecimalFormat("#.##");
+        Double price2 = Double.parseDouble(decim.format(price));
+
+//        Double priceDou = Double.parseDouble(price.replace(",",".") );
 
         Date date = new Date();
-
         if(faresCode!= null && price != null && travels != null){
             Fares fares = new Fares();
             fares.setFaresCode(faresCode);
-            fares.setPrice(price);
+            fares.setPrice(price2);
             fares.setTravel(travels);
             fares.setPromote(promote1s);
             fares.setCreatedBy(createdBy);
@@ -219,11 +223,13 @@ privileged aspect FaresController_Custom_Controller_Json {
         Travel travels = Travel.findTravel(travel);
         Promote promote1s = Promote.findPromote(promote);
         Fares fares = Fares.findFares(fareId);
+        DecimalFormat decim = new DecimalFormat("#.##");
+        Double price2 = Double.parseDouble(decim.format(price));
         Date date = new Date();
 
         if(faresCode!= null && price != null && travels != null){
             fares.setFaresCode(faresCode);
-            fares.setPrice(price);
+            fares.setPrice(price2);
             fares.setTravel(travels);
             fares.setPromote(promote1s);
             fares.setUpdatedBy(updatedBy);
