@@ -427,7 +427,7 @@ function insertPromote() {
         url: session['context']+'/promotes/insertsData',
         data: {
             promoteCode:promoteCode,
-            promotePrice:parseInt(promotePrice),
+            promotePrice:promotePrice,
             promotion:parseInt(selectPromotion),
             createdBy:createdBy,
             updatedBy:updatedBy,
@@ -630,7 +630,7 @@ function updatePromote() {
         data: {
             promoteId:idEdit,
             promoteCode:codePromote,
-            promotePrice:parseInt(pricePromote),
+            promotePrice:pricePromote,
             promotion:parseInt(selectPromotion),
             updatedBy: updatedBy,
             date:parseInt(selectDate)
