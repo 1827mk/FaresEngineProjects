@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -120,12 +121,14 @@ privileged aspect PromoteController_Custom_Controller_Json {
         headers.add("Content-Type", "application/json; charset=utf-8");
         Promotion promotion = Promotion.findPromotion(promotionId);
         DateFares date = DateFares.findDateFares(dateFaresId);
+        DecimalFormat decim = new DecimalFormat("#.##");
+        Double price2 = Double.parseDouble(decim.format(promotePrice));
         Date datenow = new Date();
 
         if(promoteCode!= null && promotePrice != null && promotion != null && date != null){
             Promote promote = new Promote();
             promote.setPromoteCode(promoteCode);
-            promote.setPromotePrice(promotePrice);
+            promote.setPromotePrice(price2);
             promote.setPromotion(promotion);
             promote.setDateFares(date);
             promote.setCreatedBy(createdBy);
@@ -153,11 +156,13 @@ privileged aspect PromoteController_Custom_Controller_Json {
         Promotion promotion = Promotion.findPromotion(promotionId);
         DateFares date = DateFares.findDateFares(dateFaresId);
         Promote promote = Promote.findPromote(promoteId);
+        DecimalFormat decim = new DecimalFormat("#.##");
+        Double price2 = Double.parseDouble(decim.format(promotePrice));
         Date datenow = new Date();
 
         if(promoteCode != null && promotePrice != null && promotion != null && date != null){
             promote.setPromoteCode(promoteCode);
-            promote.setPromotePrice(promotePrice);
+            promote.setPromotePrice(price2);
             promote.setPromotion(promotion);
             promote.setDateFares(date);
             promote.setUpdatedBy(updatedBy);
