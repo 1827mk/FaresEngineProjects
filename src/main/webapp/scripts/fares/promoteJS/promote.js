@@ -122,6 +122,7 @@ function findAllPromote() {
             }
         }
     });
+    $('.dv-background').hide();
 }
 
 function destroyDataTablePromote() {
@@ -271,7 +272,7 @@ function findPromotion() {
     }else{
         console.log("==========");
     }
-
+    $('.dv-background').hide();
 }
 
 function findPromotionByCode(code) {
@@ -309,6 +310,7 @@ function findPromotionByCode(code) {
     }else{
         console.log('promotionCode empty');
     }
+    $('.dv-background').hide();
 }
 var dateFared;
 //============================ find Promote ==========================//
@@ -331,8 +333,7 @@ function findDate() {
     $('#selectDate').empty();
     $('#selectEditDate').empty();
     $.each(JSON.parse(dateData),function(index,item){
-
-
+        
         var date = new Date(item.dateFared).toISOString().split("T")[0];
         var dates = date.split("-");
         var dateOrigin = dates[2];
@@ -352,6 +353,7 @@ function findDate() {
             $('#selectEditDate').append('<option value="' + item.id + '">' + "----------" + '</option>')
         }
     });
+    $('.dv-background').hide();
 }
 
 //=========================== Insret ===============================//
@@ -404,6 +406,7 @@ function insertData() {
             $("label[id=detailAlert]").text("กรุณาเลือกวันที่โปรโมชั่น");
         }
     }
+    $('.dv-background').hide();
 }
 
 function insertPromote() {
@@ -457,7 +460,7 @@ function insertPromote() {
     }).done(function (){
         $('.dv-background').hide();
     }).responseText;
-
+    $('.dv-background').hide();
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -603,6 +606,7 @@ function editPromote() {
             }
         }
     }
+    $('.dv-background').hide();
 }
 //update function
 function updatePromote() {
@@ -656,7 +660,7 @@ function updatePromote() {
     }).done(function (){
         $('.dv-background').hide();
     }).responseText;
-
+    $('.dv-background').hide();
 }
 
 //=========================== Delete ===============================//
@@ -736,4 +740,5 @@ $("#modalAlertBtnOk1").on('click',function(){
         });
     });
     findAllPromote();
+    $('.dv-background').hide();
 });

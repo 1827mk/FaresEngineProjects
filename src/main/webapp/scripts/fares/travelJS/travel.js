@@ -78,6 +78,7 @@ function findAllTravel() {
             }
         }
     });
+    $('.dv-background').hide();
 }
 
 $("#checkall").on('change',function(){
@@ -163,6 +164,7 @@ function findTransport() {
     }else{
         console.log("==========");
     }
+    $('.dv-background').hide();
 
 }
 
@@ -201,6 +203,7 @@ function findTransportByCode(code) {
     }else{
         console.log('transportCode empty');
     }
+    $('.dv-background').hide();
 }
 
 var locationSourCode;
@@ -250,6 +253,7 @@ function findLocationSource() {
     }else{
         console.log("==========");
     }
+    $('.dv-background').hide();
 }
 
 function findLocationSourByCode(code) {
@@ -289,6 +293,7 @@ function findLocationSourByCode(code) {
     }else{
         console.log('locationSourCode empty');
     }
+    $('.dv-background').hide();
 }
 
 var locationDisCode;
@@ -336,7 +341,7 @@ function findLocationDis() {
     }else{
         console.log("==========");
     }
-
+    $('.dv-background').hide();
 }
 
 function findLocationDisByCode(code) {
@@ -374,6 +379,7 @@ function findLocationDisByCode(code) {
     }else{
         console.log('locationDisCode empty');
     }
+    $('.dv-background').hide();
 }
 
 //=========================== Insret ===============================//
@@ -486,6 +492,7 @@ function insertData() {
             $("label[id=detailAlert]").text("กรุณาเลือกยานพหนะ");
         }
     }
+    $('.dv-background').hide();
 }
 
 function insertTravel() {
@@ -548,6 +555,7 @@ function insertTravel() {
     }).done(function (){
         $('.dv-background').hide();
     }).responseText;
+    $('.dv-background').hide();
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -919,6 +927,7 @@ function editMenu() {
             $("label[id=detailDeleteFree]").text("กรุณาเลือกรหัสยานพาหนะ");
         }
     }
+    $('.dv-background').hide();
 }
 // Function Update
 function updateTravel() {
@@ -979,7 +988,7 @@ function updateTravel() {
     }).done(function (){
         $('.dv-background').hide();
     }).responseText;
-
+    $('.dv-background').hide();
 }
 //============================ delete ============================//
 var deleteId=[];
@@ -1057,5 +1066,6 @@ $("#modalAlertBtnOk1").on('click',function(){
         });
     });
     findAllTravel();
+    $('.dv-background').hide();
 });
 //================================== End Delete ================================//
