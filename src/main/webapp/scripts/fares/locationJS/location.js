@@ -615,7 +615,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                     if(xhr.status==200){
                         countDeleteSuccess++;
                         if(count==deleteId.length){
-                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
+                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เรคคอร์ด");
                             $("#deleteModalFree").modal("show");
                             findAllLocation();
                             clearData();
@@ -628,7 +628,7 @@ $("#modalAlertBtnOk1").on('click',function(){
 
                     }else{
                         countDeleteFail++;
-                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เร็คคอด");
+                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เรคคอร์ด");
                         $("#deleteModalFree").modal("show");
                         findAllLocation();
                         clearData();

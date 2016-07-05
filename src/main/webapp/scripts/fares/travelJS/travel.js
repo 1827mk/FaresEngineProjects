@@ -117,6 +117,13 @@ function clearData(){
     $("#transportNameEdit").val("");
     $("[name='checkboxTravel']").prop("checked",false);
     $("#checkall").prop("checked",false);
+
+    $('#sourCode').empty();
+    $('#sourCodeEdit').empty();
+    $('#disCode').empty();
+    $('#disCodeEdit').empty();
+    $('#selectEditTransportCode').empty();
+    $('#selectTransportCode').empty();
 }
 
 var transportCode;
@@ -645,6 +652,7 @@ function editData(rowData){
     //findTransport();
     findLocationSource();
     findLocationDis();
+    findTransport();
     
     idEdit = rowData[0].attributes.getNamedItem("id").value;
     versionEdit =rowData[0].attributes.getNamedItem("version").value;
@@ -657,7 +665,6 @@ function editData(rowData){
     transEdit = rowData[0].attributes.getNamedItem("transcode").value;
     transNameEdit = rowData[0].attributes.getNamedItem("transname").value;
 
-    clearData();
     //indexModify = idEdit;
     $('#textEditInputTravelCode').val(codeEdit);
     $('#sourCodeEdit').val(sourEdit);
@@ -671,7 +678,7 @@ function editData(rowData){
 
     findLocationSourByCode(sourEdit);
     findLocationDisByCode(disEdit);
-    
+
     $('#selectEditTransportCode').prepend('<option value="'+transId+'">'+transEdit+':'+transNameEdit+'</option>');
     findTransportByCode(transEdit);
     $('#modalEditTravel').modal('show');
@@ -971,17 +978,17 @@ function updateTravel() {
                     $("#travelTable").DataTable().destroy();
                     findAllTravel();
                     $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("อัพเดตข้อมูลลำเร็จ");
+                    $("label[id=detailAlert]").text("อัพเดตข้อมูลสำเร็จ");
                 } else if(xhr.status==403) {
                     $("#alertModal").modal("show");
                     $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
                 }else{
                     $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จไม่สำเร็จ");
+                    $("label[id=detailAlert]").text("อัพเดตข้อมูลไม่สำเร็จ");
                 }
             }else{
                 $("#alertModal").modal('show');
-                $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จไม่สำเร็จ--");
+                $("label[id=detailAlert]").text("อัพเดตข้อมูลไม่สำเร็จ");
             }
         },
         async: false
@@ -1036,7 +1043,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                     if(xhr.status==200){
                         countDeleteSuccess++;
                         if(count==deleteId.length){
-                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
+                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เรคคอร์ด");
                             $("#deleteModalFree").modal("show");
                             findAllTravel();
                             clearData();
@@ -1049,7 +1056,7 @@ $("#modalAlertBtnOk1").on('click',function(){
 
                     }else{
                         countDeleteFail++;
-                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เร็คคอด");
+                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เรคคอร์ด");
                         $("#deleteModalFree").modal("show");
                         findAllTravel();
                         clearData();

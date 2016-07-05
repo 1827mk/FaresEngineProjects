@@ -641,7 +641,7 @@ function updatePromote() {
                     $("#PromoteTable").DataTable().destroy();
                     findAllPromote();
                     $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จ");
+                    $("label[id=detailAlert]").text("อัพเดตข้อมูลสำเร็จ");
                 }
                 else if(xhr.status==403) {
                     $("#alertModal").modal("show");
@@ -649,11 +649,11 @@ function updatePromote() {
 
                 }else{
                     $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จไม่สำเร็จ");
+                    $("label[id=detailAlert]").text("อัพเดตข้อมูลไม่สำเร็จ");
                 }
             }else{
                 $("#alertModal").modal('show');
-                $("label[id=detailAlert]").text("อัพเดตข้อมูลำเร็จไม่สำเร็จ");
+                $("label[id=detailAlert]").text("อัพเดตข้อมูลไม่สำเร็จ");
             }
         },
         async: false
@@ -710,7 +710,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                     if(xhr.status==200){
                         countDeleteSuccess++;
                         if(count==deleteId.length){
-                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เร็คคอด");
+                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เรคคอร์ด");
                             $("#deleteModalFree").modal("show");
                             findAllPromote();
                             clearDataAll();
@@ -723,7 +723,7 @@ $("#modalAlertBtnOk1").on('click',function(){
 
                     }else{
                         countDeleteFail++;
-                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เร็คคอด");
+                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เรคคอร์ด");
                         $("#deleteModalFree").modal("show");
                         findAllPromote();
                         clearDataAll();
