@@ -83,7 +83,7 @@ function findAllRole() {
             }
         }
     });
-
+    $('.dv-background').hide();
 }
 
 function clearAll() {
@@ -195,6 +195,7 @@ function insertData(){
             $("label[id=detailAlertError]").text("กรุณากรอกคำอธิบาย");
         }
     }
+    $('.dv-background').hide();
 }
 
 var idEdit;
@@ -291,6 +292,7 @@ function Update(){
             });
         }
     }
+    $('.dv-background').hide();
 }
 
 $("#checkboxAll").on('change',function(){
@@ -387,6 +389,7 @@ $("#modalAlertBtnOkDelete").on('click',function(){
         });
     });
     findAllRole();
+    $('.dv-background').hide();
 });
 //================================== End Delete ================================//
 

@@ -37,6 +37,7 @@ function fineAppRole() {
         $('#selectRole').append('<option value="'+item.id+'">'+item.name+':'+item.description+'</option>');
         $('#selectRoleEdit').append('<option value="'+item.id+'">'+item.name+':'+item.description+'</option>');
     });
+    $('.dv-background').hide();
 }
 
 function findAllUser() {
@@ -55,6 +56,7 @@ function findAllUser() {
         //close loader
         $('.dv-background').hide();
     }).responseText;
+    $('.dv-background').hide();
 
     $('#tbodyUser').empty();
     $.each(JSON.parse(findAllUser),function(index,item){
@@ -117,6 +119,7 @@ function clearAll() {
     $('#textMailEdit').val('');
     $("[name='checkboxUser']").prop("checked",false);
     $("#checkboxAll").prop("checked",false);
+    $('.dv-background').hide();
 }
 $("#btnSave").on('click',function(){
     insertData();
@@ -248,6 +251,7 @@ function insertData(){
             $("label[id=detailAlertError]").text("ระบุอีเมลไม่ถูกต้อง");
         }
     }
+    $('.dv-background').hide();
 }
 
 $('#textUserNameEdit').val('');
@@ -292,6 +296,7 @@ function editData(rowData){
         $("#needLoginFlaseEdit").prop("checked", true);
     }
     $('#modalEditUser').modal('show');
+    $('.dv-background').hide();
 }
 
 // Function Update
@@ -416,8 +421,8 @@ function Update(){
             $("label[id=detailAlertError]").text("กรุณาตรวจสอบข้อมูล!");
     }else{
         updateUser();
-
     }
+    $('.dv-background').hide();
 }
 
 function updateUser() {
@@ -474,6 +479,7 @@ function updateUser() {
         //close loader
         $('.dv-background').hide();
     });
+    $('.dv-background').hide();
 }
 
 $("#checkboxAll").on('change',function(){
@@ -607,6 +613,7 @@ $("#modalAlertBtnOkDelete").on('click',function(){
         });
     });
     findAllUser();
+    $('.dv-background').hide();
 });
 
 //================================== End Delete ================================//

@@ -100,6 +100,7 @@ function findAllfares() {
 
             faresPrototype[item.id]=item;
         });
+    $('.dv-background').hide();
 
     $('#FaresTable').DataTable({
         "sScrollX": "100%",
@@ -328,6 +329,7 @@ function findTravelByCode(code) {
     }else{
         console.log('travelcode empty');
     }
+    $('.dv-background').hide();
 }
 var promoteCode;
 var promoteCodeEdit;
@@ -385,6 +387,7 @@ function findPromote() {
         }else{
             console.log("==========");
         }
+    $('.dv-background').hide();
 }
 
 function findPromoteByCode(code) {
@@ -444,6 +447,7 @@ function findPromoteByCode(code) {
     }else{
         console.log('travelcode empty');
     }
+    $('.dv-background').hide();
 }
 
 //=========================== Insret ===============================//
@@ -1030,6 +1034,7 @@ function editFares(){
             $("label[id=detailDeleteFree]").text("กรุณาเลือกโปรโมชั่น");
         }
     }
+    $('.dv-background').hide();
 }
 // update function
 function updateFaresEngine() {
@@ -1167,4 +1172,5 @@ $("#modalAlertBtnOk1").on('click',function(){
         });
     });
     findAllfares();
+    $('.dv-background').hide();
 });

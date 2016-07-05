@@ -74,6 +74,7 @@ function findAllPromotion() {
             }
         }
     });
+    $('.dv-background').hide();
 }
 
 $("#checkall").on('change',function(){
@@ -189,6 +190,7 @@ function insertData(){
             $("label[id=detailAlert]").text("กรุณากรอกชื่อโปรโมชั่น");
         };
     }
+    $('.dv-background').hide();
 }
 
 $("#btnSave").on('click',function(){
@@ -328,6 +330,7 @@ function editMenu(){
             $("label[id=detailAlert]").text("กรุณากรอกชื่อโปรโมชั่น");
         };
     }
+    $('.dv-background').hide();
 }
 
 // Function Update
@@ -379,6 +382,7 @@ function updateDatePromotion(){
         //close loader
         $('.dv-background').hide();
     });
+    $('.dv-background').hide();
 }
 //============================ delete ============================//
 
@@ -458,5 +462,6 @@ $("#modalAlertBtnOk1").on('click',function(){
         });
     });
     findAllPromotion();
+    $('.dv-background').hide();
 });
 //================================== End Delete ================================//

@@ -33,7 +33,7 @@ function findAllDate() {
         //close loader
         $('.dv-background').hide();
     }).responseText;
-
+    $('.dv-background').hide();
     $('#tbodyDate').empty();
     $.each(JSON.parse(dateData),function(index,item){
 
@@ -206,6 +206,7 @@ function insertData(){
             $("label[id=newModalMessage]").text("กรุณากรอกชื่อวันที่");
         }
     }
+    $('.dv-background').hide();
 }
 
 $("#btnSave").on('click',function(){
@@ -309,6 +310,7 @@ function editMenu() {
             $("label[id=newModalMessage]").text("กรุณากรอกชื่อวันที่");
         }
     }
+    $('.dv-background').hide();
 }
 
 // Function Update
@@ -366,6 +368,7 @@ function updateDateDate(){
         //close loader
         $('.dv-background').hide();
     });
+    $('.dv-background').hide();
 }
 //============================ delete ============================//
 
@@ -445,6 +448,7 @@ $("#modalAlertBtnOk1").on('click',function(){
         });
     });
     findAllDate();
+    $('.dv-background').hide();
 });
 //================================== End Delete ================================//
 

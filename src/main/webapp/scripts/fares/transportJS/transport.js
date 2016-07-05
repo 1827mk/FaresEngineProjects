@@ -77,6 +77,7 @@ function findAllTransport() {
             }
         }
     });
+    $('.dv-background').hide();
 }
 
 function destroyDataTablePromote() {
@@ -212,6 +213,7 @@ function insertData(){
             $("label[id=detailAlert]").text("กรุณากรอกชื่อบริษัท");
         };
     }
+    $('.dv-background').hide();
 }
 
 $("#btnSave").on('click',function(){
@@ -358,6 +360,7 @@ function editMenu(){
             $("label[id=detailAlert]").text("กรุณากรอกชื่อบริษัท");
         };
     }
+    $('.dv-background').hide();
 }
 
 // Function Update
@@ -410,6 +413,7 @@ function updateDateTransport(){
         //close loader
         $('.dv-background').hide();
     });
+    $('.dv-background').hide();
 }
 //============================ delete ============================//
 
@@ -487,5 +491,6 @@ $("#modalAlertBtnOk1").on('click',function(){
         });
     });
     findAllTransport();
+    $('.dv-background').hide();
 });
 //================================== End Delete ================================//

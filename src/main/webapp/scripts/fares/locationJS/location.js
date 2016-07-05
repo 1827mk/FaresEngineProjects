@@ -38,6 +38,7 @@ function findAllLocation() {
         //close loader
         $('.dv-background').hide();
     }).responseText;
+    $('.dv-background').hide();
     $('#tbodyLocation').empty();
     $.each(JSON.parse(locationData),function(index,item){
         $('#tbodyLocation').append('<tr>' +
@@ -292,6 +293,7 @@ function insertData(){
             $("label[id=detailAlertError]").text("กรุณาเลือกรูปภาพ");
         };
     }
+    $('.dv-background').hide();
 }
 
 $("#add").on('click',function(){
@@ -449,6 +451,7 @@ function editMenu(){
             $("label[id=detailAlertError]").text("กรุณาเลือกรูปภาพ");
         };
     }
+    $('.dv-background').hide();
 }
 
 // Function Update
@@ -510,6 +513,7 @@ function updateDateLocation(){
         //close loader
         $('.dv-background').hide();
     });
+    $('.dv-background').hide();
 }
 
 // Function Update No Image
@@ -561,6 +565,7 @@ function updateDateLocationNoImage(){
         //close loader
         $('.dv-background').hide();
     });
+    $('.dv-background').hide();
 }
 //============================ delete ============================//
 
@@ -640,6 +645,7 @@ $("#modalAlertBtnOk1").on('click',function(){
         });
     });
     findAllLocation();
+    $('.dv-background').hide();
     
 });
 //================================== End Delete ================================//
