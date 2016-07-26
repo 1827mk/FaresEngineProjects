@@ -143,7 +143,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">สิทธิใช้งาน(อนุญาติ)</label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">สิทธิใช้งาน(อนุญาต)</label>
                             <div class="col-sm-1">
                                 <input id="needLoginTrue" class="form-control" type="radio" name="optradio" checked="checked" value="01"/>
                             </div>
@@ -219,7 +219,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">สิทธิใช้งาน(อนุญาติ)</label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">สิทธิใช้งาน(อนุญาต)</label>
                             <div class="col-sm-1">
                                 <input id="needLoginTrueEdit" class="form-control" type="radio" name="optradio2" value="01"/>
                             </div>
