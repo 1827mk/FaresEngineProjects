@@ -39,9 +39,9 @@
   <script type="text/javascript">
     $(document).ready(function () {
       findFares();
-      findDate();
+//      findDate();
       findLoc();
-      findPro();
+//      findPro();
       findProm();
       findRole();
       findTra();
@@ -50,11 +50,11 @@
     });
 
     var countUser = 0;
-    var countDate = 0;
+//    var countDate = 0;
     var countFares = 0;
     var countLoc = 0;
     var countProm = 0;
-    var countPro = 0;
+//    var countPro = 0;
     var countTran = 0;
     var countTravel = 0;
     var countRole = 0;
@@ -78,25 +78,25 @@
         countUser++
       });
     }
-
-    function findDate() {
-      var findDate = $.ajax({
-        type: "GET",
-        headers: {
-          Accept: 'application/json'
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url: session['context']+'/datefareses/findAllDatefared',
-        async: false
-      }).done(function () {
-        //close loader
-        $('.dv-background').hide();
-      }).responseText;
-      $.each(JSON.parse(findDate), function (index, item) {
-        countDate++
-      });
-    }
+//
+//    function findDate() {
+//      var findDate = $.ajax({
+//        type: "GET",
+//        headers: {
+//          Accept: 'application/json'
+//        },
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json",
+//        url: session['context']+'/datefareses/findAllDatefared',
+//        async: false
+//      }).done(function () {
+//        //close loader
+//        $('.dv-background').hide();
+//      }).responseText;
+//      $.each(JSON.parse(findDate), function (index, item) {
+//        countDate++
+//      });
+//    }
 
     function findFares() {
       var findFares = $.ajax({
@@ -155,24 +155,24 @@
       });
     }
 
-    function findPro() {
-      var findPro = $.ajax({
-        type: "GET",
-        headers: {
-          Accept: 'application/json'
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url: session['context']+'/promotions/findAllPromotion',
-        async: false
-      }).done(function () {
-        //close loader
-        $('.dv-background').hide();
-      }).responseText;
-      $.each(JSON.parse(findPro), function (index, item) {
-        countPro++
-      });
-    }
+//    function findPro() {
+//      var findPro = $.ajax({
+//        type: "GET",
+//        headers: {
+//          Accept: 'application/json'
+//        },
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json",
+//        url: session['context']+'/promotions/findAllPromotion',
+//        async: false
+//      }).done(function () {
+//        //close loader
+//        $('.dv-background').hide();
+//      }).responseText;
+//      $.each(JSON.parse(findPro), function (index, item) {
+//        countPro++
+//      });
+//    }
 
     function findTran() {
       var findTrans = $.ajax({
@@ -255,11 +255,13 @@
                     legendText: "แถว = จำนวนแถวข้อมูลในระบบ",
                     dataPoints: [
                       {y: countFares, label: "การจัดการอัตราค่าโดยสาร"},
-                      {y: countTravel,  label: "การจัดการการท่องเที่ยว" },
                       {y: countProm,  label: "การจัดการการจัดโปรโมชั่น"},
-                      {y: countPro,  label: "การจัดการโปรโมชั่น"},
+                      {y: countTravel,  label: "การจัดการการท่องเที่ยว" },
+                      {y: countTran,  label: "การจัดการพาหนะ" },
+
+//                      {y: countPro,  label: "การจัดการโปรโมชั่น"},
                       {y: countLoc,  label: "การจัดการสถานที่"},
-                      {y: countDate, label: "การจัดการวันที่"},
+//                      {y: countDate, label: "การจัดการวันที่"},
                       {y: countUser,  label: "การจัดการผู้ใช้งาน"},
                       {y: countRole,  label: "การจัดการตำแหน่ง"}
                     ]
