@@ -4,12 +4,12 @@
     <jsp:output omit-xml-declaration="yes"/>
     <page:show id="ps_com_nbu_fares_domain_Promote" object="${promote}" path="/promotes" z="lBENmJceTAYQlpKVa6RgLojmQxU=">
         <field:display field="promoteCode" id="s_com_nbu_fares_domain_Promote_promoteCode" object="${promote}" z="lMn6L0bMFnsUVmRLa/jCpmPyKf4="/>
-        <field:display field="promotion" id="s_com_nbu_fares_domain_Promote_promotion" object="${promote}" z="vxie+OcO/A/ZUFCLf6HRxPpa5pc="/>
-        <field:display field="dateFares" id="s_com_nbu_fares_domain_Promote_dateFares" object="${promote}" z="+jt+uGNSwxbw83XRL2ed7PaWeNc="/>
         <field:display field="promotePrice" id="s_com_nbu_fares_domain_Promote_promotePrice" object="${promote}" z="jRX7iQbM9NpXc/SXhb5Xx/wJsOo="/>
         <field:display field="createdBy" id="s_com_nbu_fares_domain_Promote_createdBy" object="${promote}" z="h3tChGmhLViR8YTVkDv8vCzguwc="/>
         <field:display field="updatedBy" id="s_com_nbu_fares_domain_Promote_updatedBy" object="${promote}" z="CmpcIL+/1J2gg5aPObbVSNn8ZBo="/>
         <field:display date="true" dateTimePattern="${promote_createddate_date_format}" field="createdDate" id="s_com_nbu_fares_domain_Promote_createdDate" object="${promote}" z="HHOHo4J06LO9howh39380uFVlks="/>
         <field:display date="true" dateTimePattern="${promote_updateddate_date_format}" field="updatedDate" id="s_com_nbu_fares_domain_Promote_updatedDate" object="${promote}" z="I58j9ccFKfTMQVxPTzadXj74+5U="/>
+        <field:display date="true" dateTimePattern="${promote_datefared_date_format}" field="dateFared" id="s_com_nbu_fares_domain_Promote_dateFared" object="${promote}" z="ejR9xk2g6d3uNRLPURgHSAeJ9zM="/>
+        <field:display field="promotion" id="s_com_nbu_fares_domain_Promote_promotion" object="${promote}" z="vxie+OcO/A/ZUFCLf6HRxPpa5pc="/>
     </page:show>
 </div>

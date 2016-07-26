@@ -29,8 +29,6 @@ privileged aspect DateFaresDataOnDemand_Roo_DataOnDemand {
         DateFares obj = new DateFares();
         setCreatedBy(obj, index);
         setCreatedDate(obj, index);
-        setDateFared(obj, index);
-        setDateName(obj, index);
         setUpdatedBy(obj, index);
         setUpdatedDate(obj, index);
         return obj;
@@ -44,16 +42,6 @@ privileged aspect DateFaresDataOnDemand_Roo_DataOnDemand {
     public void DateFaresDataOnDemand.setCreatedDate(DateFares obj, int index) {
         Date createdDate = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime();
         obj.setCreatedDate(createdDate);
-    }
-    
-    public void DateFaresDataOnDemand.setDateFared(DateFares obj, int index) {
-        Date dateFared = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime();
-        obj.setDateFared(dateFared);
-    }
-    
-    public void DateFaresDataOnDemand.setDateName(DateFares obj, int index) {
-        String dateName = "dateName_" + index;
-        obj.setDateName(dateName);
     }
     
     public void DateFaresDataOnDemand.setUpdatedBy(DateFares obj, int index) {

@@ -5,6 +5,13 @@
 	<jsp:output omit-xml-declaration="yes" />
 
 
+	<style>
+		a.style1 {
+			border-bottom: 1px solid black;
+			/*border-top: 1px solid black;*/
+		}
+
+	</style>
 	<jsp:useBean class="java.util.Date" id="now" scope="request" />
 	<c:set var="lang" value="${fn:toUpperCase(pageContext.response.locale)}" scope="request" />
 	<c:set var="user" value="${pageContext.request.userPrincipal.name}" scope="request" />
@@ -132,6 +139,7 @@
 				<nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation" style="text-align: left;">
 					<a class="navmenu-brand" href="${fn:escapeXml(fares)}"><span class="glyphicon glyphicon-tasks"></span>&#160;ระบบจัดการอัตราค่าโดยสาร</a>
 					<ul class="nav navmenu-nav">
+						<a class="style1"></a>
 						<li>
 							<a href="${fn:escapeXml(faresManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการราคาอัตราค่าโดยสาร</a>
 						</li>
@@ -147,12 +155,13 @@
 						<li>
 							<a href="${fn:escapeXml(locationManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการสถานที่</a>
 						</li>
-						<li>
-							<a href="${fn:escapeXml(promotionManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการโปรโมชั่น</a>
-						</li>
-						<li>
-							<a href="${fn:escapeXml(dateFareManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการวันที่</a>
-						</li>
+						<!--<li>-->
+							<!--<a href="${fn:escapeXml(promotionManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการโปรโมชั่น</a>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<a href="${fn:escapeXml(dateFareManage)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการวันที่</a>-->
+						<!--</li>-->
+							<!--<a class="style1"></a>-->
 						<li>
 							<a href="${fn:escapeXml(approlesManager)}"><span class="glyphicon glyphicon-link"></span>&#160;การจัดการตำแหน่ง</a>
 						</li>

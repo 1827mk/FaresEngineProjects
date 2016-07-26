@@ -3,13 +3,10 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_com_nbu_fares_domain_DateFares" modelAttribute="dateFares" path="/datefareses" render="${empty dependencies}" z="TXrRpNQL8jBipWfcDjblrOu3pEA=">
-        <field:datetime dateTimePattern="${dateFares_datefared_date_format}" field="dateFared" id="c_com_nbu_fares_domain_DateFares_dateFared" z="8sE/Bd/2JL0IfvfPFkihOd7+Udc="/>
-        <field:simple field="promote" id="c_com_nbu_fares_domain_DateFares_promote" messageCode="entity_reference_not_managed" messageCodeAttribute="Promote" z="FsGuxW4ZWtAMCylbcDyRfOhkCsU="/>
         <field:input field="createdBy" id="c_com_nbu_fares_domain_DateFares_createdBy" z="zfDfA2rZs9EResO6BRhLYk5Ft5k="/>
         <field:input field="updatedBy" id="c_com_nbu_fares_domain_DateFares_updatedBy" z="kGi0QUJYTMqoi4MtBVCclO4suDg="/>
         <field:datetime dateTimePattern="${dateFares_createddate_date_format}" field="createdDate" id="c_com_nbu_fares_domain_DateFares_createdDate" z="W/GYXT5tm/tP9mmALmxbr4mLahw="/>
         <field:datetime dateTimePattern="${dateFares_updateddate_date_format}" field="updatedDate" id="c_com_nbu_fares_domain_DateFares_updatedDate" z="2n5+8v1vyg5XQLPjixkRZGgSvs8="/>
-        <field:input field="dateName" id="c_com_nbu_fares_domain_DateFares_dateName" z="2Fs30yInE2Emiec23F8XoHT2IuI="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_com_nbu_fares_domain_DateFares" render="${not empty dependencies}" z="cRoDPlG4AExO8U4TUpXMqOkjvLU="/>
 </div>

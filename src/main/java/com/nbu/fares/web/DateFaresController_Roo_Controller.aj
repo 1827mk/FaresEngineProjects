@@ -4,13 +4,10 @@
 package com.nbu.fares.web;
 
 import com.nbu.fares.domain.DateFares;
-import com.nbu.fares.domain.Promote;
 import com.nbu.fares.web.DateFaresController;
 import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import org.joda.time.format.DateTimeFormat;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -92,13 +89,11 @@ privileged aspect DateFaresController_Roo_Controller {
     void DateFaresController.addDateTimeFormatPatterns(Model uiModel) {
         uiModel.addAttribute("dateFares_createddate_date_format", "dd/MM/yyyy");
         uiModel.addAttribute("dateFares_updateddate_date_format", "dd/MM/yyyy");
-        uiModel.addAttribute("dateFares_datefared_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
     }
     
     void DateFaresController.populateEditForm(Model uiModel, DateFares dateFares) {
         uiModel.addAttribute("dateFares", dateFares);
         addDateTimeFormatPatterns(uiModel);
-        uiModel.addAttribute("promotes", Promote.findAllPromotes());
     }
     
     String DateFaresController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

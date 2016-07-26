@@ -16,16 +16,16 @@ import org.springframework.roo.addon.json.RooJson;
 @RooJson(deepSerialize = true)
 public class Promotion extends BaseEntity {
 
-    /**
-     */
-    private String promotionCode;
-
-    /**
-     */
-    private String promotionName;
-
-    /**
-     */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "promotion")
-    private Set<Promote> promote = new HashSet<Promote>();
+//    /**
+//     */
+//    private String promotionCode;
+//
+//    /**
+//     */
+//    private String promotionName;
+//
+//    /**
+//     */
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "promotion")
+//    private Set<Promote> promote = new HashSet<Promote>();
 }

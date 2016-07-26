@@ -6,7 +6,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 
-    <c:set scope="request" var="LABEL_NAME"><spring:message code="" text="ตำแหน่ง"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_NAME"><spring:message code="" text="บทบาท"></spring:message></c:set>
     <c:set scope="request" var="LABEL_DESCRIPTION"><spring:message code="" text="คำอธิบาย"></spring:message></c:set>
     <c:set scope="request" var="LABEL_ROLE_EDIT"><spring:message code="" text="แก้ไข"></spring:message></c:set>
 
@@ -103,12 +103,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header add">
-                    <h4 class="modal-title">เพิ่มตำแหน่ง</h4>
+                    <h4 class="modal-title">เพิ่มบทบาท</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">ตำแหน่ง<span style="color:red">* </span></label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">บทบาท<span style="color:red">* </span></label>
                             <div class="col-sm-6">
                                 <input id="textRoleName" class="form-control" type="text" data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ" placeholder="Ex. ROLE_USER"  />
                             </div>
@@ -141,12 +141,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header add">
-                    <h4 class="modal-title">แก้ไขตำแหน่ง</h4>
+                    <h4 class="modal-title">แก้ไขบทบาท</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">ตำแหน่ง<span style="color:red">* </span></label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">บทบาท<span style="color:red">* </span></label>
                             <div class="col-sm-6">
                                 <input id="textRoleNameEdit" class="form-control" type="text" data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ" placeholder="Ex. F001"  />
                             </div>

@@ -73,7 +73,7 @@ function findAllfares() {
         $('#tbodyFares').empty();
         $.each(JSON.parse(faresData),function(index,item){
 
-            var date = new Date(item.promote.dateFares.dateFared).toISOString().split("T")[0];
+            var date = new Date(item.promote.dateFared).toISOString().split("T")[0];
             var dates = date.split("-");
             var dateOrigin = dates[2];
             var monthOrigin = dates[1];
@@ -81,7 +81,7 @@ function findAllfares() {
             var checkDateDuplicate = dateOrigin+'/'+monthOrigin+'/'+yeaOrigin;
 
             if(checkDateDuplicate == "10/10/2010"){
-                checkDateDuplicate = "----------"
+                checkDateDuplicate = "-"
             }
 
             $('#tbodyFares').append('<tr>' +
@@ -94,7 +94,7 @@ function findAllfares() {
                 '<td><alight="left">'+(item.travel.transport.transportName==null?'':item.travel.transport.transportName)+'</alight></td>' +
                 '<td><alight="left">'+(item.travel.transport.transportBusiness==null?'':item.travel.transport.transportBusiness)+'</alight></td>' +
                 '<td><alight="left">'+(checkDateDuplicate==null?'':checkDateDuplicate)+'</alight></td>' +
-                '<td><alight="left">'+(item.promote.promotion.promotionName==null?'':item.promote.promotion.promotionName)+'</alight></td>' +
+                '<td><alight="left">'+(item.promote.promotion==null?'':item.promote.promotion)+'</alight></td>' +
                 '<td><alight="left">'+(item.promote.promotePrice==null?'':item.promote.promotePrice)+'</alight></td>' +
                 '</tr>');
 
@@ -353,7 +353,7 @@ function findPromote() {
     $('#selectPromote').empty();
     $('#selectEditPromote').empty();
     $.each(JSON.parse(promoteData),function(index,item){
-        var date = new Date(item.dateFares.dateFared).toISOString().split("T")[0];
+        var date = new Date(item.dateFared).toISOString().split("T")[0];
         var dates = date.split("-");
         var dateOrigin = dates[2];
         var monthOrigin = dates[1];
@@ -361,10 +361,10 @@ function findPromote() {
         var checkDateDuplicate = dateOrigin+'/'+monthOrigin+'/'+yeaOrigin;
 
         if(checkDateDuplicate == "10/10/2010"){
-            checkDateDuplicate = "----------"
+            checkDateDuplicate = "-"
         }
-        $('#selectPromote').append('<option value="'+item.id+'">'+item.promoteCode+':'+item.promotion.promotionName+':'+checkDateDuplicate+'</option>');
-        $('#selectEditPromote').append('<option value="'+item.id+'">'+item.promoteCode+':'+item.promotion.promotionName+':'+checkDateDuplicate+'</option>');
+        $('#selectPromote').append('<option value="'+item.id+'">'+item.promoteCode+':'+item.promotion+':'+checkDateDuplicate+'</option>');
+        $('#selectEditPromote').append('<option value="'+item.id+'">'+item.promoteCode+':'+item.promotion+':'+checkDateDuplicate+'</option>');
     });
 
         $('#selectPromote').on('change',function(){
@@ -417,7 +417,7 @@ function findPromoteByCode(code) {
 
         $.each(JSON.parse(promoteData),function(index,item){
 
-            var date = new Date(item.dateFares.dateFared).toISOString().split("T")[0];
+            var date = new Date(item.dateFared).toISOString().split("T")[0];
             var dates = date.split("-");
             var dateOrigin = dates[2];
             var monthOrigin = dates[1];
@@ -425,21 +425,21 @@ function findPromoteByCode(code) {
             var checkDateDuplicate = dateOrigin+'/'+monthOrigin+'/'+yeaOrigin;
 
             if(checkDateDuplicate == "10/10/2010"){
-                $('#textDate').val("----------");
-                $('#textPromotionName').val(item.promotion.promotionName);
+                $('#textDate').val("-");
+                $('#textPromotionName').val(item.promotion);
                 $('#textDiscount').val(item.promotePrice);
 
-                $('#textEditDate').val("----------");
-                $('#textEditPromotionName').val(item.promotion.promotionName);
+                $('#textEditDate').val("-");
+                $('#textEditPromotionName').val(item.promotion);
                 $('#textEditDiscount').val(item.promotePrice);
 
             }else{
                 $('#textDate').val(checkDateDuplicate);
-                $('#textPromotionName').val(item.promotion.promotionName);
+                $('#textPromotionName').val(item.promotion);
                 $('#textDiscount').val(item.promotePrice);
 
                 $('#textEditDate').val(checkDateDuplicate);
-                $('#textEditPromotionName').val(item.promotion.promotionName);
+                $('#textEditPromotionName').val(item.promotion);
                 $('#textEditDiscount').val(item.promotePrice);
             }
 
@@ -469,7 +469,7 @@ function insertData(){
     console.log(priceFares);
 
 
-    if($('#textInputCode').val()!="" && $('#textInputPrice').val()!="" && $( "#selectInputTravel option:selected" ).text()!="----------" ){
+    if($('#textInputCode').val()!="" && $('#textInputPrice').val()!="" && $( "#selectInputTravel option:selected" ).text()!="-" ){
         $('.dv-background').show();
         var findFaresDuplicateFare = $.ajax({
             type: "GET",
@@ -575,7 +575,7 @@ function insertData(){
         }else if ($("#textInputPrice").val()=="") {
             $("#alertModal").modal('show');
             $("label[id=detailAlert]").text("กรุณากรอกราคาอัตราค่าโดยสาร");
-        }else if ($( "#selectInputTravel option:selected" ).text()=="----------") {
+        }else if ($( "#selectInputTravel option:selected" ).text()=="-") {
             $("#alertModal").modal('show');
             $("label[id=detailAlert]").text("กรุณาเลือกสถานที่");
         }else {
@@ -708,7 +708,7 @@ $('#selectEditPromote').on('change',function(){
 //=========================== Edit ===============================//
 function editFares(){
 
-    if($('#textEditInputCode').val()!="" && $('#textEditInputPrice').val()!="" && $("#selectEditInputTravel option:selected" ).text()!="----------" ){
+    if($('#textEditInputCode').val()!="" && $('#textEditInputPrice').val()!="" && $("#selectEditInputTravel option:selected" ).text()!="-" ){
 
         var codeFares = $('#textEditInputCode').val();
         var priceFares = $('#textEditInputPrice').val();
@@ -1028,7 +1028,7 @@ function editFares(){
         }else if ($("#textEditInputPrice").val()=="") {
             $("#deleteModalFree").modal('show');
             $("label[id=detailDeleteFree]").text("กรุณากรอกราคาอัตราค่าโดยสาร");
-        }else if ($( "#selectEditInputTravel option:selected" ).text()=="----------") {
+        }else if ($( "#selectEditInputTravel option:selected" ).text()=="-") {
             $("#deleteModalFree").modal('show');
             $("label[id=detailDeleteFree]").text("กรุณาเลือกสถานที่");
         }else {

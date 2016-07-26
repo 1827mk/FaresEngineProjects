@@ -58,9 +58,8 @@ privileged aspect FaresController_Custom_Controller_Json {
                 .include("promote.id")
                 .include("promote.promoteCode")
                 .include("promote.promotePrice")
-                .include("promote.promotion.promotionCode")
-                .include("promote.promotion.promotionName")
-                .include("promote.dateFares.dateFared")
+                .include("promote.promotion")
+                .include("promote.dateFared")
                 .exclude("*")
                 .deepSerialize(result)),headers, HttpStatus.OK);
     }

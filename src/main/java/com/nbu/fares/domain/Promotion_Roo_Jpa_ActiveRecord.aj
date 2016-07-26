@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect Promotion_Roo_Jpa_ActiveRecord {
     
-    public static final List<String> Promotion.fieldNames4OrderClauseFilter = java.util.Arrays.asList("promotionCode", "promotionName", "promote");
+    public static final List<String> Promotion.fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
     
     public static long Promotion.countPromotions() {
         return entityManager().createQuery("SELECT COUNT(o) FROM Promotion o", Long.class).getSingleResult();

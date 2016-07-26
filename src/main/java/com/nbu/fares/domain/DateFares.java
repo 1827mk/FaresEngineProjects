@@ -20,18 +20,18 @@ import org.springframework.roo.addon.json.RooJson;
 @RooJson(deepSerialize = true)
 public class DateFares extends BaseEntity {
 
-    /**
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(style = "M-")
-    private Date dateFared;
-
-    /**
-     */
-    private String dateName;
-
-    /**
-     */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dateFares")
-    private Set<Promote> promote = new HashSet<Promote>();
+//    /**
+//     */
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @DateTimeFormat(style = "M-")
+//    private Date dateFared;
+//
+//    /**
+//     */
+//    private String dateName;
+//
+//    /**
+//     */
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dateFares")
+//    private Set<Promote> promote = new HashSet<Promote>();
 }

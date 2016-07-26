@@ -50,12 +50,9 @@ privileged aspect Promote_Custom_Jpa_ActiveRecord {
     public static List<Promote> Promote.findPromoteDuplicateCD(String promotion,Date dateFares) {
         Session session = (Session) Promote.entityManager().getDelegate();
         Criteria criteria = session.createCriteria(Promote.class);
-        criteria.createCriteria("promotion","promotion");
-        criteria.createCriteria("dateFares","dateFares");
-
         Criterion codeRestriction = (Restrictions.and(
-                Restrictions.eq("promotion.promotionCode", promotion),
-                Restrictions.eq("dateFares.dateFared", dateFares))
+                Restrictions.eq("promotion", promotion),
+                Restrictions.eq("dateFared", dateFares))
         );
         criteria.add(codeRestriction);
         return criteria.list();

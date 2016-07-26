@@ -4,13 +4,13 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_com_nbu_fares_domain_Promote" modelAttribute="promote" path="/promotes" render="${empty dependencies}" z="nSHmNLwYGRFVgVlx10F19u6WQeE=">
         <field:input field="promoteCode" id="c_com_nbu_fares_domain_Promote_promoteCode" z="sLrjpBPZuswzXAuE8Ht7UnuCEf4="/>
-        <field:select field="promotion" id="c_com_nbu_fares_domain_Promote_promotion" itemValue="id" items="${promotions}" path="/promotions" z="9wDgeQEyQI1spCFLw1cx41lgvYc="/>
-        <field:select field="dateFares" id="c_com_nbu_fares_domain_Promote_dateFares" itemValue="id" items="${datefareses}" path="/datefareses" z="KIq/KFAaFPLJlA/5/wTAYYvVkmY="/>
         <field:input field="promotePrice" id="c_com_nbu_fares_domain_Promote_promotePrice" validationMessageCode="field_invalid_number" z="AFJVMnV4Fxs5riX17D4wd/AARgw="/>
         <field:input field="createdBy" id="c_com_nbu_fares_domain_Promote_createdBy" z="PzXdOV4RNcdIhRkF6dG+L41QixU="/>
         <field:input field="updatedBy" id="c_com_nbu_fares_domain_Promote_updatedBy" z="uRoxElaU/BWHJvIkJn/qUpZH94E="/>
         <field:datetime dateTimePattern="${promote_createddate_date_format}" field="createdDate" id="c_com_nbu_fares_domain_Promote_createdDate" z="7JMQCqD6YZz1nvWk6Lqi4KjoYx4="/>
         <field:datetime dateTimePattern="${promote_updateddate_date_format}" field="updatedDate" id="c_com_nbu_fares_domain_Promote_updatedDate" z="tcB2OsRMbYk9P/6CmrLAfnDo/hI="/>
+        <field:datetime dateTimePattern="${promote_datefared_date_format}" field="dateFared" id="c_com_nbu_fares_domain_Promote_dateFared" z="N5iwDHSWqm6NxdVCMkRqmODHD3A="/>
+        <field:input field="promotion" id="c_com_nbu_fares_domain_Promote_promotion" z="2v8jLntJircF8e51++mIUvWgYp0="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_com_nbu_fares_domain_Promote" render="${not empty dependencies}" z="VyeO5YnUhp+F+ffQyvxY4n4/vXM="/>
 </div>

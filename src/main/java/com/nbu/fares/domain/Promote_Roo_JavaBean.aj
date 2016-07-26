@@ -3,9 +3,8 @@
 
 package com.nbu.fares.domain;
 
-import com.nbu.fares.domain.DateFares;
 import com.nbu.fares.domain.Promote;
-import com.nbu.fares.domain.Promotion;
+import java.util.Date;
 
 privileged aspect Promote_Roo_JavaBean {
     
@@ -25,20 +24,20 @@ privileged aspect Promote_Roo_JavaBean {
         this.promotePrice = promotePrice;
     }
     
-    public Promotion Promote.getPromotion() {
+    public Date Promote.getDateFared() {
+        return this.dateFared;
+    }
+    
+    public void Promote.setDateFared(Date dateFared) {
+        this.dateFared = dateFared;
+    }
+    
+    public String Promote.getPromotion() {
         return this.promotion;
     }
     
-    public void Promote.setPromotion(Promotion promotion) {
+    public void Promote.setPromotion(String promotion) {
         this.promotion = promotion;
-    }
-    
-    public DateFares Promote.getDateFares() {
-        return this.dateFares;
-    }
-    
-    public void Promote.setDateFares(DateFares dateFares) {
-        this.dateFares = dateFares;
     }
     
 }

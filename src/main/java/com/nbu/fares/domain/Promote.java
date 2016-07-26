@@ -1,12 +1,15 @@
 package com.nbu.fares.domain;
 import com.nbu.fares.base.BaseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.*;
+
 import org.springframework.roo.addon.json.RooJson;
+
+import java.util.Date;
 
 @RooJavaBean
 @RooToString
@@ -22,17 +25,16 @@ public class Promote extends BaseEntity {
      */
     private Double promotePrice;
 
-    /**
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "promotion")
-    private Promotion promotion;
 
     /**
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dateFares")
-    private DateFares dateFares;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(style = "M-")
+    private Date dateFared;
+
+    /**
+     */
+    private String promotion;
 
 
 }

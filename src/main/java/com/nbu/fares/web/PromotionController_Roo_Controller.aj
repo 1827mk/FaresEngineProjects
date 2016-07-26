@@ -3,7 +3,6 @@
 
 package com.nbu.fares.web;
 
-import com.nbu.fares.domain.Promote;
 import com.nbu.fares.domain.Promotion;
 import com.nbu.fares.web.PromotionController;
 import java.io.UnsupportedEncodingException;
@@ -95,7 +94,6 @@ privileged aspect PromotionController_Roo_Controller {
     void PromotionController.populateEditForm(Model uiModel, Promotion promotion) {
         uiModel.addAttribute("promotion", promotion);
         addDateTimeFormatPatterns(uiModel);
-        uiModel.addAttribute("promotes", Promote.findAllPromotes());
     }
     
     String PromotionController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

@@ -3,14 +3,21 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
 
+    <spring:url value="/resources/scripts/material-datetimepicker/css/bootstrap-material-datetimepicker.css" var="datetimepicker_css" />
+    <spring:url value="/resources/scripts/material-datetimepicker/js/bootstrap-material-datetimepicker.js" var="datetimepicker_js_url" />
+    <spring:url value="https://fonts.googleapis.com/icon?family=Material+Icons" var="googleapis_icon_css_url" />
+
+    <link rel="stylesheet" type="text/css" href="${datetimepicker_css}" />
+    <link rel="stylesheet" type="text/css" href="${googleapis_icon_css_url}" />
+    <script src="${datetimepicker_js_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+
     <c:set scope="request" var="LABEL_PROMOTE"><spring:message code="" text="การจัดโปรโมชั่น"></spring:message></c:set>
     <c:set scope="request" var="LABEL_PROMOTE_EDIT"><spring:message code="" text="แก้ไข"></spring:message></c:set>
     <c:set scope="request" var="LABEL_PROMOTE_CODE"><spring:message code="" text="รหัสการจัดโปรโมชั่น"></spring:message></c:set>
-    <c:set scope="request" var="LABEL_PRICE"><spring:message code="" text="ราคา(บาท)"></spring:message></c:set>
-    <c:set scope="request" var="LABEL_PROMOTION_CODE"><spring:message code="" text="รหัสโปรโมชั่น"></spring:message></c:set>
-    <c:set scope="request" var="LABEL_PROMOTION_NAME"><spring:message code="" text="ชื่อโปรโมชั่น"></spring:message></c:set>
-    <c:set scope="request" var="LABEL_DATE"><spring:message code="" text="วันที่โปรโมชั่น"></spring:message></c:set>
-    <c:set scope="request" var="LABEL_DATE_NAME"><spring:message code="" text="โปรโมชั่น"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_PRICE"><spring:message code="" text="ส่วนลด(%)"></spring:message></c:set>
+    <!--<c:set scope="request" var="LABEL_PROMOTION_CODE"><spring:message code="" text="รหัสโปรโมชั่น"></spring:message></c:set>-->
+    <c:set scope="request" var="LABEL_PROMOTION_NAME"><spring:message code="" text="โปรโมชั่น"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_DATE"><spring:message code="" text="วันที่จัดโปรโมชั่น"></spring:message></c:set>
     <c:set scope="request" var="LABEL_DISCOUNT"><spring:message code="" text="ส่วนลด(บาท)"></spring:message></c:set>
 
     <style>
@@ -56,6 +63,7 @@
             overflow: auto;
             width:980px;
         }
+
     </style>
 
     <!--begin-->
@@ -86,7 +94,6 @@
                                 <th>${LABEL_PROMOTE_EDIT}</th>
                                 <th>${LABEL_PROMOTE_CODE}</th>
                                 <th>${LABEL_PRICE}</th>
-                                <th>${LABEL_PROMOTION_CODE}</th>
                                 <th>${LABEL_PROMOTION_NAME}</th>
                                 <th>${LABEL_DATE}</th>
                                 </thead>
@@ -107,42 +114,39 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header add">
-                    <h4 class="modal-title">เพิ่มการโปรโมท</h4>
+                    <h4 class="modal-title">เพิ่มการจัดโปรโมชั่น</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">รหัสโปรโมท<span style="color:red">* </span>:</label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">รหัสการจัดโปรโมชั่น<span style="color:red">* </span>:</label>
                             <div class="col-sm-6">
                                 <input id="textInputCode" class="form-control" type="text" data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ" placeholder="Ex. F001"  />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">ราคา<span style="color:red">* </span>:</label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ส่วนลด(%)<span style="color:red">* </span>:</label>
                             <div class="col-sm-6">
                                 <input id="textInputPrice" class="form-control numbersOnly" type="department-lov"  data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="ระบุเป็นตัวเลขเท่านั้น" placeholder="Ex. 1999"  />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" >รหัสโปรโมชั่น<span style="color:red">* </span>:</label>
+                            <label class="control-label col-sm-4" >โปรโมชั่น<span style="color:red">* </span>:</label>
                             <div class="col-sm-6">
-                                <select id="selectInputPromotion" class="form-control" autocomplete="off"  >
-                                    <option></option>
-                                </select>
+                                <input id="textInputPromotion" class="form-control" type="department-lov"  data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ"   />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">ชื่อโปรโมชั่น :</label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">วันที่จัดโปรโมชั่น<span style="color:red">*</span> :</label>
                             <div class="col-sm-6">
-                                <input id="textPromotionName" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">วันที่(โปรโมชั่น)<span style="color:red">* </span>:</label>
-                            <div class="col-sm-6">
-                                <select id="selectDate" class="form-control" autocomplete="off"  >
-                                    <option></option>
-                                </select>
+                                <div class="input-group">
+                                    <input id="textDate" type="text" class="form-control"
+                                           placeholder="dd/mm/yyyy" data-toggle="popover" data-placement="bottom"/>
+                                        <span class="input-group-btn">
+                                            <button id="btn_EventDate" class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-calendar"></span></button>
+                                        </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group text-center remove-margin-bottom">
@@ -178,31 +182,28 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">ราคา<span style="color:red">* </span></label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ส่วนลด(%)<span style="color:red">* </span></label>
                             <div class="col-sm-6">
                                 <input id="textInputEditPrice" class="form-control numbersOnly" type="department-lov"  data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="ระบุเป็นตัวเลขเท่านั้น" placeholder="Ex. 1999"  />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" >รหัสโปรโมชั่น<span style="color:red">* </span></label>
+                            <label class="control-label col-sm-4" >โปรโมชั่น<span style="color:red">* </span>:</label>
                             <div class="col-sm-6">
-                                <select id="selectInputEditPromotion" class="form-control" autocomplete="off"  >
-                                    <option></option>
-                                </select>
+                                <input id="textInputEditPromotion" class="form-control" type="department-lov"  data-toggle="popover" autocomplete="off" data-trigger="hover" data-placement="right" data-content="กรุณาระบุ"   />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">ชื่อโปรโมชั่น :</label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">วันที่จัดโปรโมชั่น<span style="color:red">*</span> :</label>
                             <div class="col-sm-6">
-                                <input id="textEditPromotionName" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">วันที่(โปรโมชั่น)<span style="color:red">* </span>:</label>
-                            <div class="col-sm-6">
-                                <select id="selectEditDate" class="form-control" autocomplete="off"  >
-                                    <option></option>
-                                </select>
+                                <div class="input-group">
+                                    <input id="textEditDate" type="text" class="form-control"
+                                           placeholder="dd/mm/yyyy" data-toggle="popover" data-placement="bottom"/>
+                                        <span class="input-group-btn">
+                                            <button id="btn_EventDate" class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-calendar"></span></button>
+                                        </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group text-center remove-margin-bottom">
