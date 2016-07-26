@@ -1030,6 +1030,7 @@ $("#modalAlertBtnOk1").on('click',function(){
     var count=1;
     $('.dv-background').show();
     $.each(deleteId,function(index,item){
+        console.log(item);
         $.ajax({
             type: "DELETE",
             contentType: "application/json; charset=utf-8",
@@ -1037,8 +1038,12 @@ $("#modalAlertBtnOk1").on('click',function(){
             headers: {
                 Accept: "application/json"
             },
-            url:session['context']+"/travels/"+item,
+            url:session['context']+"/travels/deleteTravel",
+            data: {
+                item: item,
+            },
             complete:function(xhr){
+                console.log(xhr.status);
                 if(xhr.readyState==4){
                     if(xhr.status==200){
                         countDeleteSuccess++;

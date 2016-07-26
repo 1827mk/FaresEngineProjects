@@ -11,6 +11,7 @@ import flexjson.JSONSerializer;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.expression.spel.ast.LongLiteral;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -244,4 +245,32 @@ privileged aspect TravelController_Custom_Controller_Json {
             return new ResponseEntity<String>((new JSONSerializer().deepSerialize("failed")),headers, HttpStatus.NO_CONTENT);
         }
     }
+
+    @RequestMapping(value = "/deleteTravel", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String>TravelController.deleteTravel(@RequestParam(value="item", required = false)Long id) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+
+        if(id!= null){
+            Travel travel = Travel.findTravel(id);
+            travel.flush();
+            return new ResponseEntity<String>((new JSONSerializer().deepSerialize("success")),headers, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<String>((new JSONSerializer().deepSerialize("failed")),headers, HttpStatus.CONFLICT);
+        }
+    }
+
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
+//    public ResponseEntity<String> TravelController.deleteFromJsonTravel(@PathVariable("id") Long item) {
+//        Travel travel = Travel.findTravel(item);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Content-Type", "application/json");
+//        if (travel == null) {
+//            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+//        }
+//        travel.remove();
+//        return new ResponseEntity<String>(headers, HttpStatus.OK);
+//    }
 }
