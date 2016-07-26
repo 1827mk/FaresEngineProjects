@@ -62,7 +62,7 @@ function findAllUser() {
     $.each(JSON.parse(findAllUser),function(index,item){
         var statusUser ;
        if(item.needLogin == true){
-           statusUser = "อนุญาติ"
+           statusUser = "อนุญาต"
        }else{
            statusUser = "ปฏิเสธิ"
        }
