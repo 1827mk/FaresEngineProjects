@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect DateFares_Roo_Jpa_ActiveRecord {
     
-    public static final List<String> DateFares.fieldNames4OrderClauseFilter = java.util.Arrays.asList("dateFared", "dateName", "promote");
+    public static final List<String> DateFares.fieldNames4OrderClauseFilter = java.util.Arrays.asList("");
     
     public static long DateFares.countDateFareses() {
         return entityManager().createQuery("SELECT COUNT(o) FROM DateFares o", Long.class).getSingleResult();

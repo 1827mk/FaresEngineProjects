@@ -16,7 +16,7 @@
     <c:set scope="request" var="LABEL_TRAN_BUSINESS"><spring:message code="" text="บริษัท"></spring:message></c:set>
     <c:set scope="request" var="LABEL_DATE"><spring:message code="" text="วันที่โปรโมชั่น"></spring:message></c:set>
     <c:set scope="request" var="LABEL_DATE_NAME"><spring:message code="" text="โปรโมชั่น"></spring:message></c:set>
-    <c:set scope="request" var="LABEL_DISCOUNT"><spring:message code="" text="ส่วนลด(บาท)"></spring:message></c:set>
+    <c:set scope="request" var="LABEL_DISCOUNT"><spring:message code="" text="ส่วนลด(%)"></spring:message></c:set>
 
     <style>
         .dv-background
@@ -225,7 +225,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">ส่วนลด :</label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ส่วนลด(%) :</label>
                             <div class="col-sm-6">
                                 <input id="textDiscount" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
                             </div>
@@ -321,7 +321,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4" style="margin-top: 5px">ส่วนลด :</label>
+                            <label class="control-label col-sm-4" style="margin-top: 5px">ส่วนลด(%) :</label>
                             <div class="col-sm-6">
                                 <input id="textEditDiscount" class="form-control" type="department-lov" autocomplete="off" disabled="disabled" />
                             </div>

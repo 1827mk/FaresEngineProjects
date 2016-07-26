@@ -37,11 +37,8 @@ privileged aspect PromoteController_Custom_Controller_Json {
                 .include("id")
                 .include("promoteCode")
                 .include("promotePrice")
-                .include("promotion.id")
-                .include("promotion.promotionCode")
-                .include("promotion.promotionName")
-                .include("dateFares.id")
-                .include("dateFares.dateFared")
+                .include("promotion")
+                .include("dateFared")
                 .exclude("*")
                 .deepSerialize(result)),headers, HttpStatus.OK);
     }
@@ -59,9 +56,8 @@ privileged aspect PromoteController_Custom_Controller_Json {
                 .include("id")
                 .include("promoteCode")
                 .include("promotePrice")
-                .include("promotion.promotionCode")
-                .include("promotion.promotionName")
-                .include("dateFares.dateFared")
+                .include("promotion")
+                .include("dateFared")
                 .exclude("*")
                 .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
     }
@@ -79,18 +75,17 @@ privileged aspect PromoteController_Custom_Controller_Json {
                 .include("id")
                 .include("promoteCode")
                 .include("promotePrice")
-                .include("promotion.promotionCode")
-                .include("promotion.promotionName")
-                .include("dateFares.dateFared")
+                .include("promotion")
+                .include("dateFared")
                 .exclude("*")
                 .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/findPromoteDuplicateCD", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
-    public ResponseEntity<String>PromoteController.findPromoteDuplicateCD(@RequestParam(value="promotion", required = false)String promotionCode,
-                                                                        @RequestParam(value="dateFares", required = false)Date dateFared) {
-        List<Promote> parameterDetail = Promote.findPromoteDuplicateCD(promotionCode,dateFared);
+    public ResponseEntity<String>PromoteController.findPromoteDuplicateCD(@RequestParam(value="promotion", required = false)String promotion,
+                                                                        @RequestParam(value="dateFares", required = false)Date dateFares) {
+        List<Promote> parameterDetail = Promote.findPromoteDuplicateCD(promotion,dateFares);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         if (parameterDetail == null) {
@@ -100,9 +95,8 @@ privileged aspect PromoteController_Custom_Controller_Json {
                 .include("id")
                 .include("promoteCode")
                 .include("promotePrice")
-                .include("promotion.promotionCode")
-                .include("promotion.promotionName")
-                .include("dateFares.dateFared")
+                .include("promotion")
+                .include("dateFared")
                 .exclude("*")
                 .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
     }
@@ -111,26 +105,26 @@ privileged aspect PromoteController_Custom_Controller_Json {
     @ResponseBody
     public ResponseEntity<String> PromoteController.insertsData(@RequestParam(value="promoteCode", required = false)String promoteCode,
                                                                 @RequestParam(value="promotePrice", required = false)Double promotePrice,
-                                                                @RequestParam(value="promotion", required = false)long promotionId,
+                                                                @RequestParam(value="promotion", required = false)String promotion,
                                                                 @RequestParam(value="createdBy", required = false)String createdBy,
                                                                 @RequestParam(value="updatedBy", required = false)String updatedBy,
-                                                                @RequestParam(value="date", required = false)long dateFaresId) {
+                                                                @RequestParam(value="date", required = false)Date dateFares) {
 
 //        logger.error("Code : "+faresCode+" :: " + "price : " + price + " :: " + "travel : "+ travel + " :: " + "promote : " + promote + "\n");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
-        Promotion promotion = Promotion.findPromotion(promotionId);
-        DateFares date = DateFares.findDateFares(dateFaresId);
+//        Promotion promotion = Promotion.findPromotion(promotionId);
+//        DateFares date = DateFares.findDateFares(dateFaresId);
         DecimalFormat decim = new DecimalFormat("#.##");
         Double price2 = Double.parseDouble(decim.format(promotePrice));
         Date datenow = new Date();
 
-        if(promoteCode!= null && promotePrice != null && promotion != null && date != null){
+        if(promoteCode!= null && promotePrice != null && promotion != null && dateFares != null){
             Promote promote = new Promote();
             promote.setPromoteCode(promoteCode);
             promote.setPromotePrice(price2);
             promote.setPromotion(promotion);
-            promote.setDateFares(date);
+            promote.setDateFared(dateFares);
             promote.setCreatedBy(createdBy);
             promote.setCreatedDate(datenow);
             promote.setUpdatedBy(updatedBy);
@@ -147,24 +141,24 @@ privileged aspect PromoteController_Custom_Controller_Json {
     public ResponseEntity<String> PromoteController.updatesData(@RequestParam(value="promoteId", required = false)Long promoteId,
                                                                 @RequestParam(value="promoteCode", required = false)String promoteCode,
                                                                 @RequestParam(value="promotePrice", required = false)Double promotePrice,
-                                                                @RequestParam(value="promotion", required = false)long promotionId,
+                                                                @RequestParam(value="promotion", required = false)String promotion,
                                                                 @RequestParam(value="updatedBy", required = false)String updatedBy,
-                                                                @RequestParam(value="date", required = false)long dateFaresId) {
+                                                                @RequestParam(value="date", required = false)Date dateFares) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
-        Promotion promotion = Promotion.findPromotion(promotionId);
-        DateFares date = DateFares.findDateFares(dateFaresId);
+//        Promotion promotion = Promotion.findPromotion(promotionId);
+//        DateFares date = DateFares.findDateFares(dateFaresId);
         Promote promote = Promote.findPromote(promoteId);
         DecimalFormat decim = new DecimalFormat("#.##");
         Double price2 = Double.parseDouble(decim.format(promotePrice));
         Date datenow = new Date();
 
-        if(promoteCode != null && promotePrice != null && promotion != null && date != null){
+        if(promoteCode != null && promotePrice != null && promotion != null && dateFares != null){
             promote.setPromoteCode(promoteCode);
             promote.setPromotePrice(price2);
             promote.setPromotion(promotion);
-            promote.setDateFares(date);
+            promote.setDateFared(dateFares);
             promote.setUpdatedBy(updatedBy);
             promote.setUpdatedDate(datenow);
             promote.merge();

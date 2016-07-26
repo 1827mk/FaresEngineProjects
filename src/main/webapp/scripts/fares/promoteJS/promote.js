@@ -14,37 +14,20 @@ $(document).ready(function () {
     $('.dv-background').show();
     clearDataAll();
     findAllPromote();
-    findPromotion();
+    // findPromotion();
     $('.dv-background').hide();
 });
 
 function clearDataAll() {
     $('#textInputCode').val('');
     $('#textInputPrice').val('');
-    $('#selectInputTravel').val('');
-    $('#textSourceName').val('');
-    $('#textDestinationName').val('');
-    $('#textTransportName').val('');
-    $('#selectPromote').val('');
+    $('#textInputPromotion').val('');
     $('#textDate').val('');
-    $('#textPromotionName').val('');
-    $('#textDiscount').val('');
 
     $('#textEditInputCode').val('');
     $('#textEditInputPrice').val('');
-    $('#selectEditInputTravel').val('');
-    $('#textEditSourceName').val('');
-    $('#textEditDestinationName').val('');
-    $('#textEditTransportName').val('');
-    $('#selectEditPromote').val('');
+    $('#textInputEditPromotion').val('');
     $('#textEditDate').val('');
-    $('#textEditPromotionName').val('');
-    $('#textEditDiscount').val('');
-
-    $('#selectInputTravel').empty();
-    $('#selectEditInputTravel').empty();
-    $('#selectPromote').empty();
-    $('#selectEditPromote').empty();
 
     $("#checkboxAll").prop("checked",false);
     $("[name='checkboxFares']").prop("checked",false);
@@ -70,7 +53,7 @@ function findAllPromote() {
     $('#tbodyPromote').empty();
     $.each(JSON.parse(promoteData),function(index,item){
 
-        var date = new Date(item.dateFares.dateFared).toISOString().split("T")[0];
+        var date = new Date(item.dateFared).toISOString().split("T")[0];
         var dates = date.split("-");
         var dateOrigin = dates[2];
         var monthOrigin = dates[1];
@@ -78,16 +61,16 @@ function findAllPromote() {
         var checkDateDuplicate = dateOrigin+'/'+monthOrigin+'/'+yeaOrigin;
 
         if(checkDateDuplicate == "10/10/2010"){
-            checkDateDuplicate = "----------"
+            checkDateDuplicate = "-"
         }
 
         $('#tbodyPromote').append('<tr>' +
             '<td><alight="left"><input type="checkbox" onclick="checkbox(this)" name = "checkboxPromote"  id="'+item.id+'" version= "'+item.version+'" /></alight></td>' +
-            "<td><alight='left'><button type='button' id="+item.id+" code='"+item.promoteCode+"' version="+item.version+" price="+item.promotePrice+" idPromotion="+item.promotion.id+" codePromotion="+item.promotion.promotionCode+" dateId="+item.dateFares.id+" dateName="+checkDateDuplicate+" onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></alight></td>" +
+            "<td><alight='left'><button type='button' id="+item.id+" code='"+item.promoteCode+"' version="+item.version+" price="+item.promotePrice+" promotion="+item.promotion+" dateFared="+item.dateFared+" dateName="+checkDateDuplicate+" onclick='editData($(this))' class='btn btn-info btn-sm' ><span class='fa fa-pencil'></span></button></alight></td>" +
             '<td><alight="left">'+(item.promoteCode==null?'':item.promoteCode)+'</alight></td>' +
             '<td><alight="left">'+(item.promotePrice==null?'':item.promotePrice)+'</alight></td>' +
-            '<td><alight="left">'+(item.promotion.promotionCode==null?'':item.promotion.promotionCode)+'</alight></td>' +
-            '<td><alight="left">'+(item.promotion.promotionName==null?'':item.promotion.promotionName)+'</alight></td>' +
+            '<td><alight="left">'+(item.promotion==null?'':item.promotion)+'</alight></td>' +
+            // '<td><alight="left">'+(item.promotion.promotionName==null?'':item.promotion.promotionName)+'</alight></td>' +
             '<td><alight="left">'+(checkDateDuplicate==null?'':checkDateDuplicate)+'</alight></td>' +
             '</tr>');
 
@@ -146,8 +129,8 @@ $('#btnEditCancel').on('click',function () {
 })
 $('#add').on('click',function () {
     clearDataAll();
-    findPromotion();
-    findDate();
+    // findPromotion();
+    // findDate();
 })
 $('#btnEditSave').on('click',function () {
     editPromote();
@@ -192,6 +175,9 @@ $("#textInputCode" ).keyup( function() {
 
 $('#textInputCode').popover();
 $('#textInputPrice').popover();
+$('#textInputPromotion').popover();
+
+
 
 $('input').blur(function(){
     if( !$(this).val() ) {
@@ -226,147 +212,24 @@ function checkbox(checkbox) {
     }
 }
 
-var promotionCode;
-var promotionCodeEdit;
-//============================ find Travel ==========================//
-function findPromotion() {
-    $('.dv-background').show();
-    var promotionData = $.ajax({
-        type: "GET",
-        headers: {
-            Accept: 'application/json'
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url: session['context']+'/promotions/findAllPromotion',
-        async: false
-    }).done(function (){
-        //close loader
-        $('.dv-background').hide();
-    }).responseText;
-
-    $('#selectInputPromotion').empty();
-    $('#selectInputEditPromotion').empty();
-    $.each(JSON.parse(promotionData),function(index,item){
-        $('#selectInputPromotion').append('<option value="'+item.id+'">'+item.promotionCode+':'+item.promotionName+'</option>');
-        $('#selectInputEditPromotion').append('<option value="'+item.id+'">'+item.promotionCode+':'+item.promotionName+'</option>');
-    });
-
-    // Add
-    $('#selectInputPromotion').on('change',function(){
-        var str = $( "#selectInputPromotion option:selected" ).text();
-        var res = str.split(":");
-        promotionCode = res[0];
-        if(promotionCode!=null){
-            findPromotionByCode(promotionCode);
-        }else{
-            console.log("==========");
-        }
-    });
-
-    var str = $( "#selectInputPromotion option:selected" ).text();
-    var res = str.split(":");
-    promotionCode = res[0];
-    if(promotionCode!=null){
-        findPromotionByCode(promotionCode);
-    }else{
-        console.log("==========");
-    }
-    $('.dv-background').hide();
-}
-
-function findPromotionByCode(code) {
-    if(code!=null){
-        $('.dv-background').show();
-        var promotionData = $.ajax({
-            type: "GET",
-            headers: {
-                Accept: 'application/json'
-            },
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            url: session['context']+'/promotions/findPromotionCode',
-            data:{
-                promotionCode:code
-            },
-            async: false
-        }).done(function (){
-            //close loader
-            $('.dv-background').hide();
-        }).responseText;
-
-        // Add
-        $('#textPromotionName').empty();
-        // Edit
-        $('#textEditPromotionName').empty();
-
-        $.each(JSON.parse(promotionData),function(index,item){
-            // Add
-            $('#textPromotionName').val(item.promotionName);
-            // Edit
-            $('#textEditPromotionName').val(item.promotionName);
-
-        });
-    }else{
-        console.log('promotionCode empty');
-    }
-    $('.dv-background').hide();
-}
-var dateFared;
-//============================ find Promote ==========================//
-function findDate() {
-    $('.dv-background').show();
-    var dateData = $.ajax({
-        type: "GET",
-        headers: {
-            Accept: 'application/json'
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url: session['context']+'/datefareses/findAllDatefared',
-        async: false
-    }).done(function (){
-        //close loader
-        $('.dv-background').hide();
-    }).responseText;
-
-    $('#selectDate').empty();
-    $('#selectEditDate').empty();
-    $.each(JSON.parse(dateData),function(index,item){
-        
-        var date = new Date(item.dateFared).toISOString().split("T")[0];
-        var dates = date.split("-");
-        var dateOrigin = dates[2];
-        var monthOrigin = dates[1];
-        var yeaOrigin = dates[0];
-        var checkDateDuplicate = dateOrigin+'/'+monthOrigin+'/'+yeaOrigin;
-
-        if(checkDateDuplicate == "10/10/2010"){
-            checkDateDuplicate = "----------"
-        }
-
-        if(checkDateDuplicate != "10/10/2010") {
-            $('#selectDate').append('<option value="' + item.id + '">' + checkDateDuplicate + '</option>');
-            $('#selectEditDate').append('<option value="' + item.id + '">' + checkDateDuplicate + '</option>');
-        }else{
-            $('#selectDate').append('<option value="' + item.id + '">' + "----------" + '</option>');
-            $('#selectEditDate').append('<option value="' + item.id + '">' + "----------" + '</option>')
-        }
-    });
-    $('.dv-background').hide();
-}
 
 //=========================== Insret ===============================//
 function insertData() {
     $('.dv-background').show();
     var codePromote = $('#textInputCode').val();
     var pricePromote = $('#textInputPrice').val();
+    var promotion = $('#textInputPromotion').val();
+    var datePromotion = $('#textDate').val();
 
-    var selectPromotionText = $("#selectInputPromotion option:selected").text();
-    var selectDateText = $("#selectDate option:selected").text();
+    var dates = $("#textDate").val().split(" ")[0];
+    var date = parseInt(dates.split('/')[0]);
+    var month = parseInt(dates.split('/')[1]);
+    var year = parseInt(dates.split('/')[2]);
+    var dateNew = parseInt(date+1);
+    var dateFull = month+'/'+dateNew+'/'+year;
 
-    if ($('#textInputCode').val() != "" && $('#textInputPrice').val() != "" && $("#selectInputPromotion option:selected").text() != "----------" && $("#selectDate option:selected").text() != "----------") {
 
+    if ($('#textInputCode').val() != "" && $('#textInputPrice').val() != "" && $("#textInputPromotion").val() != "" && $("#textDate").val() != "") {
         var findPromoteDuplicate = $.ajax({
             type: "GET",
             headers: {
@@ -391,29 +254,66 @@ function insertData() {
             $("#alertModalError").modal('show');
             $("label[id=detailAlertError]").text("มีข้อมูลนี้ในระบบแล้ว กรุณาตรวจสอบ!!");
         }
+    }else if (promotion != "" || datePromotion != "") {
+        $('.dv-background').show();
+        var findPromoteDuplicateCD = $.ajax({
+            type: "GET",
+            headers: {
+                Accept: 'application/json'
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: session['context'] + '/promotes/findPromoteDuplicateCD',
+            data: {
+                promotion: promotion,
+                dateFares: dateFull
+            },
+
+            async: false
+        }).done(function () {
+            //close loader
+            $('.dv-background').hide();
+        }).responseText;
+        if (findPromoteDuplicateCD.length == 2) {
+            insertPromote();
+        } else {
+            $("#alertModalError").modal('show');
+            $("label[id=detailAlertError]").text("รหัสโปรโมชั่นและวันที่นี้มีอยู่แล้ว กรุณาตรวจสอบ!!");
+        }
     }else{
         if ($("#textInputCode").val() == "") {
             $("#alertModal").modal('show');
             $("label[id=detailAlert]").text("กรุณากรอกรหัสการจัดการโปรโมชั่น");
+
         } else if ($("#textInputPrice").val() == "") {
             $("#alertModal").modal('show');
             $("label[id=detailAlert]").text("กรุณากรอกราคาการจัดการโปรโมชั่น");
-        } else if ($("#selectInputPromotion option:selected").text() == "----------") {
+
+        } else if ($("#textInputPromotion").val() == "-") {
             $("#alertModal").modal('show');
-            $("label[id=detailAlert]").text("กรุณาเลือกรหัสโปรโมชั่น");
+            $("label[id=detailAlert]").text("กรุณาเลือกโปรโมชั่น");
+
         } else {
             $("#alertModal").modal('show');
-            $("label[id=detailAlert]").text("กรุณาเลือกวันที่โปรโมชั่น");
+            $("label[id=detailAlert]").text("กรุณาเลือกวันที่จัดโปรโมชั่น");
         }
     }
     $('.dv-background').hide();
 }
 
 function insertPromote() {
-    var promoteCode = $('#textInputCode').val();
-    var promotePrice = $('#textInputPrice').val();
-    var selectPromotion = $('#selectInputPromotion').val();
-    var selectDate = $('#selectDate').val();
+    var codePromote = $('#textInputCode').val();
+    var pricePromote = $('#textInputPrice').val();
+    var promotion = $('#textInputPromotion').val();
+    // var datePromotion = $('#textDate').val();
+
+    var dates = $("#textDate").val().split(" ")[0];
+    var date = parseInt(dates.split('/')[0]);
+    var month = parseInt(dates.split('/')[1]);
+    var year = parseInt(dates.split('/')[2]);
+    var dateNew = parseInt(date+1);
+    var dateFull = month+'/'+dateNew+'/'+year;
+
     //var selectPromotion =  $( "#selectInputPromotion option:selected" ).text();
     //var selectDate = $( "#selectDate option:selected" ).text();
     $('.dv-background').show();
@@ -426,12 +326,12 @@ function insertPromote() {
         dataType: "json",
         url: session['context']+'/promotes/insertsData',
         data: {
-            promoteCode:promoteCode,
-            promotePrice:promotePrice,
-            promotion:parseInt(selectPromotion),
+            promoteCode:codePromote,
+            promotePrice:pricePromote,
+            promotion:promotion,
             createdBy:createdBy,
             updatedBy:updatedBy,
-            date:parseInt(selectDate)
+            date:dateFull
         },
         complete:function(xhr){
             if(xhr.readyState==4){
@@ -469,74 +369,49 @@ var idEdit;
 var versionEdit ;
 var codeEdit ;
 var priceEdit;
-var promotionId;
+var promotion;
 var promotionEdit;
-var date;
 var dateEdit;
 function editData(rowData) {
-    findPromotion();
-    findDate();
     idEdit = rowData[0].attributes.getNamedItem("id").value;
     codeEdit =rowData[0].attributes.getNamedItem("code").value;
     versionEdit = rowData[0].attributes.getNamedItem("version").value;
     priceEdit = rowData[0].attributes.getNamedItem("price").value;
-    promotionId = rowData[0].attributes.getNamedItem("idPromotion").value;
-    promotionEdit = rowData[0].attributes.getNamedItem("codePromotion").value;
-    date = rowData[0].attributes.getNamedItem("dateId").value;
+    promotionEdit = rowData[0].attributes.getNamedItem("promotion").value;
     dateEdit = rowData[0].attributes.getNamedItem("dateName").value;
     // indexModify = idEdit;
 
     $('#textInputEditCode').val(codeEdit);
     $('#textInputEditPrice').val(priceEdit);
-    $('#selectInputEditPromotion').val(promotionEdit);
-    $('#selectEditDate').val(dateEdit);
-
-    $('#selectInputEditPromotion').prepend('<option value="'+promotionId+'">'+promotionEdit+'</option>');
-    $('#selectEditDate').prepend('<option value="'+date+'">'+dateEdit+'</option>');
-    // console.log(promotionEdit+promotionId)
-    // console.log(dateEdit+date)
-
-    findPromotionByCode(promotionEdit);
+    $('#textInputEditPromotion').val(promotionEdit);
+    $('#textEditDate').val(dateEdit);
 
     $('#modalEditPromote').modal('show');
 }
-// Edit
-$('#selectInputEditPromotion').on('change',function(){
-    var str = $( "#selectInputEditPromotion option:selected" ).text();
-    var res = str.split(":");
-    promotionCodeEdit = res[0];
-    if(promotionCodeEdit!=null){
-        findPromotionByCode(promotionCodeEdit);
-    }else{
-        console.log("==========");
-    }
-});
 
 //=========================== Edit ===============================//
 function editPromote() {
 
-    if ($('#textInputEditCode').val() != "" && $('#textInputEditPrice').val() != "" && $("#selectInputEditPromotion option:selected").text() != "----------" && $("#selectEditDate option:selected").text() != "----------") {
+    if ($('#textInputEditCode').val() != "" && $('#textInputEditPrice').val() != "" && $("#textInputEditPromotion").val() != "" && $("#textEditDate").val() != "-") {
 
         var codePromote = $('#textInputEditCode').val();
         var pricePromote = $('#textInputEditPrice').val();
-        var selectPromotion = $('#selectInputEditPromotion').val();
-        var selectDate = $('#selectEditDate').val();
+        var editPromotion = $('#textInputEditPromotion').val();
+        var editDate = $('#textEditDate').val();
 
-        var str1 = $( "#selectInputEditPromotion option:selected" ).text();
-        var res1 = str1.split(":");
-        selectPromotionText = res1[0];
+        var dates = $("#textEditDate").val().split(" ")[0];
+        var date = parseInt(dates.split('/')[0]);
+        var month = parseInt(dates.split('/')[1]);
+        var year = parseInt(dates.split('/')[2]);
+        var dateNew = parseInt(date+1);
+        var dateFull = month+'/'+dateNew+'/'+year;
 
-        var str2 = $( "#selectEditDate option:selected" ).text();
-        var res2 = str2.split(":");
-        selectDateText = res2[0];
-
-
-        if (codePromote == codeEdit && pricePromote == priceEdit && selectPromotionText == promotionEdit && selectDateText == dateEdit) {
+        if (codePromote == codeEdit && pricePromote == priceEdit && editPromotion == promotionEdit && editDate == dateEdit) {
             $("#alertModal").modal('show');
             $("label[id=detailAlert]").text("ข้อมูลไม่มีการเปลี่ยนแปลง");
         } else {
             // ตรวจสอบรหัสการจัดการโปรโมชั่นเปลี่ยน
-            if (codePromote != codeEdit && selectPromotionText == promotionEdit && selectDateText == dateEdit) {
+            if (codePromote != codeEdit && editPromotion == promotionEdit && editDate == dateEdit) {
                 $('.dv-background').show();
                 var findPromoteDuplicate = $.ajax({
                     type: "GET",
@@ -555,7 +430,7 @@ function editPromote() {
                     //close loader
                     $('.dv-background').hide();
                 }).responseText;
-                console.log(findPromoteDuplicate.length)
+                // console.log(findPromoteDuplicate.length)
                 //ตรวจสอบรหัสโปรโมชั่นกับวันที่เปลี่ยน
                 if (findPromoteDuplicate.length == 2) {
                     updatePromote()
@@ -563,7 +438,8 @@ function editPromote() {
                     $("#alertModalError").modal('show');
                     $("label[id=detailAlertError]").text("รหัสนี้มีอยู่แล้ว กรุณาตรวจสอบ!!");
                 }
-            }else if (codePromote == codeEdit && selectPromotionText != promotionEdit || selectDateText != dateEdit) {
+            }else if (codePromote == codeEdit &&  editPromotion != promotionEdit || editDate != dateEdit) {
+
                 $('.dv-background').show();
                 var findPromoteDuplicateCD = $.ajax({
                     type: "GET",
@@ -574,8 +450,8 @@ function editPromote() {
                     dataType: "json",
                     url: session['context'] + '/promotes/findPromoteDuplicateCD',
                     data: {
-                        promotion: selectPromotionText,
-                        dateFares: selectDateText
+                        promotion: editPromotion,
+                        dateFares: dateFull
                     },
 
                     async: false
@@ -589,19 +465,24 @@ function editPromote() {
                     $("#alertModalError").modal('show');
                     $("label[id=detailAlertError]").text("รหัสโปรโมชั่นและวันที่นี้มีอยู่แล้ว กรุณาตรวจสอบ!!");
                 }
+            }else if (1==1) {
+                updatePromote();
             } else {
                 if ($("#textInputEditCode").val() == "") {
                     $("#deleteModalFree").modal('show');
                     $("label[id=detailDeleteFree]").text("กรุณากรอกรหัสการจัดการโปรโมชั่น");
+
                 } else if ($("#textInputEditPrice").val() == "") {
                     $("#deleteModalFree").modal('show');
                     $("label[id=detailDeleteFree]").text("กรุณากรอกราคาการจัดการโปรโมชั่น");
-                } else if ($("#selectInputEditPromotion option:selected").text() == "----------") {
+
+                } else if ($("#textInputEditPromotion").val() == "") {
                     $("#deleteModalFree").modal('show');
                     $("label[id=detailDeleteFree]").text("กรุณาเลือกรหัสโปรโมชั่น");
+
                 } else {
                     $("#deleteModalFree").modal('show');
-                    $("label[id=detailDeleteFree]").text("กรุณาเลือกวันที่โปรโมชั่น");
+                    $("label[id=detailDeleteFree]").text("กรุณาเลือกวันที่จัดโปรโมชั่น");
                 }
             }
         }
@@ -613,11 +494,16 @@ function updatePromote() {
 
     var codePromote = $('#textInputEditCode').val();
     var pricePromote = $('#textInputEditPrice').val();
-    var selectPromotion = $('#selectInputEditPromotion').val();
-    var selectDate = $('#selectEditDate').val();
+    var editPromotion = $('#textInputEditPromotion').val();
+    // var editDate = $('#textEditDate').val();
 
-    var selectTravelText =  $( "#selectInputEditPromotion option:selected" ).text();
-    var selectPromoteText = $( "#selectEditDate option:selected" ).text();
+    var dates = $("#textEditDate").val().split(" ")[0];
+    var date = parseInt(dates.split('/')[0]);
+    var month = parseInt(dates.split('/')[1]);
+    var year = parseInt(dates.split('/')[2]);
+    var dateNew = parseInt(date+1);
+    var dateFull = month+'/'+dateNew+'/'+year;
+
     $('.dv-background').show();
     var insertDataPromote = $.ajax({
         type: "GET",
@@ -631,9 +517,9 @@ function updatePromote() {
             promoteId:idEdit,
             promoteCode:codePromote,
             promotePrice:pricePromote,
-            promotion:parseInt(selectPromotion),
+            promotion:editPromotion,
             updatedBy: updatedBy,
-            date:parseInt(selectDate)
+            date:dateFull
         },
         complete:function(xhr){
             if(xhr.readyState==4){
@@ -741,4 +627,25 @@ $("#modalAlertBtnOk1").on('click',function(){
     });
     findAllPromote();
     $('.dv-background').hide();
+});
+
+
+$('#textDate').bootstrapMaterialDatePicker({
+    weekStart : 0,
+    time: false,
+    format: "DD/MM/YYYY"
+});
+
+$('#textEditDate').bootstrapMaterialDatePicker({
+    weekStart : 0,
+    time: false,
+    format: "DD/MM/YYYY"
+});
+
+$('#btn_EventDate').on('click',function(){
+    $("#textDate").focus();
+});
+
+$('#btn_EventDate_Edit').on('click',function(){
+    $("#textEditDate").focus();
 });

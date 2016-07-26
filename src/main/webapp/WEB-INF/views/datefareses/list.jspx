@@ -4,12 +4,10 @@
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_com_nbu_fares_domain_DateFares" items="${datefareses}" z="23iuHgLV4BWgAQVRzDY6rdUXrcs=">
         <table:table data="${datefareses}" id="l_com_nbu_fares_domain_DateFares" path="/datefareses" z="5AXMlVxE1LTrjDF8FvFDxCJzyGo=">
-            <table:column date="true" dateTimePattern="${dateFares_datefared_date_format}" id="c_com_nbu_fares_domain_DateFares_dateFared" property="dateFared" z="nrFa//WlG/Ls2RvF+VcILLtyHJw="/>
             <table:column id="c_com_nbu_fares_domain_DateFares_createdBy" property="createdBy" z="X5WMNSB9Wg5I2qytld9mnB21FGM="/>
             <table:column id="c_com_nbu_fares_domain_DateFares_updatedBy" property="updatedBy" z="1ni8q+7w5PUICSLEBsCUJlVT9n0="/>
             <table:column date="true" dateTimePattern="${dateFares_createddate_date_format}" id="c_com_nbu_fares_domain_DateFares_createdDate" property="createdDate" z="95mKvl21nv/CLjB25DMVSK922rE="/>
             <table:column date="true" dateTimePattern="${dateFares_updateddate_date_format}" id="c_com_nbu_fares_domain_DateFares_updatedDate" property="updatedDate" z="ZeSSWS2MI1ARdeiIU6pUNcu5H4M="/>
-            <table:column id="c_com_nbu_fares_domain_DateFares_dateName" property="dateName" z="vTBaUF1Uge/8F4SKJjnHJK4riJs="/>
         </table:table>
     </page:list>
 </div>

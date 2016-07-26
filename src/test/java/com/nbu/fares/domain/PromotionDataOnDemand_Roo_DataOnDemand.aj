@@ -29,8 +29,6 @@ privileged aspect PromotionDataOnDemand_Roo_DataOnDemand {
         Promotion obj = new Promotion();
         setCreatedBy(obj, index);
         setCreatedDate(obj, index);
-        setPromotionCode(obj, index);
-        setPromotionName(obj, index);
         setUpdatedBy(obj, index);
         setUpdatedDate(obj, index);
         return obj;
@@ -44,16 +42,6 @@ privileged aspect PromotionDataOnDemand_Roo_DataOnDemand {
     public void PromotionDataOnDemand.setCreatedDate(Promotion obj, int index) {
         Date createdDate = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH), Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), Calendar.getInstance().get(Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime();
         obj.setCreatedDate(createdDate);
-    }
-    
-    public void PromotionDataOnDemand.setPromotionCode(Promotion obj, int index) {
-        String promotionCode = "promotionCode_" + index;
-        obj.setPromotionCode(promotionCode);
-    }
-    
-    public void PromotionDataOnDemand.setPromotionName(Promotion obj, int index) {
-        String promotionName = "promotionName_" + index;
-        obj.setPromotionName(promotionName);
     }
     
     public void PromotionDataOnDemand.setUpdatedBy(Promotion obj, int index) {

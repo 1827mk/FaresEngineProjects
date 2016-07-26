@@ -3,13 +3,13 @@
 
 package com.nbu.fares.web;
 
-import com.nbu.fares.domain.DateFares;
 import com.nbu.fares.domain.Promote;
-import com.nbu.fares.domain.Promotion;
 import com.nbu.fares.web.PromoteController;
 import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.joda.time.format.DateTimeFormat;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -91,13 +91,12 @@ privileged aspect PromoteController_Roo_Controller {
     void PromoteController.addDateTimeFormatPatterns(Model uiModel) {
         uiModel.addAttribute("promote_createddate_date_format", "dd/MM/yyyy");
         uiModel.addAttribute("promote_updateddate_date_format", "dd/MM/yyyy");
+        uiModel.addAttribute("promote_datefared_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
     }
     
     void PromoteController.populateEditForm(Model uiModel, Promote promote) {
         uiModel.addAttribute("promote", promote);
         addDateTimeFormatPatterns(uiModel);
-        uiModel.addAttribute("datefareses", DateFares.findAllDateFareses());
-        uiModel.addAttribute("promotions", Promotion.findAllPromotions());
     }
     
     String PromoteController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
