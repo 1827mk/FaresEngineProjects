@@ -80,32 +80,6 @@ privileged aspect Fares_Custom_Jpa_ActiveRecord {
         return criteria.list();
     }
 
-//    public static List<Fares>Fares.findFaresCustomJPA (String code) {
-//        Session session = (Session) Fares.entityManager().getDelegate();
-//        Criteria criteria = session.createCriteria(Fares.class);
-//
-//        criteria.addOrder(Order.asc("faresCode"));
-//        Criterion codeRestriction = Restrictions.eq("faresCode", code);
-//        criteria.add(codeRestriction);
-//        return criteria.list();
-//    }
-//
-//
-//    public static List Fares.findByDataFares(Integer firstResult,Integer maxResult) {
-//        Session session = (Session) Fares.entityManager().getDelegate();
-//        Criteria criteria = session.createCriteria(Fares.class);
-//        criteria.setFirstResult(firstResult);
-//        criteria.setMaxResults(maxResult);
-//        criteria.addOrder(Order.asc("faresCode"));
-//        return criteria.list();
-//    }
-//
-//    public static List Fares.findSizeFares(){
-//        Session session = (Session) Fares.entityManager().getDelegate();
-//        Criteria criteria = session.createCriteria(Fares.class);
-//        return criteria.list();
-//    }
-
     public static List<Fares> Fares.searchAll(String source,String destination) {
         Session session = (Session) Fares.entityManager().getDelegate();
         Criteria criteria = session.createCriteria(Fares.class);
@@ -115,11 +89,13 @@ privileged aspect Fares_Custom_Jpa_ActiveRecord {
                 Restrictions.eq("travel.locationSourCode", source),
                 Restrictions.eq("travel.locationDisCode", destination))
         );
+
         criteria.add(codeRestriction);
+        criteria.addOrder(Order.asc("price"));
         return criteria.list();
     }
 
-    public static List<Fares> Fares.searchTransport(String source,String destination,String tranCode) {
+    public static List<Fares> Fares.searchByTrans(String source,String destination,String trainCode) {
         Session session = (Session) Fares.entityManager().getDelegate();
         Criteria criteria = session.createCriteria(Fares.class);
 
@@ -129,11 +105,14 @@ privileged aspect Fares_Custom_Jpa_ActiveRecord {
         Criterion codeRestriction = (Restrictions.and(
                 Restrictions.eq("travel.locationSourCode", source),
                 Restrictions.eq("travel.locationDisCode", destination),
-                Restrictions.eq("transport.transportCode", tranCode))
+                Restrictions.eq("transport.transportCode", trainCode))
         );
         criteria.add(codeRestriction);
+    //        logger.error("searchFlight");
+        criteria.addOrder(Order.asc("price"));
         return criteria.list();
     }
+
 
     public static List<Fares> Fares.searchFlight(String source,String destination,String trainCode , String busCode) {
         Session session = (Session) Fares.entityManager().getDelegate();
@@ -150,6 +129,7 @@ privileged aspect Fares_Custom_Jpa_ActiveRecord {
         );
         criteria.add(codeRestriction);
 //        logger.error("searchFlight");
+        criteria.addOrder(Order.asc("price"));
         return criteria.list();
     }
 
