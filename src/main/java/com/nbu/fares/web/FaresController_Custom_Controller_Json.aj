@@ -113,8 +113,8 @@ privileged aspect FaresController_Custom_Controller_Json {
     @RequestMapping(value = "/checkDuplicateCodeFTP", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public ResponseEntity<String>FaresController.checkDuplicateCodeFTP(@RequestParam(value="faresCode", required = false)String faresCode,
-                                                                    @RequestParam(value="travel", required = false)String travel,
-                                                                    @RequestParam(value="promote", required = false)String promote) {
+                                                                       @RequestParam(value="travel", required = false)String travel,
+                                                                       @RequestParam(value="promote", required = false)String promote) {
         List<Fares> parameterDetail = Fares.checkDuplicateCodeFTP(faresCode,travel,promote);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
@@ -238,5 +238,27 @@ privileged aspect FaresController_Custom_Controller_Json {
         }else{
             return new ResponseEntity<String>((new JSONSerializer().deepSerialize("failed")),headers, HttpStatus.NO_CONTENT);
         }
+    }
+
+    @RequestMapping(value = "/checkDelete", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String>FaresController.checkDelete(@RequestParam(value="idDelete", required = false)Long idDelete) {
+        List<Fares> parameterDetail = Fares.checkDelete(idDelete);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        if (parameterDetail == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<String>((new JSONSerializer().exclude("*.class")
+                .include("id")
+                .include("version")
+                .include("faresCode")
+                .include("price")
+                .include("travel.id")
+                .include("travel.travelCode")
+                .include("promote.id")
+                .include("promote.promoteCode")
+                .exclude("*")
+                .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
     }
 }

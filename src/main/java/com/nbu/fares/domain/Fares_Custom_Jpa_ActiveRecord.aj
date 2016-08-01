@@ -51,6 +51,18 @@ privileged aspect Fares_Custom_Jpa_ActiveRecord {
         criteria.add(codeRestriction);
         return criteria.list();
     }
+
+    public static List<Fares> Fares.checkDelete(Long idDelete) {
+        Session session = (Session) Fares.entityManager().getDelegate();
+        Criteria criteria = session.createCriteria(Fares.class);
+        Criterion codeRestriction = (Restrictions.or(
+                Restrictions.eq("travel.id", idDelete),
+                Restrictions.eq("promote.id", idDelete))
+        );
+        criteria.add(codeRestriction);
+        return criteria.list();
+    }
+
     public static List<Fares> Fares.checkDuplicateCodeFTP(String faresCode,String travel,String promote) {
         Session session = (Session) Fares.entityManager().getDelegate();
         Criteria criteria = session.createCriteria(Fares.class);

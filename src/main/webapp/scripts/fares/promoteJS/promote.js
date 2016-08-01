@@ -70,7 +70,7 @@ function findAllPromote() {
             '<td><alight="left">'+(item.promoteCode==null?'':item.promoteCode)+'</alight></td>' +
             '<td><alight="left">'+(item.promotePrice==null?'':item.promotePrice)+'</alight></td>' +
             '<td><alight="left">'+(item.promotion==null?'':item.promotion)+'</alight></td>' +
-            // '<td><alight="left">'+(item.promotion.promotionName==null?'':item.promotion.promotionName)+'</alight></td>' +
+                // '<td><alight="left">'+(item.promotion.promotionName==null?'':item.promotion.promotionName)+'</alight></td>' +
             '<td><alight="left">'+(checkDateDuplicate==null?'':checkDateDuplicate)+'</alight></td>' +
             '</tr>');
 
@@ -583,47 +583,66 @@ $("#modalAlertBtnOk1").on('click',function(){
     var count=1;
     $('.dv-background').show();
     $.each(deleteId,function(index,item){
-        $.ajax({
-            type: "DELETE",
+        var checkDelete = $.ajax({
+            type: "GET",
+            headers: {
+                Accept: 'application/json'
+            },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            headers: {
-                Accept: "application/json"
+            url: session['context'] + '/fareses/checkDelete',
+            data: {
+                idDelete: item
             },
-            url:session['context']+"/promotes/"+item,
-            complete:function(xhr){
-                if(xhr.readyState==4){
-                    if(xhr.status==200){
-                        countDeleteSuccess++;
-                        if(count==deleteId.length){
-                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เรคคอร์ด");
+            async: false
+        }).done(function () {
+            $('.dv-background').hide();
+        }).responseText;
+        if(checkDelete.length==2){
+            $.ajax({
+                type: "DELETE",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: {
+                    Accept: "application/json"
+                },
+                url:session['context']+"/promotes/"+item,
+                complete:function(xhr){
+                    if(xhr.readyState==4){
+                        if(xhr.status==200){
+                            countDeleteSuccess++;
+                            if(count==deleteId.length){
+                                $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เรคคอร์ด");
+                                $("#deleteModalFree").modal("show");
+                                findAllPromote();
+                                clearDataAll();
+                            }
+                            count++;
+                        } else if(xhr.status==403) {
+                            $("#deleteModalFree").modal("show");
+                            $("label[id='detailDeleteFree']").text("คุณไม่มีสิทธิใช้งาน");
+
+                        }else{
+                            countDeleteFail++;
+                            $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เรคคอร์ด");
                             $("#deleteModalFree").modal("show");
                             findAllPromote();
                             clearDataAll();
                         }
-                        count++;
-
-                    } else if(xhr.status==403) {
-                        $("#deleteModalFree").modal("show");
-                        $("label[id='detailDeleteFree']").text("คุณไม่มีสิทธิใช้งาน");
-
                     }else{
-                        countDeleteFail++;
-                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เรคคอร์ด");
+                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ");
                         $("#deleteModalFree").modal("show");
-                        findAllPromote();
-                        clearDataAll();
                     }
-                }else{
-                    $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ");
-                    $("#deleteModalFree").modal("show");
-                }
-            },
-            async:false
-        }).done(function (){
-            //close loader
-            $('.dv-background').hide();
-        });
+                },
+                async:false
+            }).done(function (){
+                //close loader
+                $('.dv-background').hide();
+            });
+        }else{
+            $("label[id='detailAlertError']").text("ข้อมูลนี้ถูกใช้งานอยู่");
+            $("#alertModalError").modal("show");
+        }
     });
     findAllPromote();
     $('.dv-background').hide();
