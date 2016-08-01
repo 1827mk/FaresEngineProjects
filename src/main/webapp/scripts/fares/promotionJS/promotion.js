@@ -419,6 +419,22 @@ $("#modalAlertBtnOk1").on('click',function(){
     var count=1;
     $('.dv-background').show();
     $.each(deleteId,function(index,item){
+        var checkDelete = $.ajax({
+            type: "GET",
+            headers: {
+                Accept: 'application/json'
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: session['context'] + '/fareses/checkDelete',
+            data: {
+                idDelete: item
+            },
+            async: false
+        }).done(function () {
+            $('.dv-background').hide();
+        }).responseText;
+        if(checkDelete.length==2){
         $.ajax({
             type: "DELETE",
             contentType: "application/json; charset=utf-8",
@@ -451,7 +467,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                         clearData();
                     }
                 }else{
-                    $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ");
+                    $("label[id='detailDeleteFree']").text("มีข้อมูลที่ไม่ถูกลบ เนื่องจากใช้งานอยู่");
                     $("#deleteModalFree").modal("show");
                 }
             },
@@ -460,6 +476,10 @@ $("#modalAlertBtnOk1").on('click',function(){
             //close loader
             $('.dv-background').hide();
         });
+        }else{
+            $("label[id='detailAlertError']").text("มีข้อมูลที่ไม่ถูกลบ เนื่องจากใช้งานอยู่");
+            $("#alertModalError").modal("show");
+        }  
     });
     findAllPromotion();
     $('.dv-background').hide();

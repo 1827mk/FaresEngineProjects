@@ -640,7 +640,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                 $('.dv-background').hide();
             });
         }else{
-            $("label[id='detailAlertError']").text("ข้อมูลนี้ถูกใช้งานอยู่");
+            $("label[id='detailAlertError']").text("มีข้อมูลที่ไม่ถูกลบ เนื่องจากใช้งานอยู่");
             $("#alertModalError").modal("show");
         }
     });

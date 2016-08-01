@@ -511,7 +511,7 @@ $("#modalAlertBtnOk1").on('click',function(){
                 $('.dv-background').hide();
             });
         }else{
-            $("label[id='detailDeleteFreeg']").text("ข้อมูลนี้ถูกใช้งานอยู่");
+            $("label[id='detailDeleteFree']").text("มีข้อมูลที่ไม่ถูกลบ เนื่องจากใช้งานอยู่");
             $("#deleteModalFree").modal("show");
         }
     });
