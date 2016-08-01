@@ -30,7 +30,7 @@ public class Transport extends BaseEntity {
 
     /**
      */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "transport")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "transport")
     private Set<Travel> travel = new HashSet<Travel>();
 
 

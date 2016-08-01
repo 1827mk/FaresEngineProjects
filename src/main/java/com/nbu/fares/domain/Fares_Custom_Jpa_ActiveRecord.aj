@@ -90,8 +90,8 @@ privileged aspect Fares_Custom_Jpa_ActiveRecord {
                 Restrictions.eq("travel.locationDisCode", destination))
         );
 
-        criteria.add(codeRestriction);
         criteria.addOrder(Order.asc("price"));
+        criteria.add(codeRestriction);
         return criteria.list();
     }
 
@@ -107,9 +107,8 @@ privileged aspect Fares_Custom_Jpa_ActiveRecord {
                 Restrictions.eq("travel.locationDisCode", destination),
                 Restrictions.eq("transport.transportCode", trainCode))
         );
-        criteria.add(codeRestriction);
-    //        logger.error("searchFlight");
         criteria.addOrder(Order.asc("price"));
+        criteria.add(codeRestriction);
         return criteria.list();
     }
 
