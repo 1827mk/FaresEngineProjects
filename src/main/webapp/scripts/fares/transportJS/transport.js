@@ -20,6 +20,7 @@ $(document).ready(function () {
 
 //=============================== RenderTable ===============================//
 function findAllTransport() {
+    clearData();
     $('.dv-background').show();
     $("#transportTable").DataTable().destroy();
     var transportData = $.ajax({
@@ -118,6 +119,8 @@ function clearData(){
     $("#textEditInputName").val("");
     $("#transportBusiness").val("");
     $("#transportBusinessEdit").val("");
+    $("#textInputBuess").val("");
+    $("#textInputBuessEdit").val("");
     $("[name='checkboxTransport']").prop("checked",false);
     $("#checkall").prop("checked",false);
 }
@@ -214,6 +217,7 @@ function insertData(){
         };
     }
     $('.dv-background').hide();
+    clearData();
 }
 
 $("#btnSave").on('click',function(){

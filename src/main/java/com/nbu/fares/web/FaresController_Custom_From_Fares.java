@@ -50,9 +50,8 @@ public class FaresController_Custom_From_Fares {
                 .include("promote.id")
                 .include("promote.promoteCode")
                 .include("promote.promotePrice")
-                .include("promote.promotion.promotionCode")
-                .include("promote.promotion.promotionName")
-                .include("promote.dateFares.dateFared")
+                .include("promote.promotion")
+                .include("promote.dateFared")
                 .exclude("*")
                 .deepSerialize(result)),headers, HttpStatus.OK);
         } catch (Exception e) {
@@ -60,18 +59,18 @@ public class FaresController_Custom_From_Fares {
         }
     }
 
-    @RequestMapping(value = "/searchByTransport/{source}/{destination}/{tranCode}",headers = "Accept=application/json")
-    public ResponseEntity<String>searchByTransport(@PathVariable String source,
+    @RequestMapping(value = "/searchByTrans/{source}/{destination}/{tranCodes}",headers = "Accept=application/json")
+    public ResponseEntity<String>searchByTrans(@PathVariable String source,
                                              @PathVariable String destination,
-                                             @PathVariable String tranCode){
-        List<Fares> result = Fares.searchTransport(source,destination,tranCode);
+                                             @PathVariable String tranCodes){
+        List<Fares> result = Fares.searchByTrans(source,destination,tranCodes);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         if (result == null  || result.isEmpty() ) {
             return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
         }
         try {
-//            logger.error("searchTransport"+"=="+ source+"=="+ destination+"=="+tranCode+"=="+"\n");
+//            logger.error("searchFlightTransport"+"=="+ source+"=="+ destination+"=="+trainCode+"=="+busCode+"=="+"\n");
             return new ResponseEntity<String>((new JSONSerializer()
                     .include("id")
                     .include("version")
@@ -89,15 +88,15 @@ public class FaresController_Custom_From_Fares {
                     .include("promote.id")
                     .include("promote.promoteCode")
                     .include("promote.promotePrice")
-                    .include("promote.promotion.promotionCode")
-                    .include("promote.promotion.promotionName")
-                    .include("promote.dateFares.dateFared")
+                    .include("promote.promotion")
+                    .include("promote.dateFared")
                     .exclude("*")
                     .deepSerialize(result)),headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"ERROR\":" + e.getMessage() + "\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     @RequestMapping(value = "/searchFlightTransport/{source}/{destination}/{trainCode}/{busCode}",headers = "Accept=application/json")
     public ResponseEntity<String>searchFlightTransport(@PathVariable String source,
@@ -129,9 +128,8 @@ public class FaresController_Custom_From_Fares {
                     .include("promote.id")
                     .include("promote.promoteCode")
                     .include("promote.promotePrice")
-                    .include("promote.promotion.promotionCode")
-                    .include("promote.promotion.promotionName")
-                    .include("promote.dateFares.dateFared")
+                    .include("promote.promotion")
+                    .include("promote.dateFared")
                     .exclude("*")
                     .deepSerialize(result)),headers, HttpStatus.OK);
         } catch (Exception e) {

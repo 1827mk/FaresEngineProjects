@@ -39,4 +39,6 @@ public class Travel extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "transport")
     private Transport transport;
+
+
 }
