@@ -73,11 +73,22 @@ privileged aspect Travel_Custom_Jpa_ActiveRecord {
         return criteria.list();
     }
 
-    public static List<Travel> Travel.checkDelete1(Long idDelete) {
+    public static List<Travel> Travel.checkDelete(Long idDelete) {
         Session session = (Session) Travel.entityManager().getDelegate();
         Criteria criteria = session.createCriteria(Travel.class);
         Criterion codeRestriction = (Restrictions.and(
                 Restrictions.eq("transport.id", idDelete))
+        );
+        criteria.add(codeRestriction);
+        return criteria.list();
+    }
+
+    public static List<Travel> Travel.checkDeleteLocation(String code) {
+        Session session = (Session) Travel.entityManager().getDelegate();
+        Criteria criteria = session.createCriteria(Travel.class);
+        Criterion codeRestriction = (Restrictions.or(
+                Restrictions.eq("locationSourCode", code),
+                Restrictions.eq("locationDisCode", code))
         );
         criteria.add(codeRestriction);
         return criteria.list();

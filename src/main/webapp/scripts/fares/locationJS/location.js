@@ -602,47 +602,68 @@ $("#modalAlertBtnOk1").on('click',function(){
     var count=1;
     $('.dv-background').show();
     $.each(deleteId,function(index,item){
-        $.ajax({
-            type: "DELETE",
+        var checkDelete = $.ajax({
+            type: "GET",
+            headers: {
+                Accept: 'application/json'
+            },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            headers: {
-                Accept: "application/json"
+            url: session['context'] + '/travels/checkDeleteLocation',
+            data: {
+                idDelete: item
             },
-            url:session['context']+"/locations/"+item,
-            complete:function(xhr){
-                if(xhr.readyState==4){
-                    if(xhr.status==200){
-                        countDeleteSuccess++;
-                        if(count==deleteId.length){
-                            $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เรคคอร์ด");
+            async: false
+        }).done(function () {
+            $('.dv-background').hide();
+        }).responseText;
+
+        if(checkDelete.length==2){
+            $.ajax({
+                type: "DELETE",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: {
+                    Accept: "application/json"
+                },
+                url:session['context']+"/locations/"+item,
+                complete:function(xhr){
+                    if(xhr.readyState==4){
+                        if(xhr.status==200){
+                            countDeleteSuccess++;
+                            if(count==deleteId.length){
+                                $("label[id='detailDeleteFree']").text("ลบข้อมูลสำเร็จ"+countDeleteSuccess+"เรคคอร์ด");
+                                $("#deleteModalFree").modal("show");
+                                findAllLocation();
+                                clearData();
+                            }
+                            count++;
+
+                        } else if(xhr.status==403) {
+                            $("#deleteModalFree").modal("show");
+                            $("label[id='detailDeleteFree']").text("คุณไม่มีสิทธิใช้งาน");
+
+                        }else{
+                            countDeleteFail++;
+                            $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เรคคอร์ด");
                             $("#deleteModalFree").modal("show");
                             findAllLocation();
                             clearData();
                         }
-                        count++;
-
-                    } else if(xhr.status==403) {
-                        $("#deleteModalFree").modal("show");
-                        $("label[id='detailDeleteFree']").text("คุณไม่มีสิทธิใช้งาน");
-
                     }else{
-                        countDeleteFail++;
-                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ"+countDeleteFail+"เรคคอร์ด");
+                        $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ");
                         $("#deleteModalFree").modal("show");
-                        findAllLocation();
-                        clearData();
                     }
-                }else{
-                    $("label[id='detailDeleteFree']").text("ลบข้อมูลไม่สำเร็จ");
-                    $("#deleteModalFree").modal("show");
-                }
-            },
-            async:false
-        }).done(function (){
-            //close loader
-            $('.dv-background').hide();
-        });
+                },
+                async:false
+            }).done(function (){
+                //close loader
+                $('.dv-background').hide();
+            });
+        }else{
+            $("label[id='detailDeleteFree']").text("มีข้อมูลที่ไม่ถูกลบ เนื่องจากใช้งานอยู่");
+            $("#deleteModalFree").modal("show");
+        }
     });
     findAllLocation();
     $('.dv-background').hide();

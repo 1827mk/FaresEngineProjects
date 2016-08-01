@@ -3,10 +3,7 @@
 
 package com.nbu.fares.web;
 
-import com.nbu.fares.domain.DateFares;
-import com.nbu.fares.domain.Promotion;
-import com.nbu.fares.domain.Transport;
-import com.nbu.fares.domain.Travel;
+import com.nbu.fares.domain.*;
 import flexjson.JSONSerializer;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.slf4j.Logger;
@@ -151,10 +148,10 @@ privileged aspect TravelController_Custom_Controller_Json {
                 .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/checkDelete1", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/checkDelete", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
-    public ResponseEntity<String>TravelController.checkDelete1(@RequestParam(value="idDelete", required = false)Long idDelete) {
-        List<Travel> parameterDetail = Travel.checkDelete1(idDelete);
+    public ResponseEntity<String>TravelController.checkDelete(@RequestParam(value="idDelete", required = false)Long idDelete) {
+        List<Travel> parameterDetail = Travel.checkDelete(idDelete);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         if (parameterDetail == null) {
@@ -285,16 +282,58 @@ privileged aspect TravelController_Custom_Controller_Json {
             return new ResponseEntity<String>((new JSONSerializer().deepSerialize("failed")),headers, HttpStatus.CONFLICT);
         }
     }
-
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
-//    public ResponseEntity<String> TravelController.deleteFromJsonTravel(@PathVariable("id") Long item) {
-//        Travel travel = Travel.findTravel(item);
+//
+//    @RequestMapping(value = "/checkDeleteLocation", method = RequestMethod.GET, headers = "Accept=application/json")
+//    @ResponseBody
+//    public ResponseEntity<String>TravelController.checkDeleteLocation(@RequestParam(value="idDelete", required = false)Long idDelete) {
+//
+//        Location location = Location.findLocation(idDelete);
+//        String codeLocation ;
+//        codeLocation = location.getLocationCode();
+//        List<Travel> parameterDetail = Travel.checkDeleteLocation(codeLocation);
 //        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Type", "application/json");
-//        if (travel == null) {
+//        headers.add("Content-Type", "application/json; charset=utf-8");
+//        if (parameterDetail == null) {
 //            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
 //        }
-//        travel.remove();
-//        return new ResponseEntity<String>(headers, HttpStatus.OK);
+//        return new ResponseEntity<String>((new JSONSerializer().exclude("*.class")
+//                .include("id")
+//                .include("version")
+//                .include("travelCode")
+//                .include("locationSourCode")
+//                .include("locationSourName")
+//                .include("locationDisCode")
+//                .include("locationDisName")
+//                .include("transport.transportCode")
+//                .include("transport.transportName")
+//                .include("transport.transportBusiness")
+//                .exclude("*")
+//                .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
 //    }
+
+    @RequestMapping(value = "/checkDeleteLocation", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String>TravelController.checkDeleteLocation(@RequestParam(value="idDelete", required = false)Long idDelete) {
+        Location location = Location.findLocation(idDelete);
+        String code = location.getLocationCode();
+        List<Travel> parameterDetail = Travel.checkDeleteLocation(code);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        if (parameterDetail == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<String>((new JSONSerializer().exclude("*.class")
+                .include("id")
+                .include("version")
+                .include("travelCode")
+                .include("locationSourCode")
+                .include("locationSourName")
+                .include("locationDisCode")
+                .include("locationDisName")
+                .include("transport.transportCode")
+                .include("transport.transportName")
+                .include("transport.transportBusiness")
+                .exclude("*")
+                .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
+    }
 }

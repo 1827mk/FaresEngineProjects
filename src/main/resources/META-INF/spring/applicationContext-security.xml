@@ -33,8 +33,10 @@
         <intercept-url pattern="/appusers" access="denyAll" />
         <intercept-url pattern="/appusers/" access="denyAll" />
 
-        <intercept-url pattern="/promotes/insertsData" access="hasRole('ROLE_ADMIN')" method="GET"/>
-        <intercept-url pattern="/promotes/updatesData" access="hasRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/travels/insertsData" access="hasRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/travels/updatesData" access="hasRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/travels/checkDelete" access="hasRole('ROLE_ADMIN')" method="GET"/>
+        <intercept-url pattern="/travels/checkDeleteLocation" access="hasRole('ROLE_ADMIN')" method="GET"/>
         <intercept-url pattern="/travels" access="denyAll" />
         <intercept-url pattern="/travels/" access="denyAll" />
 
