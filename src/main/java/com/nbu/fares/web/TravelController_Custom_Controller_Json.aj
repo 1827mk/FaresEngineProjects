@@ -101,9 +101,9 @@ privileged aspect TravelController_Custom_Controller_Json {
     @RequestMapping(value = "/findTravelDuplicate", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public ResponseEntity<String>TravelController.findTravelDuplicate(@RequestParam(value="travelCode", required = false)String travelCode,
-                                                                    @RequestParam(value="locationSourCode", required = false)String locationSourCode,
-                                                                    @RequestParam(value="locationDisCode", required = false)String locationDisCode,
-                                                                    @RequestParam(value="transport", required = false)String transport) {
+                                                                      @RequestParam(value="locationSourCode", required = false)String locationSourCode,
+                                                                      @RequestParam(value="locationDisCode", required = false)String locationDisCode,
+                                                                      @RequestParam(value="transport", required = false)String transport) {
         List<Travel> parameterDetail = Travel.findTravelDuplicate(travelCode,locationSourCode,locationDisCode,transport);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
@@ -151,11 +151,35 @@ privileged aspect TravelController_Custom_Controller_Json {
                 .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/checkDelete1", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String>TravelController.checkDelete1(@RequestParam(value="idDelete", required = false)Long idDelete) {
+        List<Travel> parameterDetail = Travel.checkDelete1(idDelete);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        if (parameterDetail == null) {
+            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<String>((new JSONSerializer().exclude("*.class")
+                .include("id")
+                .include("version")
+                .include("travelCode")
+                .include("locationSourCode")
+                .include("locationSourName")
+                .include("locationDisCode")
+                .include("locationDisName")
+                .include("transport.transportCode")
+                .include("transport.transportName")
+                .include("transport.transportBusiness")
+                .exclude("*")
+                .deepSerialize(parameterDetail)),headers, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/checkDuplicateCodeSDT", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public ResponseEntity<String>TravelController.checkDuplicateCodeSDT(@RequestParam(value="locationSourCode", required = false)String locationSourCode,
-                                                                       @RequestParam(value="locationDisCode", required = false)String locationDisCode,
-                                                                       @RequestParam(value="transport", required = false)String transport) {
+                                                                        @RequestParam(value="locationDisCode", required = false)String locationDisCode,
+                                                                        @RequestParam(value="transport", required = false)String transport) {
         List<Travel> parameterDetail = Travel.checkDuplicateCodeSDT(locationSourCode,locationDisCode,transport);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
@@ -180,13 +204,13 @@ privileged aspect TravelController_Custom_Controller_Json {
     @RequestMapping(value = "/insertsData", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public ResponseEntity<String>TravelController.insertsData(@RequestParam(value="travelCode", required = false)String travelCode,
-                                                               @RequestParam(value="sourCode", required = false)String locationSourCode,
-                                                               @RequestParam(value="sourName", required = false)String locationSourName,
-                                                               @RequestParam(value="disCode", required = false)String locationDisCode,
-                                                               @RequestParam(value="disName", required = false)String locationDisName,
-                                                               @RequestParam(value="createdBy", required = false)String createdBy,
-                                                               @RequestParam(value="updatedBy", required = false)String updatedBy,
-                                                               @RequestParam(value="transportCode", required = false)long transportId) {
+                                                              @RequestParam(value="sourCode", required = false)String locationSourCode,
+                                                              @RequestParam(value="sourName", required = false)String locationSourName,
+                                                              @RequestParam(value="disCode", required = false)String locationDisCode,
+                                                              @RequestParam(value="disName", required = false)String locationDisName,
+                                                              @RequestParam(value="createdBy", required = false)String createdBy,
+                                                              @RequestParam(value="updatedBy", required = false)String updatedBy,
+                                                              @RequestParam(value="transportCode", required = false)long transportId) {
 
 //        logger.error("Code : "+faresCode+" :: " + "price : " + price + " :: " + "travel : "+ travel + " :: " + "promote : " + promote + "\n");
         HttpHeaders headers = new HttpHeaders();
