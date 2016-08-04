@@ -5,7 +5,7 @@
   <jsp:output omit-xml-declaration="yes"/>
 
   <spring:url value="/resources/j_spring_security_check" var="form_url"/>
-  <spring:url value="/resources/images/youtube-banner2.jpg" var="url_background"/>
+  <spring:url value="/resources/images/background.jpg" var="url_background"/>
   <spring:url value="/resources/images/logo.png" var="url_scg_logo"/>
 
   <spring:message code="security_login_title" var="title" htmlEscape="false"/>
