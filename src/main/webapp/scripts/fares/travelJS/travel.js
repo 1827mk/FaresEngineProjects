@@ -517,52 +517,58 @@ function insertTravel() {
     var disCode = res2[0];
 
     var transportCode = $('#selectTransportCode').val();
-    $('.dv-background').show();
-    var insertDatas = $.ajax({
-        type: "GET",
-        headers: {
-            Accept: 'application/json'
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url: session['context']+'/travels/insertsData',
-        data: {
-            travelCode:travelCode,
-            sourName:sourName,
-            sourCode:sourCode,
-            disName:disName,
-            disCode:disCode,
-            createdBy:createdBy,
-            updatedBy:updatedBy,
-            transportCode:parseInt(transportCode)
-        },
-        complete:function(xhr){
-            if(xhr.readyState==4){
-                if(xhr.status==201){
-                    clearData();
-                    $("#travelTable").DataTable().destroy();
-                    findAllTravel();
-                    $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
-                    $('#modalAddTravel').modal('hide');
-                } else if(xhr.status==403) {
-                    $("#alertModal").modal("show");
-                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+    if(sourCode != disCode){
+        $('.dv-background').show();
+        var insertDatas = $.ajax({
+            type: "GET",
+            headers: {
+                Accept: 'application/json'
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: session['context']+'/travels/insertsData',
+            data: {
+                travelCode:travelCode,
+                sourName:sourName,
+                sourCode:sourCode,
+                disName:disName,
+                disCode:disCode,
+                createdBy:createdBy,
+                updatedBy:updatedBy,
+                transportCode:parseInt(transportCode)
+            },
+            complete:function(xhr){
+                if(xhr.readyState==4){
+                    if(xhr.status==201){
+                        clearData();
+                        $("#travelTable").DataTable().destroy();
+                        findAllTravel();
+                        $("#alertModal").modal('show');
+                        $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
+                        $('#modalAddTravel').modal('hide');
+                    } else if(xhr.status==403) {
+                        $("#alertModal").modal("show");
+                        $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
 
+                    }else{
+                        $("#alertModal").modal('show');
+                        $("label[id=detailAlert]").text("บันทึกข้อมูลไม่สำเร็จ");
+                    }
                 }else{
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("บันทึกข้อมูลไม่สำเร็จ");
                 }
-            }else{
-                $("#alertModal").modal('show');
-                $("label[id=detailAlert]").text("บันทึกข้อมูลไม่สำเร็จ");
-            }
-        },
-        async: false
-    }).done(function (){
+            },
+            async: false
+        }).done(function (){
+            $('.dv-background').hide();
+        }).responseText;
         $('.dv-background').hide();
-    }).responseText;
-    $('.dv-background').hide();
+    }else{
+        $("#alertModal").modal('show');
+        $("label[id=detailAlert]").text("สถานที่ต้นทาง - ปลายทาง ห้ามซ้ำกัน!");
+    }
+
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -953,49 +959,56 @@ function updateTravel() {
     var res2 = str2.split(":");
     var disCode = res2[0];
 
-    $('.dv-background').show();
-    var insertDatafares = $.ajax({
-        type: "GET",
-        headers: {
-            Accept: 'application/json'
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url: session['context']+'/travels/updatesData',
-        data: {
-            travelId:idEdit,
-            travelCode:codeTravel,
-            sourCode:sourCode,
-            sourName:sourName,
-            disName:disName,
-            disCode:disCode,
-            updatedBy:updatedBy,
-            transportCode:parseInt(transportCode)
-        },
-        complete:function(xhr){
-            if(xhr.readyState==4){
-                if(xhr.status==200){
-                    $("#travelTable").DataTable().destroy();
-                    findAllTravel();
-                    $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("อัพเดตข้อมูลสำเร็จ");
-                } else if(xhr.status==403) {
-                    $("#alertModal").modal("show");
-                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+    if(sourCode != disCode){
+        $('.dv-background').show();
+        var insertDatafares = $.ajax({
+            type: "GET",
+            headers: {
+                Accept: 'application/json'
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: session['context']+'/travels/updatesData',
+            data: {
+                travelId:idEdit,
+                travelCode:codeTravel,
+                sourCode:sourCode,
+                sourName:sourName,
+                disName:disName,
+                disCode:disCode,
+                updatedBy:updatedBy,
+                transportCode:parseInt(transportCode)
+            },
+            complete:function(xhr){
+                if(xhr.readyState==4){
+                    if(xhr.status==200){
+                        $("#travelTable").DataTable().destroy();
+                        findAllTravel();
+                        $("#alertModal").modal('show');
+                        $("label[id=detailAlert]").text("อัพเดตข้อมูลสำเร็จ");
+                    } else if(xhr.status==403) {
+                        $("#alertModal").modal("show");
+                        $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+                    }else{
+                        $("#alertModal").modal('show');
+                        $("label[id=detailAlert]").text("อัพเดตข้อมูลไม่สำเร็จ");
+                    }
                 }else{
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("อัพเดตข้อมูลไม่สำเร็จ");
                 }
-            }else{
-                $("#alertModal").modal('show');
-                $("label[id=detailAlert]").text("อัพเดตข้อมูลไม่สำเร็จ");
-            }
-        },
-        async: false
-    }).done(function (){
+            },
+            async: false
+        }).done(function (){
+            $('.dv-background').hide();
+        }).responseText;
         $('.dv-background').hide();
-    }).responseText;
-    $('.dv-background').hide();
+    }else{
+        $("#deleteModalFree").modal('show');
+        $("label[id=detailDeleteFree]").text("สถานที่ต้นทาง - ปลายทาง ห้ามซ้ำกัน!");
+       
+
+    }
 }
 //============================ delete ============================//
 var deleteId=[];
