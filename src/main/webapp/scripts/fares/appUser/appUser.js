@@ -143,7 +143,8 @@ $("#modalAlertBtnOk").on('click',function(){
 // ;$("#delete").on('click',function(){
 //
 // });
-
+var ck_username = /^[A-Za-z0-9_]{3,20}$/;
+var ck_password = /^[A-Za-z0-9!@#$%^&*()_]{6,20}$/;
 var checkMail = "false" ;
 function insertData(){
     var needLogin;
@@ -160,95 +161,103 @@ function insertData(){
     var password = $('#textPass1').val();
     var confirmpassword = $('#textPass2').val();
     var userEmail = $('#textMail').val();
-
     var emailCheck=/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
     checkMail = emailCheck.test(userEmail);
 
-    if ($("#textUserName").val()!="" && $("#textPass1").val()!="" && $("#textPass2").val()!="" &&$("#textPass1").val()==$("#textPass2").val() && checkMail!= false) {
-        $('.dv-background').show();
-        var findCheckDuplicate = $.ajax({
-            type: "GET",
-            headers: {
-                Accept: 'application/json'
-            },
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            url: session['context']+'/appusers/findCheckDuplicateUser',
-            data: {
-                username:username,
-                userEmail:userEmail
-            },
-            async: false
-        }).done(function (){
-            //close loader
-            $('.dv-background').hide();
-        }).responseText;
-        if (findCheckDuplicate.length!=2) {
-            $("#alertModalError").modal('show');
-            $("label[id=detailAlertError]").text("ข้อมูลที่กรอกมีในระบบแล้ว กรุณาตรวจสอบใหม่อีกครั้ง");
-        }else{
-            var insertDatafares = $.ajax({
+
+   if(username.length<=5 && username.length >= 12 ){
+        $("#alertModalError").modal('show');
+        $("label[id=detailAlertError]").text("ชื่อผู้ใช้ต้องมีความยาวมากกว่า  1 ตัวอักษร");
+    }else if(password.length <= 5 && password.length >= 12 ){
+        $("#alertModalError").modal('show');
+        $("label[id=detailAlertError]").text("รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร");
+    }else{
+        if ($("#textUserName").val()!="" && $("#textPass1").val()!="" && $("#textPass2").val()!="" &&$("#textPass1").val()==$("#textPass2").val() && checkMail!= false) {
+            $('.dv-background').show();
+            var findCheckDuplicate = $.ajax({
                 type: "GET",
                 headers: {
                     Accept: 'application/json'
                 },
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                url: session['context']+'/appusers/insertDataUser',
+                url: session['context']+'/appusers/findCheckDuplicateUser',
                 data: {
                     username:username,
-                    password:password,
-                    confirmpassword:confirmpassword,
-                    needLogin:needLogin,
-                    userEmail:userEmail,
-                    createdBy:createdBy,
-                    updatedBy:updatedBy,
-                    userRole:selectRole
-
+                    userEmail:userEmail
                 },
-                complete:function(xhr){
-                    if(xhr.readyState==4){
-                        if(xhr.status==201){
-                            $("#UserTable").DataTable().destroy();
-                            clearAll();
-                            findAllUser();
-                            $("#alertModal").modal('show');
-                            $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
+                async: false
+            }).done(function (){
+                //close loader
+                $('.dv-background').hide();
+            }).responseText;
+            if (findCheckDuplicate.length!=2) {
+                $("#alertModalError").modal('show');
+                $("label[id=detailAlertError]").text("ข้อมูลที่กรอกมีในระบบแล้ว กรุณาตรวจสอบใหม่อีกครั้ง");
+            }else{
+                var insertDatafares = $.ajax({
+                    type: "GET",
+                    headers: {
+                        Accept: 'application/json'
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    url: session['context']+'/appusers/insertDataUser',
+                    data: {
+                        username:username,
+                        password:password,
+                        confirmpassword:confirmpassword,
+                        needLogin:needLogin,
+                        userEmail:userEmail,
+                        createdBy:createdBy,
+                        updatedBy:updatedBy,
+                        userRole:selectRole
 
-                        } else if(xhr.status==403) {
-                            $("#alertModal").modal("show");
-                            $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+                    },
+                    complete:function(xhr){
+                        if(xhr.readyState==4){
+                            if(xhr.status==201){
+                                $("#UserTable").DataTable().destroy();
+                                clearAll();
+                                findAllUser();
+                                $("#alertModal").modal('show');
+                                $("label[id=detailAlert]").text("บันทึกข้อมูลสำเร็จ");
 
+                            } else if(xhr.status==403) {
+                                $("#alertModal").modal("show");
+                                $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+
+                            }else{
+                                $("#alertModal").modal('show');
+                                $("label[id=detailAlert]").text("บันทึกข้อมูลไม่สำเร็จ");
+
+                            }
                         }else{
                             $("#alertModal").modal('show');
                             $("label[id=detailAlert]").text("บันทึกข้อมูลไม่สำเร็จ");
-
                         }
-                    }else{
-                        $("#alertModal").modal('show');
-                        $("label[id=detailAlert]").text("บันทึกข้อมูลไม่สำเร็จ");
-                    }
-                },
-                async:false
-            });
-        }
+                    },
+                    async:false
+                });
+            }
 
-    }else{
-        if ($("#textUserName").val()=="") {
-            $("#alertModalError").modal('show');
-            $("label[id=detailAlertError]").text("กรุณากรอกชื่อ");
-        }else if ($("#textPass1").val()=="") {
-            $("#alertModalError").modal('show');
-            $("label[id=detailAlertError]").text("กรุณาระบุรหัสผ่าน");
-        }else if ($("#textPass2").val()=="") {
-            $("#alertModalError").modal('show');
-            $("label[id=detailAlertError]").text("กรุณายืนยันรหัสผ่าน");
-        }else if ($("#textPass1").val()!= $("#textPass2").val()) {
-            $("#alertModalError").modal('show');
-            $("label[id=detailAlertError]").text("รหัสผ่านไม่ตรงกัน กรุณาตรวจสอบ!");
-        }else {
-            $("#alertModalError").modal('show');
-            $("label[id=detailAlertError]").text("ระบุอีเมลไม่ถูกต้อง");
+        }else{
+            if ($("#textUserName").val()=="") {
+                $("#alertModalError").modal('show');
+                $("label[id=detailAlertError]").text("กรุณากรอกชื่อ");
+            }else if ($("#textPass1").val()=="") {
+                $("#alertModalError").modal('show');
+                $("label[id=detailAlertError]").text("กรุณาระบุรหัสผ่าน");
+            }else if ($("#textPass2").val()=="") {
+                $("#alertModalError").modal('show');
+                $("label[id=detailAlertError]").text("กรุณายืนยันรหัสผ่าน");
+            }else if ($("#textPass1").val()!= $("#textPass2").val()) {
+                $("#alertModalError").modal('show');
+                $("label[id=detailAlertError]").text("รหัสผ่านไม่ตรงกัน กรุณาตรวจสอบ!");
+            }else {
+                $("#alertModalError").modal('show');
+                $("label[id=detailAlertError]").text("ระบุอีเมลไม่ถูกต้อง");
+            }
         }
     }
     $('.dv-background').hide();
@@ -319,9 +328,13 @@ function Update(){
     }else{
 
     }
-
-
-    if (nameEdit==$("#textUserNameEdit").val() && mailEdit==$("#textMailEdit").val() &&  needLoginEdit==needLogin && $("#textPass1Edit").val()=="" && $("#textPass2Edit").val()=="" && $("#textPassOldEdit").val()=="" && roleIdEdit==$("#selectRoleEdit").val()) {
+    if(userName.length<=5 && userName.length >= 12 ){
+        $("#alertModalError").modal('show');
+        $("label[id=detailAlertError]").text("ชื่อผู้ใช้ต้องมีความยาวมากกว่า  1 ตัวอักษร");
+    }else if(pass1.length <= 5 && pass1.length >= 12 ){
+        $("#alertModalError").modal('show');
+        $("label[id=detailAlertError]").text("รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร");
+    }else if (nameEdit==$("#textUserNameEdit").val() && mailEdit==$("#textMailEdit").val() &&  needLoginEdit==needLogin && $("#textPass1Edit").val()=="" && $("#textPass2Edit").val()=="" && $("#textPassOldEdit").val()=="" && roleIdEdit==$("#selectRoleEdit").val()) {
         $("#alertModal").modal('show');
         $("label[id=detailAlert]").text("ข้อมูลไม่มีการเปลี่ยนแปลง");
         clearAll();
@@ -433,52 +446,66 @@ function updateUser() {
     var pass2 = $("#textPass2Edit").val();
     var role = $("#selectRoleEdit").val();
     $('.dv-background').show();
-    var update = $.ajax({
-        type: "GET",
-        headers: {
-            Accept: 'application/json'
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url: session['context'] + '/appusers/updateDataUser',
-        data: {
-            id: idEdit,
-            username: userName,
-            password: pass1,
-            confirmpassword: pass2,
-            needLogin: needLoginEdit,
-            updatedBy: updatedBy,
-            userEmail: userMail,
-            userRole: role,
-            version: userPrototype[indexModify].version,
-        },
-        complete: function (xhr) {
-            if (xhr.readyState == 4) {
-                if (xhr.status == 200) {
-                    clearAll();
-                    findAllUser();
-                    $("#alertModal").modal('show');
-                    $("label[id=detailAlert]").text("แก้ไขข้อมูลสำเร็จ");
+    if(userName.length<=5 && userName.length >= 12 ){
+        $("#alertModalError").modal('show');
+        $("label[id=detailAlertError]").text("ชื่อผู้ใช้ต้องมีความยาวมากกว่า  1 ตัวอักษร");
+    }else if(pass1.length <= 5 && pass1.length >= 12 ){
+        $("#alertModalError").modal('show');
+        $("label[id=detailAlertError]").text("รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร");
+    }else if (nameEdit==$("#textUserNameEdit").val() && mailEdit==$("#textMailEdit").val() &&  needLoginEdit==needLogin && $("#textPass1Edit").val()=="" && $("#textPass2Edit").val()=="" && $("#textPassOldEdit").val()=="" && roleIdEdit==$("#selectRoleEdit").val()) {
+        $("#alertModal").modal('show');
+        $("label[id=detailAlert]").text("ข้อมูลไม่มีการเปลี่ยนแปลง");
+        clearAll();
 
-                } else if(xhr.status==403) {
-                    $("#alertModal").modal("show");
-                    $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+    }else{
+        var update = $.ajax({
+            type: "GET",
+            headers: {
+                Accept: 'application/json'
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: session['context'] + '/appusers/updateDataUser',
+            data: {
+                id: idEdit,
+                username: userName,
+                password: pass1,
+                confirmpassword: pass2,
+                needLogin: needLoginEdit,
+                updatedBy: updatedBy,
+                userEmail: userMail,
+                userRole: role,
+                version: userPrototype[indexModify].version,
+            },
+            complete: function (xhr) {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        clearAll();
+                        findAllUser();
+                        $("#alertModal").modal('show');
+                        $("label[id=detailAlert]").text("แก้ไขข้อมูลสำเร็จ");
 
+                    } else if(xhr.status==403) {
+                        $("#alertModal").modal("show");
+                        $("label[id=detailAlert]").text("คุณไม่มีสิทธิใช้งาน");
+
+                    } else {
+                        $("#alertModal").modal('show');
+                        $("label[id=detailAlert]").text("แก้ไขข้อมูลไม่สำเร็จ");
+
+                    }
                 } else {
                     $("#alertModal").modal('show');
                     $("label[id=detailAlert]").text("แก้ไขข้อมูลไม่สำเร็จ");
-
                 }
-            } else {
-                $("#alertModal").modal('show');
-                $("label[id=detailAlert]").text("แก้ไขข้อมูลไม่สำเร็จ");
-            }
-        },
-        async: false
-    }).done(function (){
-        //close loader
-        $('.dv-background').hide();
-    });
+            },
+            async: false
+        }).done(function (){
+            //close loader
+            $('.dv-background').hide();
+        });
+    }
+  
     $('.dv-background').hide();
 }
 
